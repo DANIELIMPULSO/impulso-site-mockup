@@ -351,5 +351,26 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 @keyframes sonar { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(2.3); opacity: 0; } }
 @keyframes sonar-label { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(1.6); opacity: 0; } }
 
-/* Linha fina amarela no topo de cada cartão de solução, como nos depoimentos */
-.solution { border-top: 2px solid var(--yellow); }
+/* Destaque dos cartões de soluções (opção 1 da comparação): moldura interna, só a linha, sem número */
+.solution { outline: 1px solid rgba(244, 242, 236, .5); outline-offset: -16px; }
+.solution .num { display: none; }
+@media (hover: hover) {
+  .solution:hover { outline-color: var(--yellow); outline-offset: -22px; }
+}
+
+/* Caixa de orçamento da home: opção 1 da comparação (todos os campos em uma tela, grade de três colunas) */
+.budget-grid { grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: clamp(28px, 5vw, 72px); }
+#form { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 16px; }
+#form label { font-size: 13.5px; }
+#form input, #form select, #form textarea { padding: 12px 13px; }
+#form .span2 { grid-column: span 2; }
+#form .btn { grid-column: 1; justify-self: start; margin-top: 6px; }
+#form .form-note { grid-column: 2 / -1; align-self: center; }
+@media (max-width: 900px) {
+  .budget-grid { grid-template-columns: 1fr; }
+  #form { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  #form { grid-template-columns: 1fr; }
+  #form .span2, #form .btn, #form .form-note { grid-column: auto; }
+}

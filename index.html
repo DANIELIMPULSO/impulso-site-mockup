@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10121028">
+<link rel="stylesheet" href="style.css?v=10121047">
 </head>
 <body>
 
@@ -193,17 +193,18 @@
     </div>
     <form id="form" novalidate>
       <label>Nome<input type="text" name="nome" autocomplete="name" required></label>
-      <label>E-mail corporativo<input type="email" name="email" autocomplete="email" required></label>
-      <label>Telefone<input type="tel" name="tel" autocomplete="tel"></label>
-      <label>Serviço procurado
-        <select name="servico"><option>Vídeo Institucional</option><option>Publicidade</option><option>Conteúdo de Marca</option><option>Outros</option></select>
-      </label>
-      <label>Investimento disponível
-        <select name="investimento"><option>10 mil</option><option>10 - 15 mil</option><option>15 - 20 mil</option><option>20 - 30 mil</option><option>30 - 40 mil</option><option>mais de 40 mil</option></select>
-      </label>
-      <label class="wide">Conte sobre o projeto<textarea name="msg" rows="4"></textarea></label>
-      <button class="btn solid wide" type="submit">Enviar pedido de orçamento</button>
-      <p class="form-note wide" role="status"></p>
+      <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
+      <label>Telefone/WhatsApp<input type="tel" name="tel" autocomplete="tel" required></label>
+      <label>Nome da empresa<input type="text" name="empresa" autocomplete="organization"></label>
+      <label>Site da empresa<input type="text" name="site" autocomplete="url"></label>
+      <label>Porte da empresa (pessoas)<select name="porte"><option value="">Selecione</option><option>1 a 30</option><option>31 a 60</option><option>61 a 100</option><option>101 a 200</option><option>201 a 500</option><option>mais de 500</option></select></label>
+      <label>Qual o seu cargo?<select name="cargo"><option value="">Selecione</option><option>Diretor / C-Level / Sócio / Fundador</option><option>Gerente / Head</option><option>Coordenador / Supervisor</option><option>Analista / Especialista</option><option>Assistente / Estagiário</option><option>Empresário / Proprietário</option><option>Outro</option></select></label>
+      <label>Área em que você atua<select name="area"><option value="">Selecione</option><option>Marketing e Comunicação</option><option>Comercial e Vendas</option><option>Administrativo / Operações</option><option>Financeiro / Compras</option><option>Recursos Humanos / Gente e Gestão</option><option>Tecnologia / TI / Produto</option><option>Projetos / Estratégia / Consultoria</option><option>Outro</option></select></label>
+      <label>Serviço procurado<select name="servico"><option value="">Selecione</option><option>Vídeo Institucional</option><option>Publicidade</option><option>Conteúdo de Marca</option><option>Outros</option></select></label>
+      <label>Investimento disponível<select name="investimento"><option value="">Selecione</option><option>10 mil</option><option>10 - 15 mil</option><option>15 - 20 mil</option><option>20 - 30 mil</option><option>30 - 40 mil</option><option>mais de 40 mil</option></select></label>
+      <label class="span2">Faça uma breve descrição do seu projeto<textarea name="msg" rows="2"></textarea></label>
+      <button class="btn solid" type="submit">Pedir orçamento</button>
+      <p class="form-note" role="status"></p>
     </form>
   </div>
 </section>
@@ -214,7 +215,6 @@
   <img class="foot-logo" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/cropped-logo.png" alt="Impulso Filmes" width="240" height="80">
   <div>
     <a href="tel:553235124803">(32) 3512-4803</a>
-    <a href="mailto:atendimento@impulsofilmes.com.br">atendimento@impulsofilmes.com.br</a>
     <a href="https://wa.me/553235124803" target="_blank" rel="noopener">WhatsApp</a>
   </div>
   <div>
@@ -239,6 +239,6 @@
 <figure class="peek" aria-hidden="true"><img alt=""><figcaption></figcaption></figure>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
 
-<script src="script.js?v=10121024"></script>
+<script src="script.js?v=10121047"></script>
 </body>
 </html>

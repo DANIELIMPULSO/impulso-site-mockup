@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Opções de destaque dos cartões de soluções · Impulso Filmes (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=10121047">
+<style>
+  /* Página de comparação: cinco formas de destacar os cartões de soluções da home */
+  .opt { padding: 56px var(--gutter) 0; }
+  .opt:last-of-type { padding-bottom: 96px; }
+  .opt-head { display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 6px; }
+  .opt-head h2 { font: 400 clamp(26px, 3vw, 40px)/1.1 var(--display); text-transform: uppercase; }
+  .opt-head p { color: var(--dim); font-size: 15px; max-width: 70ch; }
+  .opt .solutions { margin-top: 20px; }
+  .opt .solution { border-top: 0; min-height: 400px; }
+  .intro { padding: 48px var(--gutter) 0; max-width: 80ch; }
+  .intro h1 { font: 400 clamp(34px, 5vw, 64px)/1.05 var(--display); text-transform: uppercase; }
+  .intro p { color: var(--dim); margin-top: 14px; }
+  .opt .solution .frame { position: absolute; z-index: 1; pointer-events: none; }
+
+  /* 1. Moldura interna: quadrado vazado, só a linha, para dentro da foto */
+  .v1 .solution { outline: 1px solid rgba(244, 242, 236, .5); outline-offset: -16px; }
+  .v1 .solution:hover { outline-color: var(--yellow); outline-offset: -22px; }
+
+  /* 2. Cantos de visor: só os quatro cantos, como no player e na prévia da abertura */
+  .v2 .frame { inset: 16px; --c: rgba(244, 242, 236, .75); --l: 22px; --t: 1px; transition: inset .9s cubic-bezier(.2, .7, .2, 1);
+    background:
+      linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l),
+      linear-gradient(var(--c), var(--c)) right top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right top / var(--t) var(--l),
+      linear-gradient(var(--c), var(--c)) left bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left bottom / var(--t) var(--l),
+      linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+    background-repeat: no-repeat; }
+  .v2 .solution:hover .frame { inset: 24px; --c: var(--yellow); }
+  .v2 .solution:hover { outline-color: transparent; }
+
+  /* 3. Moldura deslocada: uma segunda linha, vazada, um pouco para baixo e para a direita do cartão */
+  .v3 .solutions { gap: 28px; padding: 0 12px 12px 0; }
+  .v3 .solution { box-shadow: 10px 10px 0 -1px var(--bg), 10px 10px 0 0 rgba(244, 242, 236, .5); transition: box-shadow .7s cubic-bezier(.2, .7, .2, 1), outline-color .7s, outline-offset .9s; }
+  .v3 .solution:hover { box-shadow: 14px 14px 0 -1px var(--bg), 14px 14px 0 0 var(--yellow); outline-color: transparent; }
+
+  /* 4. Moldura interna + número grande em contorno no canto */
+  .v4 .solution { outline: 1px solid rgba(244, 242, 236, .35); outline-offset: -16px; }
+  .v4 .solution:hover { outline-color: var(--yellow); outline-offset: -22px; }
+  .v4 .solution .num { position: absolute; top: 26px; right: 32px; font: 400 clamp(45px, 4.9vw, 76px)/.9 var(--display); letter-spacing: 0; color: transparent; -webkit-text-stroke: 1px rgba(244, 242, 236, .7); transition: -webkit-text-stroke-color .5s, transform .9s cubic-bezier(.2, .7, .2, 1); }
+  .v4 .solution:hover .num { -webkit-text-stroke-color: var(--yellow); }
+
+  /* 5. Moldura interna com rótulo: a linha é interrompida por uma legenda, como numa claquete */
+  .v5 .frame { inset: 16px; border: 1px solid rgba(244, 242, 236, .5); transition: inset .9s cubic-bezier(.2, .7, .2, 1), border-color .7s; }
+  .v5 .frame::before { content: attr(data-label); position: absolute; top: -7px; left: 14px; padding: 0 8px; background: #3a3a3a; font: 500 11px/14px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--text); }
+  .v5 .solution .num { display: none; }
+  .v5 .solution:hover .frame { inset: 22px; border-color: var(--yellow); }
+  .v5 .solution:hover .frame::before { color: var(--yellow); }
+  .v5 .solution:hover { outline-color: transparent; }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <p class="eyebrow">Comparação · só para validar</p>
+  <h1>Destaque dos cartões de soluções</h1>
+  <p>Cinco opções para os cartões 01, 02 e 03 da home. Passe o mouse em cada uma: em todas, a linha fica amarela e recua um pouco.</p>
+</div>
+
+<div id="rows"></div>
+
+<script>
+  // Monta as cinco linhas com os mesmos três cartões da home
+  const UP = 'https://www.impulsofilmes.com.br/wp-content/uploads/2024/01/';
+  const CARDS = [
+    ['01', 'Publicidade', 's1-640x720.jpg', 'Do briefing à execução: filmes publicitários que impactam e geram resultados para diferentes estratégias de comunicação.'],
+    ['02', 'Vídeo institucional', 'ss1-640x720.jpg', 'Construímos autoridade e fortalecemos a imagem e os valores de empresas e indústrias de diversos segmentos.'],
+    ['03', 'Conteúdo de marca', 's3-640x720.jpg', 'Conteúdo e informação em formatos inovadores que engajam e criam relacionamento entre consumidores e marcas.'],
+  ];
+  const OPTS = [
+    ['Opção 1 · Moldura interna', 'Um quadrado vazado, só a linha cinza-clara, para dentro da foto. É a sua ideia, na forma mais simples.'],
+    ['Opção 2 · Cantos de visor', 'Só os quatro cantos, como no player dos cases e na prévia da abertura. Mais leve que a moldura inteira.'],
+    ['Opção 3 · Moldura deslocada', 'A linha fica fora do cartão, um pouco para baixo e para a direita, como uma segunda folha atrás da foto.'],
+    ['Opção 4 · Moldura + número grande', 'A moldura interna mais discreta e o número em contorno, grande, no canto de cima.'],
+    ['Opção 5 · Moldura com rótulo', 'A moldura interna é interrompida por uma legenda, como a etiqueta de uma claquete.'],
+  ];
+  const rows = document.getElementById('rows');
+  OPTS.forEach(([titulo, texto], k) => {
+    const sec = document.createElement('section');
+    sec.className = 'opt v' + (k + 1);
+    sec.innerHTML = '<div class="opt-head"><h2></h2><p></p></div><div class="solutions"></div>';
+    sec.querySelector('h2').textContent = titulo;
+    sec.querySelector('p').textContent = texto;
+    CARDS.forEach(([n, nome, img, desc]) => {
+      const a = document.createElement('a');
+      a.className = 'solution';
+      a.href = '#';
+      a.innerHTML = '<img alt=""><span class="frame"></span><span class="num"></span><h3></h3><p></p>';
+      a.querySelector('img').src = UP + img;
+      a.querySelector('.frame').dataset.label = 'Solução ' + n + ' / 03';
+      a.querySelector('.num').textContent = n;
+      a.querySelector('h3').textContent = nome;
+      a.querySelector('p').textContent = desc;
+      a.addEventListener('click', e => e.preventDefault());
+      // mesma luz e mesmo deslocamento da imagem que a home usa
+      a.addEventListener('mousemove', e => {
+        const r = a.getBoundingClientRect(), im = a.querySelector('img');
+        im.style.setProperty('--px', ((e.clientX - r.left) / r.width - .5) * -18 + 'px');
+        im.style.setProperty('--py', ((e.clientY - r.top) / r.height - .5) * -18 + 'px');
+        a.style.setProperty('--lx', (e.clientX - r.left) + 'px');
+        a.style.setProperty('--ly', (e.clientY - r.top) + 'px');
+      }, { passive: true });
+      sec.querySelector('.solutions').append(a);
+    });
+    rows.append(sec);
+  });
+</script>
+</body>
+</html>

@@ -41,7 +41,6 @@ const FOOT = `<footer class="foot">
   <img class="foot-logo" src="${UP}2023/12/cropped-logo.png" alt="Impulso Filmes" width="240" height="80">
   <div>
     <a href="tel:553235124803">(32) 3512-4803</a>
-    <a href="mailto:atendimento@impulsofilmes.com.br">atendimento@impulsofilmes.com.br</a>
     <a href="${WA}" target="_blank" rel="noopener">WhatsApp</a>
   </div>
   <div>
@@ -504,7 +503,6 @@ const campo = (c, wide = false) => {
 const contato = `<aside class="contact-card" aria-label="Outros contatos">
       <a href="${WA}" target="_blank" rel="noopener"><span>WhatsApp</span>Chamar agora</a>
       <a href="tel:553235124803"><span>Telefone</span>(32) 3512-4803</a>
-      <a href="mailto:atendimento@impulsofilmes.com.br"><span>E-mail</span>atendimento@impulsofilmes.com.br</a>
     </aside>`;
 {
   const c = Object.fromEntries(data.orcamento.campos.map(x => [x.name, x]));

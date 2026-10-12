@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Opções da caixa de orçamento · Impulso Filmes (mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=10121047">
+<style>
+  /* Página de comparação: formas de pedir orçamento na home em uma tela só, com todos os campos */
+  .intro { padding: 48px var(--gutter) 0; max-width: 84ch; }
+  .intro h1 { font: 400 clamp(34px, 5vw, 64px)/1.05 var(--display); text-transform: uppercase; }
+  .intro p { color: var(--dim); margin-top: 14px; }
+  .opt-head { padding: 64px var(--gutter) 18px; display: grid; gap: 8px; max-width: 96ch; }
+  .opt-head h2 { font: 400 clamp(26px, 3vw, 40px)/1.1 var(--display); text-transform: uppercase; }
+  .opt-head p { color: var(--dim); font-size: 15.5px; }
+  .opt-head .why { color: var(--text); font: 500 12.5px/1.5 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+  .box { background: var(--surface); padding: clamp(32px, 5vw, 64px) var(--gutter); }
+  .box:last-of-type { margin-bottom: 96px; }
+  .box-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: clamp(28px, 5vw, 72px); align-items: start; }
+  .box h3 { font: 400 clamp(30px, 3.6vw, 52px)/1.05 var(--display); text-transform: uppercase; text-wrap: balance; }
+  .box .side p { color: var(--dim); margin-top: 14px; font-size: 15.5px; }
+  .box form { display: grid; gap: 14px 16px; }
+  .box label, .box legend { font-size: 13.5px; font-weight: 500; color: var(--dim); }
+  .box label.f { display: grid; gap: 6px; }
+  .box input, .box select, .box textarea { padding: 12px 13px; }
+  .send { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 20px; grid-column: 1 / -1; margin-top: 6px; }
+  .send .form-note { min-height: 0; }
+  .send small { color: var(--dim); font: 500 12px/1.4 var(--mono); letter-spacing: .04em; }
+
+  /* Grupos de escolha por toque */
+  fieldset { border: 0; margin: 0; padding: 0; min-width: 0; grid-column: 1 / -1; }
+  legend { padding: 0; margin-bottom: 8px; }
+  .chips-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; cursor: pointer; }
+  .chip input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .chip span { display: block; padding: 10px 14px; border: 1.5px solid var(--line); border-radius: 2px; font: 500 14px/1.2 var(--body); color: var(--text); transition: background .2s, border-color .2s, color .2s; }
+  .chip:hover span { border-color: var(--dim); }
+  .chip input:checked + span { background: var(--yellow); border-color: var(--yellow); color: #111; }
+  .chip input:focus-visible + span { outline: 2px solid var(--yellow); outline-offset: 3px; }
+
+  /* 1. Tudo em uma tela */
+  .o1 form { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .o1 .span2 { grid-column: span 2; }
+
+  /* 2. Toque em vez de digitar */
+  .o2 form { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .o2 .desc { grid-column: 1 / -1; }
+
+  /* 3. Frase para completar */
+  .o3 form { display: block; }
+  .o3 .frase { font: 500 clamp(19px, 2.1vw, 29px)/2.1 var(--body); letter-spacing: -.01em; color: var(--text); max-width: 46ch; }
+  .o3 .frase input, .o3 .frase select { display: inline-block; width: auto; padding: 2px 6px 3px; margin: 0 2px; font: inherit; line-height: 1.3; color: var(--yellow); background: transparent; border: 0; border-bottom: 1.5px solid var(--yellow); border-radius: 0; vertical-align: baseline; }
+  .o3 .frase input::placeholder { color: rgba(253, 184, 19, .55); }
+  /* a lista ocupa só a largura do que está escolhido, para não quebrar a frase */
+  .o3 .frase select { max-width: 18ch; padding-right: 2px; field-sizing: content; text-overflow: ellipsis; }
+  .o3 .frase select option { color: #111; font-size: 16px; }
+  .o3 .send { margin-top: 30px; }
+
+  /* 4. Essencial primeiro */
+  .o4 form { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .o4 details { grid-column: 1 / -1; border-top: 1px solid var(--line); padding-top: 16px; }
+  .o4 summary { cursor: pointer; font: 500 12.5px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); list-style: none; }
+  .o4 summary::before { content: "+ "; }
+  .o4 details[open] summary::before { content: "– "; }
+  .o4 .extra { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 16px; margin-top: 18px; }
+
+  /* 5. Direto pelo WhatsApp */
+  .o5 .box-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+  .o5 form { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bubble { position: sticky; top: 24px; }
+  .bubble p.eyebrow { margin-bottom: 12px; }
+  .bubble pre { margin: 0; white-space: pre-wrap; font: 400 15px/1.6 var(--body); color: var(--text); background: var(--bg); border-left: 2px solid #25d366; padding: 18px 20px; }
+  .bubble .btn { margin-top: 16px; }
+  .zapbtn { background: #25d366; border-color: #25d366; color: #06280f; }
+
+  /* 6. Como a 1, com serviço e investimento em botões, em três blocos: você, empresa, projeto */
+  .o6 form { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px 16px; }
+  .o6 .c2 { grid-column: span 2; }
+  .o6 .c3 { grid-column: span 3; }
+  .o6 .c6 { grid-column: 1 / -1; }
+  .o6 .grp { grid-column: 1 / -1; display: flex; align-items: center; gap: 14px; margin-top: 14px; font: 500 11.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+  .o6 .grp:first-child { margin-top: 0; }
+  .o6 .grp::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .o6 .duo { grid-column: 1 / -1; display: grid; gap: 14px; } /* serviço em uma linha, investimento na outra: cada grupo cabe inteiro sem quebrar */
+  .o6 .duo fieldset { grid-column: auto; }
+
+  @media (max-width: 900px) {
+    .o6 form { grid-template-columns: 1fr; }
+    .o6 .c2, .o6 .c3 { grid-column: auto; }
+    .o6 .duo { grid-template-columns: 1fr; }
+    .box-grid, .o5 .box-grid { grid-template-columns: 1fr; }
+    .o1 form, .o2 form, .o4 form, .o4 .extra, .o5 form { grid-template-columns: 1fr; }
+    .o1 .span2 { grid-column: auto; }
+    .bubble { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="intro">
+  <p class="eyebrow">Comparação · só para validar</p>
+  <h1>Caixa de orçamento da home</h1>
+  <p>Seis formas de pedir orçamento em uma tela só, sem etapas. Todas coletam os mesmos onze dados do formulário atual: nome, e-mail, WhatsApp, empresa, site, porte, cargo, área, serviço, investimento e descrição. Nenhuma envia nada; é só para escolher o formato.</p>
+</div>
+
+<div id="opcoes"></div>
+
+<script>
+  // ---------- Campos do formulário atual ----------
+  const TXT = {
+    nome: ['Nome', 'text', 'name'],
+    email: ['E-mail', 'email', 'email'],
+    tel: ['Telefone/WhatsApp', 'tel', 'tel'],
+    empresa: ['Nome da empresa', 'text', 'organization'],
+    site: ['Site da empresa', 'text', 'url'],
+  };
+  const SEL = {
+    servico: ['Serviço procurado', ['Vídeo Institucional', 'Publicidade', 'Conteúdo de Marca', 'Outros']],
+    investimento: ['Investimento disponível', ['10 mil', '10 - 15 mil', '15 - 20 mil', '20 - 30 mil', '30 - 40 mil', 'mais de 40 mil']],
+    porte: ['Porte da empresa (pessoas)', ['1 a 30', '31 a 60', '61 a 100', '101 a 200', '201 a 500', 'mais de 500']],
+    cargo: ['Qual o seu cargo?', ['Diretor / C-Level / Sócio / Fundador', 'Gerente / Head', 'Coordenador / Supervisor', 'Analista / Especialista', 'Assistente / Estagiário', 'Empresário / Proprietário', 'Outro']],
+    area: ['Área em que você atua', ['Marketing e Comunicação', 'Comercial e Vendas', 'Administrativo / Operações', 'Financeiro / Compras', 'Recursos Humanos / Gente e Gestão', 'Tecnologia / TI / Produto', 'Projetos / Estratégia / Consultoria', 'Outro']],
+  };
+  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const input = (p, k, cls = '') => `<label class="f ${cls}">${TXT[k][0]}<input type="${TXT[k][1]}" name="${k}" autocomplete="${TXT[k][2]}" id="${p}-${k}"></label>`;
+  const select = (p, k, cls = '') => `<label class="f ${cls}">${SEL[k][0]}<select name="${k}" id="${p}-${k}"><option value="">Selecione</option>${SEL[k][1].map(o => `<option>${esc(o)}</option>`).join('')}</select></label>`;
+  const chips = (p, k) => `<fieldset><legend>${SEL[k][0]}</legend><div class="chips-row">${SEL[k][1].map(o => `<label class="chip"><input type="radio" name="${p}-${k}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join('')}</div></fieldset>`;
+  const desc = (p, cls = '', rows = 3) => `<label class="f ${cls}">Faça uma breve descrição do seu projeto<textarea name="msg" rows="${rows}" id="${p}-msg"></textarea></label>`;
+  const send = (rotulo = 'Pedir orçamento', extra = '') => `<div class="send"><button class="btn solid" type="submit">${rotulo}</button>${extra}<span class="form-note" role="status"></span></div>`;
+  const lado = (titulo, texto) => `<div class="side"><h3>${titulo}</h3><p>${texto}</p></div>`;
+
+  const OPCOES = [
+    {
+      nome: 'Opção 1 · Tudo em uma tela',
+      texto: 'O formulário atual inteiro em uma grade compacta de quatro linhas. É a troca mais direta: mesmos campos, mesmas listas, sem as três etapas.',
+      porque: 'Menos atrito porque: nada de "continuar"; a pessoa vê o tamanho todo antes de começar.',
+      html: p => `<div class="box-grid">${lado('Vamos conversar sobre o seu filme?', 'Preencha e receba um orçamento personalizado.')}
+        <form>${input(p, 'nome')}${input(p, 'email')}${input(p, 'tel')}
+        ${input(p, 'empresa')}${input(p, 'site')}${select(p, 'porte')}
+        ${select(p, 'cargo')}${select(p, 'area')}${select(p, 'servico')}
+        ${select(p, 'investimento')}${desc(p, 'span2', 2)}${send()}</form></div>`,
+    },
+    {
+      nome: 'Opção 2 · Toque em vez de digitar',
+      texto: 'Só os cinco dados de texto são digitados. O resto vira botões: um toque escolhe serviço, investimento, porte, cargo e área, sem abrir lista nenhuma.',
+      porque: 'Menos atrito porque: cinco toques substituem cinco listas; é o formato mais rápido no celular.',
+      html: p => `<h3 style="margin-bottom:26px">Vamos conversar sobre o seu filme?</h3>
+        <form>${['nome', 'email', 'tel', 'empresa', 'site'].map(k => input(p, k)).join('')}
+        ${chips(p, 'servico')}${chips(p, 'investimento')}${chips(p, 'porte')}${chips(p, 'cargo')}${chips(p, 'area')}
+        ${desc(p, 'desc', 2)}${send()}</form>`,
+    },
+    {
+      nome: 'Opção 3 · Frase para completar',
+      texto: 'O pedido é uma frase com lacunas. A pessoa lê e preenche como se estivesse escrevendo uma mensagem, e todos os campos estão ali dentro.',
+      porque: 'Menos atrito porque: não parece formulário; a ordem dos campos faz sentido sozinha.',
+      html: p => `<div class="box-grid">${lado('Conte em uma frase.', 'Complete as lacunas e envie.')}
+        <form><p class="frase">Olá, sou <input name="nome" placeholder="seu nome" size="14" autocomplete="name" aria-label="Nome">,
+        <select name="cargo" aria-label="Cargo"><option value="">cargo</option>${SEL.cargo[1].map(o => `<option>${esc(o)}</option>`).join('')}</select>
+        de <select name="area" aria-label="Área"><option value="">área</option>${SEL.area[1].map(o => `<option>${esc(o)}</option>`).join('')}</select>
+        na <input name="empresa" placeholder="nome da empresa" size="16" autocomplete="organization" aria-label="Nome da empresa">
+        (<input name="site" placeholder="site" size="14" autocomplete="url" aria-label="Site da empresa">), que tem
+        <select name="porte" aria-label="Porte da empresa"><option value="">quantas</option>${SEL.porte[1].map(o => `<option>${esc(o)}</option>`).join('')}</select> pessoas.
+        Procuro <select name="servico" aria-label="Serviço procurado"><option value="">que tipo de vídeo</option>${SEL.servico[1].map(o => `<option>${esc(o)}</option>`).join('')}</select>,
+        com investimento de <select name="investimento" aria-label="Investimento disponível"><option value="">quanto</option>${SEL.investimento[1].map(o => `<option>${esc(o)}</option>`).join('')}</select>.
+        A ideia é <input name="msg" placeholder="descreva o projeto em poucas palavras" size="32" aria-label="Descrição do projeto">.
+        Falem comigo em <input name="email" type="email" placeholder="e-mail" size="20" autocomplete="email" aria-label="E-mail">
+        ou no <input name="tel" type="tel" placeholder="WhatsApp" size="13" autocomplete="tel" aria-label="Telefone/WhatsApp">.</p>
+        ${send()}</form></div>`,
+    },
+    {
+      nome: 'Opção 4 · Essencial primeiro',
+      texto: 'Só quatro dados aparecem: nome, WhatsApp, e-mail e serviço. Os outros sete continuam no formulário, recolhidos em "adiantar mais informações", e são opcionais.',
+      porque: 'Menos atrito porque: o pedido sai em quatro campos; quem quiser detalha, quem não quiser é qualificado depois pela equipe.',
+      html: p => `<div class="box-grid">${lado('Peça seu orçamento em 30 segundos.', 'Quatro dados bastam para a gente retornar.')}
+        <form>${input(p, 'nome')}${input(p, 'tel')}${input(p, 'email')}
+        ${chips(p, 'servico')}
+        <details><summary>Adiantar mais informações (opcional)</summary>
+          <div class="extra">${input(p, 'empresa')}${input(p, 'site')}${select(p, 'porte')}${select(p, 'cargo')}${select(p, 'area')}${select(p, 'investimento')}
+          <label class="f" style="grid-column:1/-1">Faça uma breve descrição do seu projeto<textarea name="msg" rows="2"></textarea></label></div>
+        </details>
+        ${send()}</form></div>`,
+    },
+    {
+      nome: 'Opção 5 · Direto pelo WhatsApp',
+      texto: 'Os mesmos campos montam uma mensagem pronta, mostrada ao lado enquanto a pessoa preenche. O botão abre o WhatsApp com tudo escrito.',
+      porque: 'Menos atrito porque: o pedido cai no canal em que a conversa vai acontecer; não há espera por e-mail.',
+      html: p => `<div class="box-grid">
+        <form>${input(p, 'nome')}${input(p, 'empresa')}${input(p, 'email')}${input(p, 'site')}
+        ${chips(p, 'servico')}${chips(p, 'investimento')}
+        ${select(p, 'porte')}${select(p, 'cargo')}${select(p, 'area')}${desc(p, '', 2)}</form>
+        <div class="bubble"><p class="eyebrow">Sua mensagem</p><pre></pre>
+          <a class="btn zapbtn" href="https://wa.me/553235124803" target="_blank" rel="noopener">Enviar pelo WhatsApp</a></div></div>`,
+    },
+    {
+      nome: 'Opção 6 · Tudo em uma tela, com botões',
+      texto: 'A opção 1 com duas trocas: serviço e investimento deixam de ser listas e viram botões de um toque. Os campos ficam em três blocos (você, sua empresa, o projeto) para a leitura ser rápida.',
+      porque: 'Menos atrito porque: as duas escolhas que mais importam ficam à vista, sem abrir lista; o resto continua compacto.',
+      html: p => `<div class="box-grid">${lado('Vamos conversar sobre o seu filme?', 'Preencha e receba um orçamento personalizado.')}
+        <form>
+        <p class="grp">Você</p>
+        ${input(p, 'nome', 'c2')}${input(p, 'email', 'c2')}${input(p, 'tel', 'c2')}
+        ${select(p, 'cargo', 'c3')}${select(p, 'area', 'c3')}
+        <p class="grp">Sua empresa</p>
+        ${input(p, 'empresa', 'c2')}${input(p, 'site', 'c2')}${select(p, 'porte', 'c2')}
+        <p class="grp">O projeto</p>
+        <div class="duo">${chips(p, 'servico')}${chips(p, 'investimento')}</div>
+        ${desc(p, 'c6', 2)}${send()}</form></div>`,
+    },
+  ];
+
+  const raiz = document.getElementById('opcoes');
+  OPCOES.forEach((o, k) => {
+    const p = 'o' + (k + 1);
+    const head = document.createElement('div');
+    head.className = 'opt-head';
+    head.innerHTML = '<h2></h2><p></p><p class="why"></p>';
+    head.children[0].textContent = o.nome;
+    head.children[1].textContent = o.texto;
+    head.children[2].textContent = o.porque;
+    const box = document.createElement('section');
+    box.className = 'box ' + p;
+    box.innerHTML = o.html(p);
+    raiz.append(head, box);
+  });
+
+  // Nada é enviado no mockup
+  document.querySelectorAll('.box form').forEach(f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const n = f.querySelector('.form-note');
+    if (n) n.textContent = 'Mockup: o formulário ainda não envia nada.';
+  }));
+
+  // Opção 5: monta a mensagem e o link do WhatsApp conforme a pessoa preenche
+  {
+    const box = document.querySelector('.o5'), form = box.querySelector('form');
+    const pre = box.querySelector('pre'), link = box.querySelector('.zapbtn');
+    const val = n => (form.querySelector(`[name="${n}"]`) || {}).value || '';
+    const radio = n => (form.querySelector(`[name="o5-${n}"]:checked`) || {}).value || '';
+    function montar() {
+      const linhas = [
+        'Olá! Vim pelo site e gostaria de um orçamento.',
+        val('nome') && 'Nome: ' + val('nome'),
+        val('empresa') && 'Empresa: ' + val('empresa') + (val('site') ? ' (' + val('site') + ')' : ''),
+        val('porte') && 'Porte: ' + val('porte') + ' pessoas',
+        (val('cargo') || val('area')) && 'Cargo/área: ' + [val('cargo'), val('area')].filter(Boolean).join(' · '),
+        radio('servico') && 'Serviço: ' + radio('servico'),
+        radio('investimento') && 'Investimento: ' + radio('investimento'),
+        val('msg') && 'Projeto: ' + val('msg'),
+        val('email') && 'E-mail: ' + val('email'),
+      ].filter(Boolean);
+      pre.textContent = linhas.join('\n');
+      link.href = 'https://wa.me/553235124803?text=' + encodeURIComponent(linhas.join('\n'));
+    }
+    form.addEventListener('input', montar);
+    montar();
+  }
+</script>
+</body>
+</html>

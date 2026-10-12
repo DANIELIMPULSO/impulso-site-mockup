@@ -321,3 +321,22 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 .hero::after { -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px); -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 9%, transparent 91%, #000 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 9%, transparent 91%, #000 100%); }
 .hero-shade { z-index: 2; }
 .hero .timecode, .hero-inner { z-index: 3; }
+
+/* ---------- Cartões de soluções da home: imagens coloridas e efeito suave ao passar o mouse ---------- */
+.solution { outline: 1px solid transparent; outline-offset: -1px; transition: outline-color .7s, outline-offset .9s cubic-bezier(.2, .7, .2, 1); }
+.solution img { opacity: .86; filter: saturate(.92); transition: opacity .8s, filter .8s, transform 1.5s cubic-bezier(.2, .7, .2, 1); }
+.solution::after { background: linear-gradient(0deg, rgba(45, 45, 45, .96) 6%, rgba(45, 45, 45, .25) 62%, transparent 100%); }
+/* luz suave que acompanha o mouse */
+.solution::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0; transition: opacity .8s; background: radial-gradient(circle 300px at var(--lx, 50%) var(--ly, 40%), rgba(255, 244, 214, .26), transparent 72%); mix-blend-mode: soft-light; }
+.solution h3::after { content: "→"; display: inline-block; margin-left: .25em; font-family: var(--body); font-size: .62em; color: var(--yellow); opacity: 0; transform: translateX(-10px); transition: opacity .5s, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.solution h3, .solution p, .solution .num { transition: transform .9s cubic-bezier(.2, .7, .2, 1), color .5s; }
+@media (hover: hover) {
+  .solution:hover { outline-color: rgba(253, 184, 19, .75); outline-offset: -14px; }
+  .solution:hover img { opacity: 1; filter: saturate(1.06); --s: 1.07; }
+  .solution:hover::before { opacity: 1; }
+  .solution:hover h3::after { opacity: 1; transform: none; }
+  .solution:hover h3, .solution:hover .num { transform: translateY(-6px); }
+  .solution:hover p { transform: translateY(-3px); color: var(--text); }
+  /* os outros dois cartões recuam de leve enquanto um está em foco */
+  .solutions:hover .solution:not(:hover) img { opacity: .5; filter: saturate(.35); }
+}

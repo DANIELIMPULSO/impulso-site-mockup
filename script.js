@@ -162,6 +162,9 @@ if (finePointer && !calm) {
       const r = card.getBoundingClientRect();
       img.style.setProperty('--px', ((e.clientX - r.left) / r.width - .5) * -18 + 'px');
       img.style.setProperty('--py', ((e.clientY - r.top) / r.height - .5) * -18 + 'px');
+      // posição do mouse dentro do cartão, para a luz suave que o acompanha
+      card.style.setProperty('--lx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--ly', (e.clientY - r.top) + 'px');
     }, { passive: true });
     card.addEventListener('mouseleave', () => { img.style.removeProperty('--px'); img.style.removeProperty('--py'); });
   });

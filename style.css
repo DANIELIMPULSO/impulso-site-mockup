@@ -340,3 +340,13 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
   /* os outros dois cartões recuam de leve enquanto um está em foco */
   .solutions:hover .solution:not(:hover) img { opacity: .5; filter: saturate(.35); }
 }
+
+/* ---------- Cursor: ondas finas, estilo sonar, sobre qualquer coisa clicável ---------- */
+@media (hover: hover) and (pointer: fine) {
+  .has-cursor .cursor::before, .has-cursor .cursor::after { content: ""; position: absolute; inset: -1.5px; border: 1px solid var(--yellow); border-radius: 50%; opacity: 0; pointer-events: none; }
+  .has-cursor .cursor.link::before, .has-cursor .cursor.link::after { animation: sonar 2s cubic-bezier(.2, .6, .3, 1) infinite; }
+  .has-cursor .cursor.label::before, .has-cursor .cursor.label::after { animation: sonar-label 2s cubic-bezier(.2, .6, .3, 1) infinite; }
+  .has-cursor .cursor.link::after, .has-cursor .cursor.label::after { animation-delay: 1s; }
+}
+@keyframes sonar { 0% { transform: scale(1); opacity: .5; } 100% { transform: scale(2.3); opacity: 0; } }
+@keyframes sonar-label { 0% { transform: scale(1); opacity: .45; } 100% { transform: scale(1.6); opacity: 0; } }

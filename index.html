@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Impulso Filmes · Mockup da nova home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top" id="top">
+  <a class="logo" href="#top" aria-label="Impulso Filmes, início">
+    <img src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/cropped-logo.png" alt="Impulso Filmes" width="240" height="80">
+  </a>
+  <button class="burger" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  <nav id="menu" aria-label="Principal">
+    <a href="#sobre">Sobre</a>
+    <a href="#portfolio">Portfólio</a>
+    <a href="#solucoes">Soluções</a>
+    <a href="#clientes">Clientes</a>
+    <a href="#blog">Blog</a>
+    <a class="cta" href="#orcamento">Orçamento</a>
+  </nav>
+</header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <video class="hero-video" autoplay muted loop playsinline
+    src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/08/IMPULSOBANNER2024_05.mp4"></video>
+  <div class="hero-shade"></div>
+  <p class="timecode" aria-hidden="true"><span class="rec"></span>REC <span id="tc">00:00:00:00</span></p>
+
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Produtora de vídeo · Desde 2013 · Todo o Brasil</p>
+      <h1>Filmes que emocionam e geram resultados.</h1>
+      <p class="lead">Uma produtora de vídeo especializada em projetos institucionais e publicitários de alto impacto.</p>
+      <div class="actions">
+        <a class="btn solid" href="#orcamento">Quero um orçamento</a>
+        <a class="btn ghost" href="#portfolio">Ver portfólio</a>
+      </div>
+    </div>
+
+    <ul class="bigwords" aria-label="Soluções">
+      <li><a href="#solucoes"><span class="idx">00</span><span class="word">Publicidade</span></a></li>
+      <li><a href="#solucoes"><span class="idx">00</span><span class="word">Institucional</span></a></li>
+      <li><a href="#solucoes"><span class="idx">00</span><span class="word">Conteúdo</span></a></li>
+      <li><a href="#portfolio"><span class="idx">00</span><span class="word">Portfólio</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUÇÕES -->
+<section class="block" id="solucoes">
+  <div class="statement reveal">
+    <h2>Soluções para sua empresa.</h2>
+    <p>Somos uma produtora de vídeo especializada em filmes publicitários, vídeos institucionais e soluções audiovisuais corporativas.</p>
+  </div>
+  <div class="solutions">
+    <a class="solution reveal" href="#orcamento" data-cursor="VER">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/01/s1-640x720.jpg" alt="">
+      <span class="num">01</span>
+      <h3>Publicidade</h3>
+      <p>Do briefing à execução: filmes publicitários que impactam e geram resultados para diferentes estratégias de comunicação.</p>
+    </a>
+    <a class="solution reveal" href="#orcamento" data-cursor="VER">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/01/ss1-640x720.jpg" alt="">
+      <span class="num">02</span>
+      <h3>Vídeo institucional</h3>
+      <p>Construímos autoridade e fortalecemos a imagem e os valores de empresas e indústrias de diversos segmentos.</p>
+    </a>
+    <a class="solution reveal" href="#orcamento" data-cursor="VER">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/01/s3-640x720.jpg" alt="">
+      <span class="num">03</span>
+      <h3>Conteúdo de marca</h3>
+      <p>Conteúdo e informação em formatos inovadores que engajam e criam relacionamento entre consumidores e marcas.</p>
+    </a>
+  </div>
+</section>
+
+<!-- PORTFÓLIO -->
+<section class="block" id="portfolio">
+  <div class="statement reveal">
+    <h2>Cases de sucesso.</h2>
+    <p>Conheça a estratégia por trás dos resultados alcançados pelos nossos clientes.</p>
+  </div>
+  <div class="filters" role="group" aria-label="Filtrar portfólio">
+    <button type="button" aria-pressed="true" data-f="todos">Todos</button>
+    <button type="button" aria-pressed="false" data-f="Publicidade">Publicidade</button>
+    <button type="button" aria-pressed="false" data-f="Vídeo institucional">Vídeo institucional</button>
+    <button type="button" aria-pressed="false" data-f="Conteúdo de marca">Conteúdo de marca</button>
+  </div>
+  <div class="work" id="work"></div>
+  <p class="more"><a class="btn ghost" href="https://www.impulsofilmes.com.br/portfolios/" target="_blank" rel="noopener">Ver portfólio completo</a></p>
+</section>
+
+<!-- CLIENTES -->
+<section class="clients" id="clientes" aria-label="Clientes">
+  <p class="eyebrow">Quem confia na Impulso</p>
+  <div class="marquee"><div class="track" id="logos"></div></div>
+</section>
+
+<!-- SOBRE -->
+<section class="block about" id="sobre">
+  <div class="statement reveal">
+    <h2>Muito prazer, somos a Impulso Filmes.</h2>
+    <p>No mercado desde 2013, a Impulso Filmes é uma produtora de vídeo focada em soluções para empresas e indústrias que buscam resultados de alto impacto através da produção audiovisual.</p>
+    <p>Do roteiro à finalização, nossa missão é conectar ideias, pessoas e soluções para criar filmes que emocionam, comunicam e geram resultados.</p>
+  </div>
+  <a class="reel reveal" data-cursor="PLAY" href="https://vimeo.com/impulsofilmes" target="_blank" rel="noopener">
+    <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/themes/impulso/assets/images/bannerc.png" alt="">
+    <span class="play" aria-hidden="true"></span>
+    <span class="reel-label">Aperte o play e conheça nossa história</span>
+  </a>
+  <ul class="facts reveal">
+    <li><strong>2013</strong><span>No mercado desde</span></li>
+    <li><strong>Brasil</strong><span>Clientes em diversos estados</span></li>
+    <li><strong>Estúdio</strong><span>Estrutura e equipamentos próprios</span></li>
+  </ul>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="block" id="depoimentos">
+  <div class="statement reveal">
+    <h2>Quem filmou com a gente, conta.</h2>
+  </div>
+  <div class="quotes">
+    <figure class="quote reveal">
+      <blockquote>Seguramente, boa parte dos melhores filmes que a República produziu tem a assinatura da Impulso. Direção de fotografia impecável, produção cuidadosa, edição primorosa e um set leve e ágil.</blockquote>
+      <figcaption><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/06/MARCOS-128x128.png" alt=""><span><b>Marcos Villas Boas</b>República Comunicação · Juiz de Fora (MG)</span></figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>A equipe foi atenciosa desde o início, desenvolvendo ideias juntos e trazendo melhorias para o projeto. São altamente experientes e técnicos, além de serem divertidos e amigáveis.</blockquote>
+      <figcaption><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/people-128x128.png" alt=""><span><b>Gabriel Veagnoli</b>Tractian · São Paulo (SP)</span></figcaption>
+    </figure>
+    <figure class="quote reveal">
+      <blockquote>A equipe da Impulso atende a demandas da nossa Comunicação em campanhas internas e externas, sempre em conformidade com os escopos elaborados para cada objetivo de engajamento.</blockquote>
+      <figcaption><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/07/CLAUDINHA-128x128.png" alt=""><span><b>Claudia Gentile</b>ArcelorMittal · Juiz de Fora (MG)</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section class="block" id="blog">
+  <div class="statement reveal">
+    <h2>Fique por dentro.</h2>
+    <p>Conteúdo sobre vídeo, marketing e comunicação corporativa.</p>
+  </div>
+  <div class="posts">
+    <a class="post reveal" data-cursor="LER" href="https://www.impulsofilmes.com.br/blog/" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2026/02/image-9-380x240.jpg" alt="">
+      <time>10 set 2026</time>
+      <h3>Briefing de Vídeo Institucional: o guia definitivo para preparar a sua empresa</h3>
+    </a>
+    <a class="post reveal" data-cursor="LER" href="https://www.impulsofilmes.com.br/blog/" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2026/09/683A3229-scaled-380x240.jpg" alt="">
+      <time>1 set 2026</time>
+      <h3>Case Tractian: Produção de uma campanha publicitária internacional gravada no Brasil</h3>
+    </a>
+    <a class="post reveal" data-cursor="LER" href="https://www.impulsofilmes.com.br/blog/" target="_blank" rel="noopener">
+      <img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2026/08/audiovisual-no-marketing-imobiliario-380x240.jpg" alt="">
+      <time>7 ago 2026</time>
+      <h3>Audiovisual no marketing imobiliário: como vídeos vendem empreendimentos</h3>
+    </a>
+  </div>
+  <p class="more"><a class="btn ghost" href="https://www.impulsofilmes.com.br/blog/" target="_blank" rel="noopener">Ver todos os artigos</a></p>
+</section>
+
+<!-- ORÇAMENTO -->
+<section class="budget" id="orcamento">
+  <p class="outline" aria-hidden="true">Orçamento</p>
+  <div class="budget-grid">
+    <div class="statement">
+      <h2>Vamos conversar sobre o seu filme?</h2>
+      <p>Envie sua demanda pelo formulário. Se preferir, chame direto no WhatsApp.</p>
+      <a class="btn ghost" href="https://wa.me/553235124803" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+    <form id="form" novalidate>
+      <label>Nome<input type="text" name="nome" autocomplete="name" required></label>
+      <label>E-mail corporativo<input type="email" name="email" autocomplete="email" required></label>
+      <label>Telefone<input type="tel" name="tel" autocomplete="tel"></label>
+      <label>Serviço procurado
+        <select name="servico"><option>Vídeo Institucional</option><option>Publicidade</option><option>Conteúdo de Marca</option><option>Outros</option></select>
+      </label>
+      <label>Investimento disponível
+        <select name="investimento"><option>10 mil</option><option>10 - 15 mil</option><option>15 - 20 mil</option><option>20 - 30 mil</option><option>30 - 40 mil</option><option>mais de 40 mil</option></select>
+      </label>
+      <label class="wide">Conte sobre o projeto<textarea name="msg" rows="4"></textarea></label>
+      <button class="btn solid wide" type="submit">Enviar pedido de orçamento</button>
+      <p class="form-note wide" role="status"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <img class="foot-logo" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/cropped-logo.png" alt="Impulso Filmes" width="240" height="80">
+  <div>
+    <a href="tel:553235124803">(32) 3512-4803</a>
+    <a href="mailto:atendimento@impulsofilmes.com.br">atendimento@impulsofilmes.com.br</a>
+  </div>
+  <div>
+    <a href="https://www.instagram.com/impulsofilmes" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://br.linkedin.com/company/impulsofilmes" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://vimeo.com/impulsofilmes" target="_blank" rel="noopener">Vimeo</a>
+    <a href="https://www.youtube.com/@ImpulsoFilmes" target="_blank" rel="noopener">YouTube</a>
+  </div>
+  <p class="legal">© Impulso Filmes · Todos os direitos reservados · <a href="https://www.impulsofilmes.com.br/politica-de-privacidade-e-cookies" target="_blank" rel="noopener">Política de Privacidade e Cookies</a></p>
+</footer>
+
+<a class="zap" href="https://wa.me/553235124803" target="_blank" rel="noopener">WhatsApp</a>
+
+<figure class="peek" aria-hidden="true"><img alt=""><figcaption></figcaption></figure>
+<div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -55,7 +55,7 @@
 .c-cta .statement { position: relative; }
 
 /* Seletor de opções, só para validação do mockup */
-.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(21, 21, 23, .92); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(56, 56, 56, .94); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
 .opts span { padding: 0 8px 0 10px; color: var(--dim); }
 .opts a { padding: 8px 12px; border-radius: 999px; }
 .opts a[aria-current] { background: var(--yellow); color: #111; }

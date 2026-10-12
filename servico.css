@@ -3,7 +3,7 @@
 /* 1. Abertura */
 .s-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
 .s-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.04 + var(--hs, 0) * .08)); }
-.s-shade { position: absolute; inset: 0; background: radial-gradient(circle 36vmax at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(11, 11, 12, .7) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(11, 11, 12, .55) 45%, rgba(11, 11, 12, .7) 100%); }
+.s-shade { position: absolute; inset: 0; background: radial-gradient(circle 36vmax at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(45, 45, 45, .7) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(45, 45, 45, .55) 45%, rgba(45, 45, 45, .7) 100%); }
 /* Título de um lado, texto do outro, alinhados pela base */
 .s-inner { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: end; padding: 130px var(--gutter) clamp(40px, 7vh, 72px); opacity: calc(1 - var(--hs, 0) * .85); }
 .s-title { margin: .2em 0 0 -.02em; font: 400 clamp(46px, 6.9vw, 124px)/1.02 var(--display); text-transform: uppercase; letter-spacing: .005em; }
@@ -41,7 +41,7 @@
 .tl-track button { position: relative; flex: 1 1 0; min-width: 0; height: 58px; padding: 10px 10px 0; border: 0; border-radius: 2px; background: var(--surface); color: var(--dim); text-align: left; font: 500 11.5px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; transition: color .25s, background .25s; }
 .tl-track button::before { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--yellow); transform-origin: 0 50%; transform: scaleX(var(--f, 0)); }
 .tl-track button b { display: block; font-weight: 500; color: inherit; opacity: .6; margin-bottom: 5px; }
-.tl-track button.on { color: var(--yellow); background: #1d1c18; }
+.tl-track button.on { color: var(--yellow); background: #45423a; }
 .tl-track button.done { color: var(--text); }
 .tl-head { position: absolute; top: 4px; bottom: -6px; left: 0; width: 1.5px; background: var(--yellow); transform: translateX(var(--x, 0px)); pointer-events: none; }
 .tl-head::before { content: ""; position: absolute; left: -5px; top: 0; border: 5.5px solid transparent; border-top-color: var(--yellow); }
@@ -107,7 +107,7 @@
 }
 
 /* Seletor de opções, só para validação do mockup */
-.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(21, 21, 23, .92); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(56, 56, 56, .94); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
 .opts span { padding: 0 8px 0 10px; color: var(--dim); }
 .opts a { padding: 8px 12px; border-radius: 999px; }
 .opts a[aria-current] { background: var(--yellow); color: #111; }

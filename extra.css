@@ -48,7 +48,7 @@
 .blog-lead .c-link { margin-top: 24px; }
 .blog-lead:hover h2 { color: var(--yellow); }
 .posts.all { margin-top: 28px; gap: 40px 16px; }
-.post .ph, .blog-lead .ph { display: block; width: 100%; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #1c1b18, #131314); border: 1px solid var(--line); }
+.post .ph, .blog-lead .ph { display: block; width: 100%; aspect-ratio: 16 / 10; background: linear-gradient(135deg, #3d3d3d, #333333); border: 1px solid var(--line); }
 .more-wrap { margin-top: 44px; text-align: center; }
 
 /* Blog: artigo */

@@ -12,7 +12,7 @@
   background-repeat: no-repeat; }
 .player-poster { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: none; color: var(--text); cursor: pointer; overflow: hidden; }
 .player-poster img { width: 100%; height: 100%; object-fit: cover; opacity: .9; transform: translate(var(--px, 0), var(--py, 0)) scale(var(--s, 1.03)); transition: transform .6s ease-out, opacity .4s; }
-.player-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(11, 11, 12, .92) 0%, rgba(11, 11, 12, .1) 55%); }
+.player-poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(45, 45, 45, .92) 0%, rgba(45, 45, 45, .1) 55%); }
 .player-poster:hover img { opacity: 1; --s: 1.07; }
 .player-poster .play { z-index: 1; width: clamp(72px, 8vw, 112px); height: clamp(72px, 8vw, 112px); }
 .player-poster .play::after { left: 50%; top: 50%; transform: translate(-38%, -50%); }
@@ -65,7 +65,7 @@
   /* Em tela estreita o título fica abaixo do filme, para não disputar espaço com o play */
   .c-title { position: static; margin-top: 24px; }
   .c-title h1 { font-size: clamp(48px, 15vw, 96px); }
-  .player-poster::after { background: rgba(11, 11, 12, .18); }
+  .player-poster::after { background: rgba(45, 45, 45, .18); }
   .c-body { grid-template-columns: 1fr; }
   .credits { position: static; }
   .shots { grid-template-columns: repeat(2, 1fr); }
@@ -73,7 +73,7 @@
 }
 
 /* Seletor de opções, só para validação do mockup */
-.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(21, 21, 23, .92); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(56, 56, 56, .94); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
 .opts span { padding: 0 8px 0 10px; color: var(--dim); }
 .opts a { padding: 8px 12px; border-radius: 999px; }
 .opts a[aria-current] { background: var(--yellow); color: #111; }

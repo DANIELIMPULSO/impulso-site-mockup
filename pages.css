@@ -3,7 +3,7 @@
 /* Abertura padrão: título de um lado, texto do outro, mídia de fundo */
 .p-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
 .p-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.04 + var(--hs, 0) * .08)); }
-.p-shade { position: absolute; inset: 0; background: radial-gradient(circle 36vmax at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(11, 11, 12, .7) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(11, 11, 12, .55) 45%, rgba(11, 11, 12, .7) 100%); }
+.p-shade { position: absolute; inset: 0; background: radial-gradient(circle 36vmax at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(45, 45, 45, .7) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(45, 45, 45, .55) 45%, rgba(45, 45, 45, .7) 100%); }
 .p-inner { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: end; padding: 130px var(--gutter) clamp(40px, 7vh, 72px); opacity: calc(1 - var(--hs, 0) * .85); }
 .p-title { margin: .2em 0 0 -.02em; font: 400 clamp(44px, 6.6vw, 118px)/1.04 var(--display); text-transform: uppercase; letter-spacing: .005em; }
 .p-title span { display: block; }
@@ -48,7 +48,7 @@
 .wall { position: relative; list-style: none; margin: 40px 0 0; padding: 1px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--line); }
 .wall::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(circle 280px at var(--wx, -400px) var(--wy, -400px), rgba(253, 184, 19, .16), transparent 70%); }
 .wall li { position: relative; display: grid; place-items: center; aspect-ratio: 3 / 2; background: var(--bg); transition: background .35s; }
-.wall li span { position: absolute; left: 10px; top: 9px; font: 500 10.5px/1 var(--mono); letter-spacing: .08em; color: #55544f; transition: color .35s; }
+.wall li span { position: absolute; left: 10px; top: 9px; font: 500 10.5px/1 var(--mono); letter-spacing: .08em; color: #7d7c77; transition: color .35s; }
 .wall img { width: 46%; max-width: 110px; aspect-ratio: 1; object-fit: contain; filter: brightness(0) invert(1); opacity: .62; transition: filter .35s, opacity .35s, transform .5s cubic-bezier(.2, .7, .2, 1); }
 /* Ao passar o mouse a célula acende e a marca ganha a cor original */
 .wall li:hover { background: #f4f2ec; z-index: 1; }

@@ -311,3 +311,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 [hidden] { display: none !important; }
 /* Logos com fundo cheio: tons de cinza em vez de silhueta branca */
 .track img.fill, .wall img.fill { filter: grayscale(1) contrast(1.05) brightness(1.35); }
+
+/* Vídeo da abertura da home 20% mais transparente: deixa o cinza do fundo aparecer por trás */
+.hero-video { opacity: .8; }

@@ -85,7 +85,7 @@ words.forEach((a, n) => {
   const w = a.querySelector(".word");
   a.setAttribute("aria-label", w.textContent);
   a.querySelector(".idx").textContent = String(n + 1).padStart(2, "0");
-  w.innerHTML = [...w.textContent].map(c => "<i>" + c + "</i>").join("");
+  w.innerHTML = [...w.textContent].map((c, k) => "<i style=\"--n:" + k + "\">" + c + "</i>").join("");
 });
 
 // Cabeçalho e menu
@@ -109,6 +109,8 @@ document.getElementById('form').addEventListener('submit', e => {
 // ---------- Interações com o mouse (só em telas com mouse e sem redução de movimento) ----------
 const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Sem mouse (ou em tela estreita) o índice do hero roda sozinho
+const autoIndex = !finePointer || innerWidth <= 900;
 
 // Timecode do hero, a 24 quadros por segundo
 if (!calm) {
@@ -176,7 +178,7 @@ if (finePointer && !calm) {
   });
 }
 
-if (finePointer && !calm) {
+if (finePointer && !calm && !autoIndex) {
   // Letras esticam conforme a proximidade do mouse
   const list = document.querySelector(".bigwords");
   const letters = [...list.querySelectorAll(".word i")];
@@ -228,4 +230,88 @@ if (finePointer && !calm) {
     peek.style.transform = "translate(" + (px - 340) + "px, " + (py - 110) + "px) rotate(" + Math.max(-9, Math.min(9, vx * .06)) + "deg)";
     requestAnimationFrame(drift);
   })();
+}
+
+if (autoIndex) {
+  // Celular e tablet: a prévia fica fixa acima do índice e as palavras se revezam sozinhas
+  const list = document.querySelector(".bigwords");
+  const peek = document.querySelector(".peek");
+  const img = peek.querySelector("img");
+  const cap = peek.querySelector("figcaption");
+  const box = document.createElement("div");
+  box.className = "index";
+  list.before(box);
+  box.append(peek, list);
+  peek.classList.add("inline");
+  list.classList.add("auto");
+  cap.innerHTML = "<span></span><span></span>";
+
+  const STEP = 1300;      // tempo de cada projeto
+  const PER_WORD = 4;     // projetos mostrados antes de passar para a próxima palavra
+  const lists = WORD_CATS.map(c => PORT.filter(p => !c || p.cat === c));
+  const pos = lists.map(() => 0);
+  const p2d = n => String(n).padStart(2, "0");
+  let w = 0, shown = 0, timer = null;
+
+  function show() {
+    const l = lists[w], item = l[pos[w] % l.length];
+    img.src = item.src;
+    cap.children[0].textContent = item.nome;
+    cap.children[1].textContent = p2d(pos[w] % l.length + 1) + " / " + p2d(l.length);
+    peek.style.setProperty("--step", STEP + "ms");
+    peek.classList.remove("tick");
+    void peek.offsetWidth;
+    peek.classList.add("tick");
+  }
+  function activate(n) {
+    w = n; shown = 0;
+    words.forEach((a, k) => a.classList.toggle("active", k === w));
+    show();
+  }
+  function next() {
+    pos[w]++;
+    if (++shown >= PER_WORD) activate((w + 1) % words.length); else show();
+  }
+  const play = () => { if (!calm && !timer) timer = setInterval(next, STEP); };
+  const pause = () => { clearInterval(timer); timer = null; };
+
+  // Primeiro toque escolhe a palavra; tocar de novo na palavra ativa segue o link
+  words.forEach((a, n) => a.addEventListener("click", e => {
+    if (n === w) return;
+    e.preventDefault();
+    activate(n);
+    pause(); play();
+  }));
+
+  activate(0);
+  addEventListener("load", () => PORT.forEach(p => { new Image().src = p.src; }));
+  // Só roda enquanto o hero está na tela
+  new IntersectionObserver(es => es.forEach(e => e.isIntersecting ? play() : pause()), { threshold: .1 }).observe(box);
+}
+
+// ---------- Animações discretas ao rolar ----------
+// Cartões de uma mesma grade entram em sequência
+document.querySelectorAll('.solutions, .work, .quotes, .posts').forEach(grid => {
+  [...grid.children].forEach((el, k) => { el.style.transitionDelay = Math.min(k, 5) * 90 + 'ms'; });
+});
+
+if (!calm) {
+  const root = document.documentElement;
+  const heroEl = document.querySelector('.hero');
+  const budget = document.querySelector('.budget');
+  const outline = document.querySelector('.outline');
+  let queued = false;
+  function onScroll() {
+    queued = false;
+    const vh = innerHeight;
+    // Linha de progresso no topo
+    root.style.setProperty('--p', (scrollY / Math.max(1, root.scrollHeight - vh)).toFixed(4));
+    // Hero: o vídeo aproxima e o texto some aos poucos ao sair da tela
+    heroEl.style.setProperty('--hs', Math.min(1, scrollY / heroEl.offsetHeight).toFixed(3));
+    // "Orçamento" em contorno desliza de lado enquanto a seção passa
+    const r = budget.getBoundingClientRect();
+    if (r.top < vh && r.bottom > 0) outline.style.setProperty('--ox', ((r.top - vh * .3) * .14).toFixed(1));
+  }
+  addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
 }

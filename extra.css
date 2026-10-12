@@ -27,6 +27,8 @@
 .prose h4 { font: 600 18px/1.3 var(--body); }
 .prose a { color: var(--yellow); text-decoration: underline; text-underline-offset: 3px; }
 .prose strong, .prose b { color: var(--text); font-weight: 600; }
+/* o WordPress costuma pôr negrito dentro dos títulos; a Anton só tem um peso e o navegador engrossaria a letra artificialmente */
+.prose :is(h2, h3, h4) :is(strong, b) { font-weight: inherit; color: inherit; }
 .prose ul, .prose ol { padding-left: 1.3em; }
 .prose li + li { margin-top: .45em; }
 .prose li::marker { color: var(--yellow); }
@@ -110,3 +112,6 @@ label.check input { width: 18px; height: 18px; accent-color: var(--yellow); }
   .one-form { grid-template-columns: 1fr; }
   .one-form .span2, .one-form .step-actions, .one-form .form-note { grid-column: auto; }
 }
+
+/* Proteção geral: negrito embutido em títulos herda o peso do título (evita Anton engrossada artificialmente) */
+:is(h1, h2) :is(b, strong) { font-weight: inherit; }

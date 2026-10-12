@@ -1,0 +1,524 @@
+/* ---------- Cinco opções de layout para a página de artigo do blog (só para comparação) ---------- */
+
+/* Faixa que explica a opção e seletor no canto */
+.po-nota { margin: 0; padding: 84px var(--gutter) 14px; font-size: 13.5px; line-height: 1.5; color: var(--dim); border-bottom: 1px solid var(--line); }
+.po-nota b { color: var(--yellow); font: 500 12px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; margin-right: 8px; }
+.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(56, 56, 56, .94); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.opts span { padding: 0 6px 0 10px; color: var(--dim); }
+.opts a { padding: 8px 11px; border-radius: 999px; }
+.opts a[aria-current] { background: var(--yellow); color: #111; }
+
+/* ---------- Leitura: vale para as cinco ---------- */
+.po .post-title { margin-top: 14px; max-width: 20ch; font-size: clamp(32px, 4.2vw, 64px); }
+.po .prose { max-width: 66ch; font-size: clamp(17px, 1.28vw, 19.5px); line-height: 1.78; color: #e2e0d9; }
+.po .prose > * + * { margin-top: 1.25em; }
+.po .prose p.abre { font-size: 1.18em; line-height: 1.6; color: var(--text); }
+.po .prose h2 { margin-top: 2.2em; padding-top: .9em; border-top: 1px solid var(--line); font-size: clamp(27px, 2.7vw, 40px); scroll-margin-top: 90px; }
+.po .prose h3 { margin-top: 1.8em; }
+.po .prose figure { margin: 2.2em 0 0; }
+.po .prose figure button { display: block; width: 100%; padding: 0; border: 0; background: var(--surface); cursor: zoom-in; overflow: hidden; }
+.po .prose figure img { display: block; width: 100%; height: auto; margin: 0; transition: transform .8s; }
+.po .prose figure button:hover img { transform: scale(1.03); }
+.po .prose figcaption { margin-top: 10px; font: 500 12px/1.5 var(--mono); letter-spacing: .04em; color: var(--dim); }
+.po .prose .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 2.2em; }
+.po .prose .duo figure { margin: 0; }
+.po .prose .duo img { aspect-ratio: 4 / 3; object-fit: cover; }
+.po .prose .video .player { aspect-ratio: 16 / 9; }
+.po .prose .video .player-poster img { height: 100%; object-fit: cover; }
+.po .prose .pull { margin: 2em 0 0; padding: 0 0 0 22px; border-left: 2px solid var(--yellow); font: 500 clamp(21px, 2vw, 28px)/1.35 var(--body); letter-spacing: -.01em; color: var(--text); }
+.po .prose figure + p, .po .prose .duo + p, .po .prose .pull + p { margin-top: 2em; }
+.capa { margin: 0; }
+.capa img, .capa-bg { display: block; width: 100%; object-fit: cover; }
+.toc ol { list-style: none; margin: 14px 0 0; padding: 0; counter-reset: s; }
+.toc li { counter-increment: s; border-top: 1px solid var(--line); }
+.toc a { display: grid; grid-template-columns: 26px 1fr; gap: 6px; padding: 11px 0; font-size: 14px; line-height: 1.35; color: var(--dim); transition: color .2s, padding .3s; }
+.toc a::before { content: counter(s, decimal-leading-zero); font: 500 11px/1.7 var(--mono); letter-spacing: .06em; }
+.toc a:hover { color: var(--text); }
+.toc a.on { color: var(--yellow); padding-left: 8px; }
+.art-fim { margin-top: clamp(56px, 7vw, 96px); padding-bottom: clamp(56px, 7vw, 96px); }
+.art-fim .actions { margin-top: 26px; }
+
+/* ---------- 1. Capa ao lado do título ---------- */
+.po1 .po-head { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(36px, 5vw, 64px) var(--gutter) 0; }
+.po1 .capa { position: relative; }
+.po1 .capa img { aspect-ratio: 4 / 3; }
+.po1 .capa::after { content: ""; position: absolute; inset: -10px; pointer-events: none; --c: var(--yellow); --l: 24px; --t: 1.5px;
+  background: linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l), linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat; }
+.po1 .po-body, .po2 .po-body { display: grid; justify-content: center; padding: clamp(40px, 6vw, 84px) var(--gutter) 0; }
+/* mídias mais largas que a coluna de texto */
+.po1 .prose .wide, .po1 .prose .duo, .po2 .prose .wide, .po2 .prose .duo { margin-inline: clamp(-140px, -9vw, 0px); }
+
+/* ---------- 2. Capa em tela cheia ---------- */
+.po2 .po-head { position: relative; min-height: min(78svh, 760px); display: flex; align-items: flex-end; overflow: hidden; }
+.po2 .capa-bg { position: absolute; inset: 0; height: 100%; }
+.po2 .po-head::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--bg) 2%, rgba(45, 45, 45, .55) 45%, rgba(45, 45, 45, .2) 100%); }
+.po2 .po-head-in { position: relative; z-index: 1; padding: 0 var(--gutter) clamp(28px, 4vw, 52px); }
+.po2 .post-title { max-width: 22ch; font-size: clamp(36px, 5.2vw, 84px); }
+.po2 .prose p.abre::first-letter { float: left; font: 400 4.1em/.82 var(--display); padding: .06em .12em 0 0; color: var(--yellow); }
+
+/* ---------- 3. Índice lateral ---------- */
+.po3 .po-head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: end; padding: clamp(36px, 5vw, 64px) var(--gutter) 0; }
+.po3 .capa img { aspect-ratio: 16 / 10; }
+.po3 .po-body { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: clamp(32px, 6vw, 96px); align-items: start; padding: clamp(40px, 6vw, 84px) var(--gutter) 0; }
+.po3 .toc { position: sticky; top: 96px; max-height: calc(100svh - 120px); overflow-y: auto; }
+
+/* ---------- 4. Resumo no topo e notas na margem ---------- */
+.po4 .po-head { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); padding: clamp(36px, 5vw, 64px) var(--gutter) 0; align-items: start; }
+.po4 .po-head-top { grid-column: 1 / -1; }
+.po4 .post-title { max-width: 26ch; font-size: clamp(34px, 5vw, 80px); }
+.po4 .capa img { aspect-ratio: 16 / 9; }
+.po4 .toc { background: var(--surface); padding: 22px 22px 10px; border-top: 2px solid var(--yellow); }
+.po4 .po-body { padding: clamp(40px, 6vw, 84px) var(--gutter) 0; }
+.po4 .prose { max-width: 62ch; }
+/* a citação em destaque sai do texto e vai para a margem direita */
+.po4 .prose .pull { float: right; width: 280px; margin: .3em -340px 1em 0; padding: 18px 0 0; border-left: 0; border-top: 2px solid var(--yellow); font-size: clamp(19px, 1.6vw, 23px); }
+.po4 .prose .wide, .po4 .prose .duo { margin-right: clamp(-340px, -24vw, 0px); }
+
+/* ---------- 5. Capa fixa ao lado ---------- */
+.po5 .po-split { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1fr); align-items: start; }
+.po5 .po-head { position: sticky; top: 0; height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+.po5 .capa-bg { position: absolute; inset: 0; height: 100%; }
+.po5 .po-head::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(45, 45, 45, .96) 4%, rgba(45, 45, 45, .5) 50%, rgba(45, 45, 45, .25) 100%); }
+.po5 .po-head-in { position: relative; z-index: 1; padding: 0 clamp(20px, 3vw, 44px) clamp(28px, 4vw, 52px) var(--gutter); }
+.po5 .post-title { font-size: clamp(30px, 3.4vw, 54px); }
+.po5 .po-body { padding: clamp(36px, 5vw, 72px) var(--gutter) 0 clamp(28px, 5vw, 80px); }
+.po5 .po-nota { padding-top: 84px; }
+
+/* ---------- telas menores: tudo em uma coluna ---------- */
+@media (max-width: 1100px) {
+  .po4 .prose .pull { float: none; width: auto; margin: 2em 0 0; }
+  .po4 .prose .wide, .po4 .prose .duo { margin-right: 0; }
+}
+@media (max-width: 900px) {
+  .po1 .po-head, .po3 .po-head, .po4 .po-head, .po3 .po-body, .po5 .po-split { grid-template-columns: 1fr; }
+  .po1 .prose .wide, .po1 .prose .duo, .po2 .prose .wide, .po2 .prose .duo { margin-inline: 0; }
+  .po3 .toc { position: static; max-height: none; }
+  .po5 .po-head { position: relative; height: auto; min-height: 62svh; }
+  .po5 .po-head-in { padding-right: var(--gutter); }
+  .po5 .po-body { padding-left: var(--gutter); }
+  .po .prose .duo { grid-template-columns: 1fr; }
+  .opts span { display: none; }
+}
+
+/* ---------- 6. Índice afastado e discreto: mais respiro entre índice e texto, mídia na largura do texto ---------- */
+.po6 .po-head, .po7 .po-head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: end; padding: clamp(36px, 5vw, 64px) var(--gutter) 0; }
+.po6 .capa img, .po7 .capa img { aspect-ratio: 16 / 10; }
+.po6 .po-body { display: grid; grid-template-columns: 210px minmax(0, 66ch); column-gap: clamp(72px, 12vw, 200px); align-items: start; padding: clamp(48px, 7vw, 96px) var(--gutter) 0; }
+.po6 .toc { position: sticky; top: 110px; max-height: calc(100svh - 140px); overflow-y: auto; transition: opacity .6s; }
+.po6 .toc a { font-size: 13px; padding: 9px 0; }
+.po6.lendo .toc { opacity: .32; }
+.po6.lendo .toc:hover, .po6.lendo .toc:focus-within { opacity: 1; }
+/* nada passa da largura do texto */
+.po6 .prose figure, .po6 .prose .duo, .po7 .prose figure, .po7 .prose .duo { margin-inline: 0; }
+
+/* ---------- 7. Uma coluna só: índice recolhível no começo do texto ---------- */
+.po7 .po-body { display: grid; justify-content: center; padding: clamp(48px, 7vw, 96px) var(--gutter) 0; }
+.toc-box { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 14px 0; }
+.toc-box summary { cursor: pointer; list-style: none; font: 500 12px/1.5 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); }
+.toc-box summary::before { content: "+ "; }
+.toc-box[open] summary::before { content: "– "; }
+.toc-box .toc .eyebrow { display: none; }
+.toc-box .toc ol { margin-top: 10px; }
+.toc-box .toc li:first-child { border-top: 0; }
+
+@media (max-width: 900px) {
+  .po6 .po-head, .po7 .po-head, .po6 .po-body { grid-template-columns: 1fr; }
+  .po6 .toc { position: static; max-height: none; opacity: 1 !important; margin-bottom: 32px; }
+}
+
+/* ================= Opções 8 a 11 ================= */
+/* Em todas: nenhuma foto ou vídeo passa da largura do texto */
+.po8 .prose figure, .po8 .prose .duo, .po9 .prose figure, .po9 .prose .duo, .po10 .prose figure, .po10 .prose .duo, .po11 .prose figure, .po11 .prose .duo { margin-inline: 0; }
+
+/* ---------- 8. Capa em tela cheia (da 2) + índice afastado que se apaga (da 6) + fundo mais claro atrás do texto ---------- */
+.po8 .po-head { position: relative; min-height: min(78svh, 760px); display: flex; align-items: flex-end; overflow: hidden; }
+.po8 .capa-bg { position: absolute; inset: 0; height: 100%; }
+.po8 .po-head::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--bg) 2%, rgba(45, 45, 45, .55) 45%, rgba(45, 45, 45, .2) 100%); }
+.po8 .po-head-in { position: relative; z-index: 1; padding: 0 var(--gutter) clamp(28px, 4vw, 52px); }
+.po8 .post-title { max-width: 22ch; font-size: clamp(36px, 5.2vw, 84px); }
+.po8 .po-body { display: grid; grid-template-columns: 210px minmax(0, 1fr); column-gap: clamp(56px, 8vw, 140px); align-items: start; margin-top: clamp(28px, 4vw, 56px); padding: clamp(28px, 4vw, 56px) var(--gutter); transition: background .4s; }
+.po8 .toc { position: sticky; top: 110px; max-height: calc(100svh - 140px); overflow-y: auto; transition: opacity .6s; }
+.po8 .toc a { font-size: 13px; padding: 9px 0; }
+.po8.lendo .toc { opacity: .32; }
+.po8.lendo .toc:hover, .po8.lendo .toc:focus-within { opacity: 1; }
+.po8 .leitura { justify-self: center; width: fit-content; max-width: 100%; padding: clamp(28px, 3.6vw, 60px); transition: background .4s; }
+.po8 .prose > :first-child { margin-top: 0; }
+/* box: só a coluna de texto fica mais clara */
+.po8.f-box .leitura { background: var(--surface); }
+.po8.f-box .prose, .po8.f-faixa .prose { color: #ebe9e2; }
+.po8.f-box .prose figure button, .po8.f-faixa .prose figure button { background: var(--bg); }
+/* faixa: a largura toda fica mais clara, do índice ao fim do texto */
+.po8.f-faixa .po-body { background: var(--surface); }
+.po8.f-faixa .leitura, .po8.f-sem .leitura { padding-block: 0; }
+.opts.fundo { bottom: 64px; }
+.opts button { padding: 8px 11px; border: 0; border-radius: 999px; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+.opts button[aria-pressed="true"] { background: var(--yellow); color: #111; }
+
+/* ---------- 9. Uma coluna com barra de leitura ---------- */
+.po9 { --col: min(calc(100vw - 2 * var(--gutter)), 720px); }
+.po9 .po-head, .po9 .po-body { display: grid; justify-content: center; padding-inline: var(--gutter); }
+.po9 .po-head { padding-top: clamp(36px, 5vw, 64px); }
+.po9 .po-col, .po9 .prose { width: var(--col); max-width: none; }
+.po9 .post-title { max-width: none; font-size: clamp(32px, 4vw, 58px); }
+.po9 .capa { position: relative; margin-top: clamp(26px, 3vw, 40px); }
+.po9 .capa img { aspect-ratio: 16 / 9; }
+.po9 .po-body { padding-top: clamp(32px, 4vw, 56px); }
+.po9 .prose { counter-reset: cap; }
+.po9 .prose h2 { counter-increment: cap; scroll-margin-top: 130px; }
+.po9 .prose h2::before { content: counter(cap, decimal-leading-zero); display: block; margin-bottom: 10px; font: 500 12.5px/1 var(--mono); letter-spacing: .1em; color: var(--yellow); }
+.barra { position: sticky; top: 60px; z-index: 15; margin-top: clamp(28px, 4vw, 48px); background: rgba(45, 45, 45, .93); backdrop-filter: blur(10px); border-block: 1px solid var(--line); }
+.barra summary { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 14px; align-items: center; width: var(--col); margin-inline: auto; padding: 13px 0; list-style: none; cursor: pointer; font: 500 12px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; }
+.barra summary::-webkit-details-marker { display: none; }
+.barra .b-n { color: var(--yellow); }
+.barra .b-t { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--text); }
+.barra .b-i { color: var(--dim); }
+.barra .b-i::after { content: " +"; }
+.barra[open] .b-i::after { content: " –"; }
+.barra .toc { width: var(--col); margin-inline: auto; max-height: min(60svh, 460px); overflow-y: auto; padding-bottom: 10px; }
+.barra .toc .eyebrow { display: none; }
+.barra .toc ol { margin-top: 0; }
+
+/* ---------- 10. Folha clara ---------- */
+.po10 .po-head { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: clamp(36px, 5vw, 64px) var(--gutter) 0; }
+.po10 .capa { position: relative; }
+.po10 .capa img { aspect-ratio: 4 / 3; }
+.po9 .capa::after, .po10 .capa::after { content: ""; position: absolute; inset: -10px; pointer-events: none; --c: var(--yellow); --l: 24px; --t: 1.5px;
+  background: linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l), linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat; }
+.po10 .po-body { display: grid; justify-content: center; padding: clamp(40px, 6vw, 84px) var(--gutter) 0; }
+.po10 .folha { max-width: 100%; padding: clamp(32px, 5vw, 80px) clamp(28px, 5vw, 88px); background: #f1efe8; color: #2a2a28; }
+.po10 .prose { color: #33332f; }
+.po10 .prose > :first-child { margin-top: 0; }
+.po10 .prose p.abre, .po10 .prose h2, .po10 .prose h3, .po10 .prose h4, .po10 .prose strong, .po10 .prose b, .po10 .prose .pull { color: #1c1c1a; }
+.po10 .prose h2 { border-top-color: #d3d0c6; }
+.po10 .prose a { color: #1c1c1a; text-decoration-color: #b98200; }
+.po10 .prose li::marker { color: #b98200; }
+.po10 .prose figcaption { color: #6e6c65; }
+.po10 .prose figure button { background: #dedbd1; }
+.po10 .prose th, .po10 .prose td { border-bottom-color: #d3d0c6; }
+.po10 .toc-box { border-color: #d3d0c6; }
+.po10 .toc-box summary { color: #1c1c1a; }
+.po10 .toc li { border-top-color: #d3d0c6; }
+.po10 .toc a { color: #5c5a54; }
+.po10 .toc a:hover, .po10 .toc a.on { color: #1c1c1a; }
+.po10 .toc a::before { color: #b98200; }
+
+/* ---------- 11. Títulos na margem ---------- */
+.po11 .po-head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: end; padding: clamp(36px, 5vw, 64px) var(--gutter) 0; }
+.po11 .capa img { aspect-ratio: 16 / 10; }
+.po11 .po-body { padding: clamp(48px, 7vw, 96px) var(--gutter) 0; }
+.po11 .cap { display: grid; grid-template-columns: minmax(180px, 260px) minmax(0, 66ch); column-gap: clamp(48px, 9vw, 150px); align-items: start; padding: clamp(32px, 4vw, 56px) 0; border-top: 1px solid var(--line); }
+.po11 .cap-abre { padding-top: 0; border-top: 0; }
+.po11 .cap-h { position: sticky; top: 100px; }
+.po11 .cap-abre .cap-h { position: static; }
+.po11 .cap-n { display: block; font: 400 clamp(52px, 5.4vw, 84px)/.9 var(--display); color: transparent; -webkit-text-stroke: 1.5px var(--yellow); }
+.po11 .cap-h h2 { margin-top: 14px; font: 400 clamp(21px, 1.9vw, 28px)/1.14 var(--display); text-transform: uppercase; letter-spacing: .01em; text-wrap: balance; scroll-margin-top: 150px; }
+.po11 .cap-abre .toc a { font-size: 13px; padding: 9px 0; }
+.po11 .prose > :first-child { margin-top: 0; }
+
+@media (max-width: 900px) {
+  .po8 .po-body, .po10 .po-head, .po11 .po-head, .po11 .cap { grid-template-columns: 1fr; }
+  .po8 .toc { position: static; max-height: none; opacity: 1 !important; margin-bottom: 28px; }
+  .po8 .leitura { justify-self: stretch; width: auto; padding: 0; }
+  /* no celular o box vai de borda a borda, para não roubar largura do texto */
+  .po8.f-box .leitura { margin-inline: calc(-1 * var(--gutter)); padding: 30px var(--gutter); }
+  .po8.f-box .po-body { padding-bottom: 0; }
+  .po10 .po-body { padding-inline: 0; }
+  .po10 .folha { padding: 34px var(--gutter) 44px; }
+  .po11 .cap-h { position: static; display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+  .po11 .cap-abre .cap-h { display: block; }
+  .po11 .cap-n { font-size: 44px; flex: none; }
+  .po11 .cap-h h2 { margin-top: 0; font-size: 25px; }
+  .barra { top: 56px; }
+  /* seletor com muitas opções: cabe ao lado do botão de WhatsApp */
+  .opts { left: 10px; bottom: 12px; gap: 0; max-width: calc(100vw - 92px); overflow-x: auto; }
+  .opts a, .opts button { padding: 8px 7px; }
+  .opts.fundo { bottom: 56px; }
+  .opts.fundo span { display: inline; }
+}
+
+/* Opções 8, 10 e 11: linha um pouco mais curta (perto de 80 letras), mais confortável para textos longos */
+.po8 .prose, .po10 .prose, .po11 .prose { max-width: 62ch; }
+.po11 .cap { grid-template-columns: minmax(180px, 260px) minmax(0, 62ch); }
+
+/* Opção 8: a introdução do artigo fica sob o chapéu amarelo, em letra menor que o corpo */
+.po8 .prose .chamada { font-size: .88em; line-height: 1.65; color: #cfcdc6; }
+.po8 .prose .chamada > * + * { margin-top: .95em; }
+.po8 .prose .chamada span { display: block; font: 500 12px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+.po8 .prose .chamada p.abre { font-size: 1em; line-height: inherit; color: inherit; }
+.po11 .cap { grid-template-columns: minmax(180px, 260px) minmax(0, 1fr); }
+@media (max-width: 900px) { .po11 .cap { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .po8 .leitura { max-width: none; }
+  .po8 .po-head { min-height: 64svh; }
+}
+
+/* Opção 8: corpo 2px menor, para os títulos de seção contrastarem mais (no celular, 16px) */
+.po8 .prose { font-size: clamp(16px, 1.14vw, 17.5px); }
+.po8 .prose .chamada { font-size: .92em; }
+
+/* Opção 8: hierarquia dentro das seções. Subtítulo bem maior que o corpo, com o número em amarelo; corpo um tom mais suave */
+.po8.f-box .prose, .po8.f-faixa .prose, .po8 .prose { color: #d3d1ca; }
+.po8 .prose h3 { margin-top: 2.5em; font-size: clamp(21px, 1.75vw, 26px); line-height: 1.22; color: var(--text); }
+.po8 .prose h3.num { display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: baseline; }
+.po8 .prose .h3-n { font: 500 13px/1 var(--mono); letter-spacing: .08em; color: var(--yellow); }
+.po8 .prose h4 { margin-top: 1.9em; font-size: 1.08em; color: var(--text); }
+.po8 .prose h3 + p, .po8 .prose h4 + p { margin-top: .55em; }
+.po8 .prose h2 + h3, .po8 .prose h3 + h4 { margin-top: 1.1em; }
+
+/* Opção 8: setinha com onda de sonar antes do chapéu "O que você vai encontrar neste artigo" */
+.po8 .prose .chamada span { position: relative; padding-left: 30px; }
+.po8 .prose .chamada span::before { content: ""; position: absolute; left: 7px; top: 50%; width: 7px; height: 7px; margin-top: -6px; border-right: 1.5px solid var(--yellow); border-bottom: 1.5px solid var(--yellow); transform: rotate(45deg); animation: po8-seta 2.4s ease-in-out infinite; }
+.po8 .prose .chamada span::after { content: ""; position: absolute; left: 0; top: 50%; width: 22px; height: 22px; margin-top: -11px; border: 1px solid var(--yellow); border-radius: 50%; opacity: 0; animation: po8-sonar 2.4s ease-out infinite; }
+@keyframes po8-seta { 0%, 100% { translate: 0 -1.5px; } 50% { translate: 0 2px; } }
+@keyframes po8-sonar { 0% { scale: .35; opacity: .75; } 80%, 100% { scale: 1.25; opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .po8 .prose .chamada span::before, .po8 .prose .chamada span::after { animation: none; } }
+
+/* ================= Opção 8, revisão de leitura (hierarquia e peso) =================
+   Ideia: parágrafos curtos agrupados em blocos, respiros grandes só antes dos títulos,
+   três degraus claros de tamanho (seção 32 / subtítulo 22 / corpo 16,4) e menos coisas brigando por atenção. */
+.po8 .prose { line-height: 1.66; color: #d9d7d0; }
+.po8 .prose > * + * { margin-top: .8em; }
+.po8 .prose strong, .po8 .prose b { color: #f4f2ec; font-weight: 600; }
+/* links: amarelo sem sublinhado; o sublinhado só aparece com o mouse */
+.po8 .prose a { text-decoration: none; }
+.po8 .prose a:hover { text-decoration: underline; text-underline-offset: 3px; }
+/* título de seção: menor e mais leve, com o fio de traço amarelo do site por cima */
+.po8 .prose h2 { margin-top: 2.9em; padding-top: 1.05em; border-top: 0; font-size: clamp(25px, 2.2vw, 32px); line-height: 1.12; background: linear-gradient(90deg, var(--yellow) 0 44px, var(--line) 44px) top left / 100% 1px no-repeat; }
+.po8 .prose h2 + * { margin-top: 1em; }
+/* subtítulo numerado */
+.po8 .prose h3 { margin-top: 2.3em; font-size: clamp(19.5px, 1.5vw, 22px); line-height: 1.25; letter-spacing: -.012em; }
+.po8 .prose .h3-n { font-size: 12px; }
+.po8 .prose h2 + h3 { margin-top: 1.3em; }
+.po8 .prose h3 + p, .po8 .prose h3 + ul { margin-top: .5em; }
+/* pergunta dentro do passo */
+.po8 .prose h4 { margin-top: 1.7em; font-size: 1em; }
+.po8 .prose h4 + p { margin-top: .3em; }
+/* listas: recuadas, itens próximos, marcador discreto */
+.po8 .prose ul, .po8 .prose ol { padding-left: 1.15em; }
+.po8 .prose li + li { margin-top: .3em; }
+.po8 .prose li { padding-left: .25em; }
+/* citação em destaque: um degrau acima do corpo, sem competir com os títulos */
+.po8 .prose .pull { margin-top: 1.7em; padding-left: 20px; font-size: clamp(19px, 1.5vw, 22px); line-height: 1.4; font-weight: 500; }
+.po8 .prose figure, .po8 .prose .duo { margin-top: 1.9em; }
+.po8 .prose figure + p, .po8 .prose .duo + p, .po8 .prose .pull + p { margin-top: 1.7em; }
+/* introdução: chapéu em negrito, texto compacto */
+.po8 .prose .chamada { font-size: .92em; line-height: 1.6; color: #c4c2bb; }
+.po8 .prose .chamada > * + * { margin-top: .7em; }
+.po8 .prose .chamada span { font-weight: 600; margin-bottom: .2em; }
+.po8 .leitura { padding: clamp(30px, 3.8vw, 64px) clamp(28px, 4.4vw, 72px); }
+@media (max-width: 900px) {
+  .po8 .leitura { padding: 0; }
+  .po8.f-box .leitura { padding: 30px var(--gutter) 36px; }
+  .po8 .prose h2 { margin-top: 2.5em; }
+}
+
+/* ================= Opção 8: quatro formas de resolver a capa (post-capa.html) =================
+   Em todas: título menor (no máximo 3 linhas em tela larga) e espaço garantido entre o menu e o conteúdo da capa. */
+[class*="capa-"].po8 .post-title { max-width: 26ch; font-size: clamp(32px, 4.2vw, 66px); }
+.opts.capas .capa-nome { padding: 0 12px 0 8px; color: var(--text); white-space: nowrap; }
+
+/* 1. Abaixo do menu: o menu fica em faixa própria, sobre o fundo do site, e a foto começa depois dele */
+.capa-1.po8 .po-head { margin-top: 74px; min-height: min(72svh, 700px); }
+.capa-1.po8 .po-head-in { padding-top: 64px; }
+
+/* 2. Degradê no topo: a foto continua atrás do menu, mas escurece em cima e embaixo; o conteúdo nunca sobe até o menu */
+.capa-2.po8 .po-head { min-height: min(88svh, 820px); }
+.capa-2.po8 .po-head::after { background: linear-gradient(180deg, var(--bg) 0, rgba(45, 45, 45, .78) 90px, rgba(45, 45, 45, .12) 240px, rgba(45, 45, 45, .12) 42%, rgba(45, 45, 45, .62) 68%, var(--bg) 99%); }
+.capa-2.po8 .po-head-in { padding-top: 190px; }
+
+/* 3. Emoldurada: a foto vira um quadro abaixo do menu, com margem dos lados e os cantos de visor */
+.capa-3.po8 .po-head { margin: 92px var(--gutter) 0; min-height: min(68svh, 660px); overflow: visible; }
+.capa-3.po8 .po-head::before { content: ""; position: absolute; inset: -10px; z-index: 2; pointer-events: none; --c: var(--yellow); --l: 26px; --t: 1.5px;
+  background: linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l), linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat; }
+.capa-3.po8 .po-head::after { background: linear-gradient(0deg, rgba(45, 45, 45, .94) 0, rgba(45, 45, 45, .5) 46%, rgba(45, 45, 45, .08) 100%); }
+.capa-3.po8 .po-head-in { padding: 64px clamp(20px, 3vw, 44px) clamp(24px, 3vw, 40px); }
+
+/* 4. Título fora da foto: título sobre o fundo do site e a foto inteira logo abaixo, sem texto por cima */
+.capa-4.po8 .po-head { flex-direction: column-reverse; align-items: stretch; min-height: 0; overflow: visible; }
+.capa-4.po8 .po-head::after { display: none; }
+.capa-4.po8 .po-head-in { padding: 132px var(--gutter) clamp(26px, 3vw, 40px); }
+.capa-4.po8 .capa-bg { position: static; height: clamp(240px, 58svh, 600px); }
+
+@media (max-width: 900px) {
+  .capa-1.po8 .po-head { margin-top: 68px; min-height: 60svh; }
+  .capa-2.po8 .po-head { min-height: 74svh; }
+  .capa-2.po8 .po-head-in { padding-top: 150px; }
+  .capa-3.po8 .po-head { margin-top: 82px; min-height: 58svh; }
+  .capa-4.po8 .po-head-in { padding-top: 104px; }
+  .capa-4.po8 .capa-bg { height: 46svh; }
+  .opts.capas .capa-nome { display: none; }
+  .opts.capas span { display: inline; }
+}
+
+/* ================= Opção 8: hierarquia do texto dentro de cada passo (post-texto.html) =================
+   Cada subtítulo e o texto dele ficam em <section class="passo">. txt-0 = como estava; txt-1 a txt-3 = propostas. */
+.po8 .prose .passo { margin-top: 2.3em; }
+.po8 .prose h2 + .passo { margin-top: 1.3em; }
+.po8 .prose .passo > * + * { margin-top: .8em; }
+.po8 .prose .passo > h3 { margin-top: 0; }
+.po8 .prose .passo > h3 + p, .po8 .prose .passo > h3 + ul { margin-top: .5em; }
+.po8 .prose .passo > h4 { margin-top: 1.7em; }
+.po8 .prose .passo > h4 + p { margin-top: .3em; }
+.opts.textos { bottom: 64px; }
+.opts .txt-nome { padding: 0 12px 0 8px; color: var(--text); white-space: nowrap; }
+
+/* Vale para as três propostas: a frase que anuncia a lista cola nela; itens um pouco menores e mais suaves que o parágrafo */
+:is(.txt-1, .txt-2, .txt-3).po8 .prose p + ul { margin-top: .45em; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul { list-style: none; padding-left: 0; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul li { position: relative; padding-left: 1.3em; font-size: .95em; line-height: 1.5; color: #c3c1ba; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul li + li { margin-top: .42em; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 1.5px; background: var(--yellow); }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul + p { margin-top: 1.15em; }
+
+/* 1. Recuo em degraus: número na margem, subtítulo, texto alinhado ao subtítulo, lista um degrau para dentro */
+.txt-1.po8 .prose .passo { padding-left: 46px; }
+.txt-1.po8 .prose .passo > h3.num { margin-left: -46px; grid-template-columns: 46px minmax(0, 1fr); column-gap: 0; }
+.txt-1.po8 .prose .passo > h3.num .h3-n { font-size: 14px; }
+.txt-1.po8 .prose .passo > h3:not(.num) { margin-left: -46px; }
+.txt-1.po8 .prose .passo ul { margin-left: 1.5em; }
+.txt-1.po8 .prose .passo > h4 { font-size: 1.04em; }
+
+/* 2. Lista em quadro: o texto fica como está e a lista vira um quadro mais escuro, em duas colunas quando é longa */
+.txt-2.po8 .prose ul { padding: 18px 22px; background: rgba(0, 0, 0, .16); border-left: 1.5px solid var(--yellow); }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) { columns: 2 230px; column-gap: 32px; }
+.txt-2.po8 .prose ul li { break-inside: avoid; }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) li + li { margin-top: 0; padding-top: .42em; }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) li + li::before { top: 1.04em; }
+.txt-2.po8 .prose p + ul { margin-top: .7em; }
+
+/* 3. Passo com trilho: número grande em contorno, e o texto do passo corre ao lado de um fio vertical */
+.txt-3.po8 .prose .passo { padding-left: 28px; border-left: 1px solid var(--line); }
+.txt-3.po8 .prose .passo > h3.num { display: block; }
+.txt-3.po8 .prose .passo > h3.num .h3-n { display: block; margin-bottom: 10px; font: 400 38px/1 var(--display); letter-spacing: .01em; color: transparent; -webkit-text-stroke: 1.2px var(--yellow); }
+.txt-3.po8 .prose .passo ul { margin-left: .4em; }
+
+@media (max-width: 900px) {
+  .txt-1.po8 .prose .passo { padding-left: 30px; }
+  .txt-1.po8 .prose .passo > h3.num { margin-left: -30px; grid-template-columns: 30px minmax(0, 1fr); }
+  .txt-1.po8 .prose .passo > h3:not(.num) { margin-left: -30px; }
+  .txt-1.po8 .prose .passo ul { margin-left: .6em; }
+  .txt-3.po8 .prose .passo { padding-left: 18px; }
+  .opts.textos { bottom: 56px; }
+  .opts.textos span { display: inline; }
+  .opts .txt-nome { display: none !important; }
+}
+/* txt-2: colunas alinhadas no topo e quadro sem faixa amarela */
+.txt-2.po8 .prose ul { border-left-color: var(--line); }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) li { padding-bottom: .42em; }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) li + li { padding-top: 0; }
+.txt-2.po8 .prose ul:has(li:nth-child(6)) li + li::before { top: .62em; }
+
+/* Opção 8: a introdução recolhe ao clicar no chapéu; a setinha aponta para baixo (aberta) ou para a direita (fechada) */
+.po8 .prose .chamada summary { list-style: none; cursor: pointer; width: fit-content; }
+.po8 .prose .chamada summary::-webkit-details-marker { display: none; }
+.po8 .prose .chamada summary span { margin-bottom: 0; }
+.po8 .prose .chamada summary span::before { transition: transform .3s; }
+.po8 .prose .chamada:not([open]) summary span::before { transform: rotate(-45deg); margin-top: -4px; left: 5px; animation: none; }
+.po8 .prose .chamada summary:hover span { color: #ffd257; }
+
+/* Negrito dentro de títulos nunca engrossa a letra (a Anton só tem um peso). Vem depois das regras de negrito das opções para valer sobre elas. */
+.po .prose :is(h2, h3, h4) :is(b, strong), .po .cap-h h2 :is(b, strong) { font-weight: inherit; color: inherit; }
+
+/* Opção 8: a lista só cola no parágrafo quando ele a anuncia (termina em ":"); nos outros casos mantém o espaço normal */
+:is(.txt-1, .txt-2, .txt-3).po8 .prose p + ul { margin-top: .8em; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose p.anuncia + ul { margin-top: .45em; }
+.txt-2.po8 .prose p.anuncia + ul { margin-top: .7em; }
+/* "Leia também": bloco separado do texto, com respiro em cima e embaixo e sem marcador de lista */
+.po8 .prose ul.leia { list-style: none; margin: 1.9em 0 0 !important; padding: 14px 0 !important; border-block: 1px solid var(--line); border-left: 0; background: none; columns: auto; }
+.po8 .prose ul.leia li { padding-left: 0 !important; font-size: .95em; color: inherit; }
+.po8 .prose ul.leia li::before { display: none; }
+.po8 .prose ul.leia + * { margin-top: 1.9em !important; }
+
+/* Opção 8: checklist. As caixas começam vazias e são marcadas, uma a uma, conforme a pessoa rola a página */
+.po8 .prose ul.check { list-style: none; margin-left: 0 !important; padding: 0 !important; background: none; border: 0; columns: auto; }
+.po8 .prose ul.check li { position: relative; padding: 0 0 0 34px !important; font-size: 1em; line-height: 1.5; color: #b9b7b0; transition: color .45s; }
+.po8 .prose ul.check li + li { margin-top: .62em; padding-top: 0 !important; }
+.po8 .prose ul.check li::before { content: ""; position: absolute; left: 0; top: .16em; width: 18px; height: 18px; border: 1.5px solid #77756f; background: none; transition: background .35s, border-color .35s; }
+.po8 .prose ul.check li::after { content: ""; position: absolute; left: 6.5px; top: calc(.16em + 3px); width: 5px; height: 10px; border: solid #1c1c1a; border-width: 0 2px 2px 0; transform: rotate(45deg) scale(0); transition: transform .3s .12s; }
+.po8 .prose ul.check li.ok { color: var(--text); }
+.po8 .prose ul.check li.ok::before { background: var(--yellow); border-color: var(--yellow); }
+.po8 .prose ul.check li.ok::after { transform: rotate(45deg) scale(1); }
+
+/* Capa 2: a foto de destaque fica 20% mais escura, para o título e o menu lerem melhor */
+.capa-2.po8 .capa-bg { filter: brightness(.8); }
+
+/* Capa 2: a foto fica na posição original (atrás do menu); o degradê do topo é mais escuro e desce mais */
+.capa-2.po8 .po-head::after { background: linear-gradient(180deg, var(--bg) 0, rgba(45, 45, 45, .94) 70px, rgba(45, 45, 45, .66) 150px, rgba(45, 45, 45, .12) 330px, rgba(45, 45, 45, .12) 46%, rgba(45, 45, 45, .62) 70%, var(--bg) 99%); }
+@media (max-width: 900px) {
+  .capa-2.po8 .po-head::after { background: linear-gradient(180deg, var(--bg) 0, rgba(45, 45, 45, .94) 60px, rgba(45, 45, 45, .66) 120px, rgba(45, 45, 45, .12) 250px, rgba(45, 45, 45, .12) 46%, rgba(45, 45, 45, .62) 70%, var(--bg) 99%); }
+}
+
+/* ================= Opção 8: marcadores de lista (post-lista.html). bul-0 = traço; bul-1 ponto; bul-2 anel; bul-3 seta fina ================= */
+/* 1. Ponto: pequeno e cheio */
+.bul-1.po8 .prose ul:not(.check):not(.leia) li::before { left: 3px; top: .62em; width: 5px; height: 5px; border-radius: 50%; background: var(--yellow); }
+/* 2. Anel: círculo vazado, de traço fino */
+.bul-2.po8 .prose ul:not(.check):not(.leia) li::before { left: 2px; top: .52em; width: 7px; height: 7px; border: 1.3px solid var(--yellow); border-radius: 50%; background: none; box-sizing: border-box; }
+/* 3. Seta fina: ângulo apontando para o item */
+.bul-3.po8 .prose ul:not(.check):not(.leia) li::before { left: 0; top: .5em; width: 6px; height: 6px; border: solid var(--yellow); border-width: 1.3px 1.3px 0 0; background: none; transform: rotate(45deg); box-sizing: border-box; }
+
+/* Opção 8: toda lista tem respiro em relação ao texto de cima e ao de baixo (inclusive quando a frase anterior a anuncia) */
+:is(.txt-1, .txt-2, .txt-3).po8 .prose p + ul:not(.leia), :is(.txt-1, .txt-2, .txt-3).po8 .prose p.anuncia + ul:not(.leia), .po8 .prose p + ul.check { margin-top: 1.15em; }
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul:not(.leia) + *, .po8 .prose ul.check + * { margin-top: 1.5em; }
+
+/* Opção 8: itens de lista 1px menores que o corpo do texto */
+:is(.txt-1, .txt-2, .txt-3).po8 .prose ul:not(.leia) li, .po8 .prose ul.check li { font-size: calc(1em - 1px); }
+
+/* Opção 8: legendas com mais respiro. No vídeo os cantos de visor saem 10px para fora do player, então a legenda desce mais */
+.po8 .prose figcaption { margin-top: 14px; line-height: 1.55; }
+.po8 .prose figure.video figcaption { margin-top: 26px; }
+
+/* Capa 2: indicação de que há mais conteúdo abaixo. Um fio vertical no centro, com um traço amarelo que desce; some quando a pessoa começa a rolar */
+.capa-2.po8 .po-head::before { content: ""; position: absolute; z-index: 2; left: 50%; bottom: 20px; width: 1px; height: 52px; pointer-events: none;
+  background: linear-gradient(180deg, transparent 0, var(--yellow) 45%, var(--yellow) 55%, transparent 100%) 0 -30px / 1px 30px no-repeat, rgba(244, 242, 236, .22);
+  animation: po8-rolar 2.2s cubic-bezier(.6, 0, .3, 1) infinite; transition: opacity .5s; }
+@keyframes po8-rolar { 0% { background-position: 0 -30px, 0 0; } 70%, 100% { background-position: 0 52px, 0 0; } }
+.top.scrolled ~ main .capa-2.po8 .po-head::before, .top.scrolled ~ main .po-head::before { opacity: 0; }
+@media (prefers-reduced-motion: reduce) { .capa-2.po8 .po-head::before { animation: none; background-position: 0 11px, 0 0; } }
+@media (max-width: 900px) { .capa-2.po8 .po-head::before { height: 40px; bottom: 12px; } }
+.capa-2.po8 .po-head::before { width: 2px; margin-left: -1px; background-size: 2px 30px, auto; }
+
+/* Opção 8, introdução: chapéu 1px maior e texto 1px menor */
+.po8 .prose .chamada { font-size: calc(.92em - 1px); }
+.po8 .prose .chamada span { font-size: 13px; }
+
+/* Opção 8, introdução: chapéu 14px e texto 13px */
+.po8 .prose .chamada { font-size: 13px; }
+.po8 .prose .chamada span { font-size: 14px; }
+
+/* Capa: três "V" em cascata no centro da base, indicando que há mais abaixo (substitui o fio). Somem quando a pessoa começa a rolar */
+.capa-2.po8 .po-head::before { content: none; }
+.po8 .rolar { position: absolute; z-index: 2; left: 50%; bottom: 26px; display: grid; justify-items: center; gap: 1px; translate: -50% 0; pointer-events: none; transition: opacity .5s; }
+.po8 .rolar i { display: block; width: 13px; height: 13px; border: solid var(--yellow); border-width: 0 1.5px 1.5px 0; rotate: 45deg; opacity: 0; animation: po8-v 1.8s ease-in-out infinite; }
+.po8 .rolar i:nth-child(2) { animation-delay: .2s; }
+.po8 .rolar i:nth-child(3) { animation-delay: .4s; }
+@keyframes po8-v { 0% { opacity: 0; translate: 0 -5px; } 35% { opacity: 1; } 70%, 100% { opacity: 0; translate: 0 5px; } }
+.top.scrolled ~ main .rolar { opacity: 0; }
+.capa-4.po8 .rolar { display: none; }
+@media (prefers-reduced-motion: reduce) { .po8 .rolar i { animation: none; opacity: .8; } }
+@media (max-width: 900px) { .po8 .rolar { bottom: 14px; } .po8 .rolar i { width: 11px; height: 11px; } }
+@media (max-width: 900px) { .capa-2.po8 .po-head-in { padding-bottom: 68px; } }
+
+/* Opção 8, introdução: mais respiro entre o chapéu e o texto, e menos entre o fim da introdução e o primeiro título */
+.po8 .prose .chamada > summary + * { margin-top: 20px; }
+.po8 .prose .chamada + h2 { margin-top: 44px; }
+/* setinhas da capa: traço de 1,5px */
+.po8 .rolar i { border-width: 0 1.5px 1.5px 0; }
+.po8 .rolar { gap: 1px; }
+
+/* ================= Artigos reais gerados por build.js: casos que a página de teste não tinha ================= */
+/* artigo sem foto de destaque: só título sobre o fundo do site */
+.po8.sem-capa .po-head { min-height: 0; }
+.po8.sem-capa .po-head::after { display: none; }
+.po8.sem-capa .po-head-in { padding-top: clamp(130px, 15vw, 180px); padding-bottom: 8px; }
+/* artigo sem seções (h2): não há índice, o texto fica centralizado */
+.po8.sem-indice .po-body { grid-template-columns: minmax(0, 1fr); }
+/* introdução seguida direto de um bloco de passo (artigo sem h2 logo depois) */
+.po8 .prose .chamada + .passo { margin-top: 44px; }
+/* títulos e itens do índice com palavras muito longas quebram em vez de alargar a página no celular */
+.po8 .toc a, .po8 .prose h2, .po8 .prose h3, .po8 .post-title { overflow-wrap: break-word; min-width: 0; }
+@media (max-width: 900px) { .po8 .po-body { grid-template-columns: minmax(0, 1fr); } }
+/* endereços e palavras muito longas dentro do texto também quebram */
+.po8 .prose { overflow-wrap: break-word; }

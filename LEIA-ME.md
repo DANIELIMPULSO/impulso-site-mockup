@@ -25,6 +25,7 @@ Elementos recorrentes: letras em contorno amarelo que reagem ao mouse, cursor pr
 |---|---|
 | `index.html`, `script.js`, `style.css` | Home, feita à mão. O gerador só atualiza menu, rodapé, links e os 3 posts recentes. |
 | `pages.css`, `case.css`, `servico.css`, `extra.css`, `pages.js` | Estilos e comportamento das páginas internas, feitos à mão. |
+| `post-opcoes.css`, `post.js` | Estilos e comportamento da página de artigo do blog, feitos à mão (ver "Página de artigo"). |
 | Todas as outras `.html` (exceto as de comparação abaixo) | Geradas por `_build/build.js`. Não editar à mão: a próxima geração sobrescreve. |
 
 Páginas geradas: `sobre`, `portfolio`, `case-<slug>` (30), `publicidade`, `institucional`, `conteudo`, `capacitacao`, `autorais`, `autoral-<slug>` (9), `clientes`, `blog`, `post-<slug>` (119), `orcamento`, `trabalhe-conosco`, `politica`.
@@ -37,6 +38,11 @@ Páginas geradas: `sobre`, `portfolio`, `case-<slug>` (30), `publicidade`, `inst
 | `servico.html`, `servico-opcao1.html` | layouts da página de solução | opção 2 (a que o gerador usa) |
 | `opcoes-cartoes.html` | destaque dos cartões de soluções da home | opção 1, moldura interna sem número |
 | `opcoes-orcamento.html` | formatos da caixa de orçamento da home | opção 1, tudo em uma tela |
+| `post-opcao1.html` a `post-opcao11.html` | layouts da página de artigo do blog (geradas por `_build/opcoes-post.js`) | opção 8, capa em tela cheia + índice afastado |
+| `post-capa.html` | quatro formas de resolver a capa do artigo | capa 2, degradê no topo |
+| `post-texto.html` | hierarquia do texto dentro de cada passo | texto 1, recuo em degraus |
+| `post-lista.html` | marcadores de lista | lista 1, ponto |
+| `post-modelo.html` | página de referência do artigo aprovado, sem seletores | é o layout que o gerador usa |
 
 ## Como regenerar
 
@@ -50,8 +56,34 @@ NODE_PATH=/caminho/para/node_modules node _build/build.js    # gera as páginas 
 - `_build/scrape.js`: coleta cases, projetos autorais, soluções, sobre, formulários, política e posts (pela API do WordPress).
 - `_build/fixas.js`: conteúdo das páginas Clientes, Projetos autorais e Capacitação.
 - `_build/build.js`: modelos de todas as páginas, menu e rodapé.
+- `_build/artigo.js`: marcações do corpo dos artigos do blog (índice, introdução, passos, checklist, "Leia também"), usado por `build.js`.
+- `_build/opcoes-post.js`: gera só as páginas de comparação do artigo (`post-opcao*.html`, `post-capa.html`, `post-texto.html`, `post-lista.html`, `post-modelo.html`).
 - `_build/imagens-posts.js`: completa em `data.json` a imagem dos posts que a API devolve sem imagem destacada (o `scrape.js` já faz isso nas próximas coletas).
 - `_build/preparar.js`, `_build/patch-pages-js.js`, `_build/form-home.js`: passos únicos já executados; ficam só como registro.
+
+## Página de artigo (blog)
+
+Layout fechado em 2026-10-12. A referência visual é `post-modelo.html`; os 119 artigos (`post-<slug>.html`) são gerados com ele.
+
+| Parte | Como ficou |
+|---|---|
+| Capa | Foto de destaque em tela cheia atrás do menu, 20% mais escura, com degradê escuro no topo e na base. Título por cima, com no máximo 3 linhas em tela larga. Três setinhas animadas no centro da base indicam que há mais conteúdo; somem ao rolar. |
+| Índice "Neste artigo" | À esquerda, bem afastado do texto, preso na tela. Marca a seção em leitura e cai para 32% de opacidade quando a leitura começa; volta com o mouse em cima. No celular vira uma lista antes do texto. Só aparece em artigos com duas seções ou mais. |
+| Texto | Dentro de um box mais claro (`#383838`). Corpo de 16 a 17,5px conforme a tela; fotos e vídeos sempre na largura exata do texto. |
+| Introdução | Tudo o que vem antes do primeiro título entra sob o chapéu amarelo "O que você vai encontrar neste artigo" (14px, negrito), em letra menor (13px). Clicar no chapéu recolhe o bloco e a setinha vira para a direita. |
+| Títulos de seção (h2) | Anton, até 32px, com o fio de traço amarelo acima. |
+| Subtítulos (h3) | Work Sans 600, até 22px. Quando começam com número ("2. Defina..."), o número sai do texto e vira um marcador amarelo na margem; o texto do passo alinha com o subtítulo e as listas entram mais um degrau. |
+| Listas | Marcador em ponto amarelo, itens 1px menores que o corpo, sempre com respiro acima e abaixo. |
+| "Leia também" | Bloco próprio entre dois fios, separado do texto. |
+| Checklist | Linhas que começam com ☐ viram caixas que se marcam, uma a uma, conforme a página rola. |
+| Legendas | 14px abaixo das fotos e 26px abaixo dos vídeos (os cantos de visor saem do player). |
+
+Como está montado:
+
+- As classes `po po8 f-box capa-2 txt-1 bul-1` no `<body>` ligam o layout em `post-opcoes.css`. Artigos sem foto de destaque recebem também `sem-capa`, e os sem seções, `sem-indice`.
+- `post-opcoes.css` guarda, em camadas, todas as opções testadas e os ajustes feitos por cima delas. Funciona, mas não é o CSS que deve ir para o tema: ao escrever o tema WordPress, reescrever só as regras do layout final, usando `post-modelo.html` como gabarito.
+- As marcações do corpo (`details.chamada`, `h3.num` com `span.h3-n`, `section.passo`, `ul.check`, `ul.leia`, `p.anuncia`, ids nos `h2`) são feitas por `_build/artigo.js`. No WordPress, o mesmo trabalho precisa de um filtro em `the_content`.
+- O WordPress entrega títulos com negrito embutido (`<h2><b>...</b></h2>`). A Anton só tem um peso, e o navegador engrossa a letra artificialmente; `extra.css` e `post-opcoes.css` têm regras que fazem esse negrito herdar o peso do título. Manter isso no tema.
 
 ## Como publicar
 
@@ -84,6 +116,7 @@ O site atual usa um tema próprio (`impulso`, sobre a base Odin), sem construtor
 - Telefone fixo continua no rodapé; e-mail não aparece em nenhuma página.
 - Filtro animado na home e na página Portfólio (também nos filtros do blog e dos projetos autorais).
 - Textos novos do mockup e números da faixa animada aprovados.
+- Layout da página de artigo do blog fechado (ver "Página de artigo").
 
 ### Ainda em aberto
 

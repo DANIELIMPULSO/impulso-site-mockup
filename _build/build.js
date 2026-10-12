@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const cheerio = require("cheerio");
 const fixas = require("./fixas.js");
+const artigo = require("./artigo.js");
 const data = require("./data.json");
 
 const OUT = path.join(__dirname, "..");
@@ -60,7 +61,8 @@ const FOOT = `<footer class="foot">
   <p class="legal">© Impulso Filmes · Todos os direitos reservados · CNPJ 20.843.669/0001-52 · <a href="politica.html">Política de Privacidade e Cookies</a></p>
 </footer>`;
 
-const page = (title, main) => `<!doctype html>
+// o = { cls: classes do body, css: folhas de estilo extras, js: scripts extras } (usado pela página de artigo)
+const page = (title, main, o = {}) => `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -69,14 +71,14 @@ const page = (title, main) => `<!doctype html>
 <title>${esc(title)} · Impulso Filmes (mockup)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="pages.css">
 <link rel="stylesheet" href="case.css">
 <link rel="stylesheet" href="servico.css">
-<link rel="stylesheet" href="extra.css">
+<link rel="stylesheet" href="extra.css">${(o.css || []).map(f => `\n<link rel="stylesheet" href="${f}">`).join("")}
 </head>
-<body>
+<body${o.cls ? ` class="${o.cls}"` : ""}>
 
 <div class="progress" aria-hidden="true"></div>
 
@@ -99,7 +101,7 @@ ${FOOT}
 <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada"><img alt=""><button type="button">Fechar</button></dialog>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
 
-<script src="pages.js"></script>
+<script src="pages.js"></script>${(o.js || []).map(f => `\n<script src="${f}"></script>`).join("")}
 </body>
 </html>
 `;
@@ -455,28 +457,29 @@ const limpar = html => {
 };
 
 posts.forEach((p, k) => {
-  const corpo = limpar(p.html);
+  // Layout do artigo: ver _build/artigo.js (marcações do corpo) e post-opcoes.css (classes po8 capa-2 txt-1 bul-1)
+  const { corpo, indice } = artigo.montar(limpar(p.html));
   const minutos = Math.max(1, Math.round(plain(corpo).split(" ").length / 200));
+  const indiceHtml = artigo.toc(indice);
   const rel = [...posts.filter((x, i) => i > k && x.cats[0] === p.cats[0]), ...posts.filter(x => x.slug !== p.slug)].filter((x, i, a) => a.indexOf(x) === i).slice(0, 3);
   write(`post-${p.slug}.html`, page(plain(p.titulo), `
-<article>
-  <header class="post-head">
-    <nav class="crumbs" aria-label="Você está em">
-      <a href="blog.html">Blog</a>${p.cats[0] ? `<span aria-hidden="true">/</span><a href="blog.html">${esc(p.cats[0])}</a>` : ""}
-    </nav>
-    <h1 class="post-title">${p.titulo}</h1>
-    <p class="post-meta"><time datetime="${p.data}">${dataBr(p.data)}</time><span>${minutos} min de leitura</span></p>
-  </header>
-  ${p.imagem ? `<div class="post-cover"><img src="${p.imagem}" alt=""></div>` : ""}
-  <div class="post-body">
-    <aside class="post-aside">
-      <a href="blog.html">← Todos os artigos</a>
-      <a href="orcamento.html">Pedir orçamento</a>
-      <a href="${WA}" target="_blank" rel="noopener">WhatsApp</a>
-    </aside>
-    <div class="prose">
-      ${corpo}
+<article class="art">
+  <header class="po-head">
+    ${p.imagem ? `<img class="capa-bg" src="${p.imagem}" alt="">` : ""}
+    <div class="po-head-in">
+      <nav class="crumbs" aria-label="Você está em">
+        <a href="blog.html">Blog</a>${p.cats[0] ? `<span aria-hidden="true">/</span><a href="blog.html">${esc(p.cats[0])}</a>` : ""}
+      </nav>
+      <h1 class="post-title">${p.titulo}</h1>
+      <p class="post-meta"><time datetime="${p.data}">${dataBr(p.data)}</time><span>${minutos} min de leitura</span></p>
     </div>
+    ${p.imagem ? `<span class="rolar" aria-hidden="true"><i></i><i></i><i></i></span>` : ""}
+  </header>
+  <div class="po-body">
+    ${indiceHtml}
+    <div class="leitura"><div class="prose">
+      ${corpo}
+    </div></div>
   </div>
 </article>
 
@@ -489,7 +492,8 @@ posts.forEach((p, k) => {
     ${rel.map(postCard).join("\n    ")}
   </div>
 </section>
-` + cta("Quer transformar isso em vídeo?", "Conte o que a sua empresa precisa e fale com um especialista.")));
+` + cta("Quer transformar isso em vídeo?", "Conte o que a sua empresa precisa e fale com um especialista."),
+    { cls: artigo.CLASSES + (p.imagem ? "" : " sem-capa") + (indiceHtml ? "" : " sem-indice"), css: ["post-opcoes.css"], js: ["post.js"] }));
 });
 
 // ---------------------------------------------------------------- formulários e política

@@ -69,9 +69,9 @@
 
 /* 5. Outras soluções */
 .s-others .eyebrow { margin-bottom: 14px; }
-.s-others a { display: flex; align-items: baseline; gap: 20px; padding: 10px 0 6px; border-top: 1px solid var(--line); }
+.s-others a { display: flex; align-items: baseline; gap: 16px; padding: 12px 0 8px; border-top: 1px solid var(--line); }
 .s-others a:last-child { border-bottom: 1px solid var(--line); }
-.s-others strong { font: 400 clamp(44px, 8.4vw, 136px)/1.12 var(--display); text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.2px var(--yellow); transition: color .25s, transform .4s; }
+.s-others strong { font: 400 clamp(30px, 4.4vw, 68px)/1.16 var(--display); text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.2px var(--yellow); transition: color .25s, transform .4s; }
 .s-others a:hover strong, .s-others a:focus-visible strong { color: var(--yellow); transform: translateX(14px); }
 .s-others a:hover .idx { color: var(--yellow); }
 

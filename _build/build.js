@@ -366,9 +366,10 @@ write("capacitacao.html", page("Capacitação", fixas.capacitacao));
     </button>
   </div>
   <ul class="facts inline reveal">
-    <li><strong>2013</strong><span>No mercado desde</span></li>
-    <li><strong>Brasil</strong><span>Clientes em diversos estados</span></li>
-    <li><strong>Estúdio</strong><span>Estrutura e equipamentos próprios</span></li>
+    <li><strong data-from="2013" data-to="ano">2026</strong><span><b data-anos>13</b> anos de história</span></li>
+    <li><strong data-to="25" data-prefix="+" data-suffix="M">+25M</strong><span>de visualizações dos nossos projetos</span></li>
+    <li><strong data-to="480" data-prefix="+">+480</strong><span>projetos produzidos</span></li>
+    <li><strong data-to="70" data-prefix="+">+70</strong><span>clientes no Brasil e no mundo</span></li>
   </ul>
 </section>
 

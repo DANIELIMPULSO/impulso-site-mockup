@@ -42,9 +42,61 @@ CASES.forEach(([cat, nome, img, slug]) => {
   work.append(a);
 });
 
+// O primeiro cartão visível é o grande (antes era sempre o primeiro da lista, mesmo escondido)
+const marcarDestaque = () => {
+  const visiveis = [...work.children].filter(c => !c.hidden);
+  [...work.children].forEach(c => c.classList.toggle('is-lead', c === visiveis[0]));
+};
+marcarDestaque();
+
+// Filtro com transição: os cartões que saem somem, os que ficam deslizam até o novo lugar
+// e os que entram aparecem em sequência.
+let filtroVez = 0;
+function filtrar(f) {
+  const cards = [...work.children];
+  const mostrar = c => f === 'todos' || c.dataset.cat === f;
+  const semMovimento = matchMedia('(prefers-reduced-motion: reduce)').matches || !work.animate;
+  if (semMovimento) { cards.forEach(c => { c.hidden = !mostrar(c); }); marcarDestaque(); return; }
+
+  const vez = ++filtroVez;
+  work.getAnimations({ subtree: true }).forEach(an => an.cancel());
+  const antes = new Map(cards.filter(c => !c.hidden).map(c => [c, c.getBoundingClientRect()]));
+  const saem = [...antes.keys()].filter(c => !mostrar(c));
+  const suave = 'cubic-bezier(.2, .7, .2, 1)';
+
+  // 1) saída
+  saem.forEach(c => c.animate(
+    [{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.95)' }],
+    { duration: 240, easing: 'ease-in', fill: 'forwards' }));
+
+  // espera a saída por tempo (e não pelo fim da animação), para o filtro nunca ficar preso
+  setTimeout(() => {
+    if (vez !== filtroVez) return; // a pessoa já clicou em outro filtro
+    saem.forEach(c => c.getAnimations().forEach(an => an.cancel()));
+    cards.forEach(c => { c.hidden = !mostrar(c); });
+    marcarDestaque();
+
+    // 2) quem ficou desliza da posição antiga para a nova; quem entra (ou muda de tamanho) aparece
+    let ordem = 0;
+    cards.filter(c => !c.hidden).forEach(c => {
+      c.style.transitionDelay = '0s';
+      c.classList.add('in');
+      const de = antes.get(c), para = c.getBoundingClientRect();
+      const mesmoTamanho = de && Math.abs(de.width - para.width) < 4 && Math.abs(de.height - para.height) < 4;
+      if (de && !saem.includes(c) && mesmoTamanho) {
+        const dx = de.left - para.left, dy = de.top - para.top;
+        if (dx || dy) c.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 620, easing: suave });
+      } else {
+        c.animate([{ opacity: 0, transform: 'translateY(18px) scale(.97)' }, { opacity: 1, transform: 'none' }],
+          { duration: 560, delay: 60 + ordem++ * 55, easing: suave, fill: 'backwards' });
+      }
+    });
+  }, saem.length ? 250 : 0);
+}
+
 document.querySelectorAll('.filters button').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
-  work.querySelectorAll('.case').forEach(c => { c.hidden = b.dataset.f !== 'todos' && c.dataset.cat !== b.dataset.f; });
+  filtrar(b.dataset.f);
 }));
 
 // Faixa de clientes (lista duplicada para o movimento contínuo)
@@ -316,4 +368,40 @@ if (!calm) {
   }
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();
+}
+
+// ---------- Números que contam quando entram na tela ----------
+// Em cascata: cada número começa um pouco depois do anterior, sem esperar ele terminar. O ano avança de 2013 até o ano atual; os outros sobem de zero até o valor final.
+{
+  const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const anoAtual = new Date().getFullYear();
+  const DURACAO = 2000; // tempo de cada contagem, em milissegundos
+  const INTERVALO = 450; // distância entre o início de um número e o do próximo
+  document.querySelectorAll('[data-anos]').forEach(el => { el.textContent = anoAtual - 2013; });
+  const alvo = el => el.dataset.to === 'ano' ? anoAtual : Number(el.dataset.to);
+  const partida = el => Number(el.dataset.from || 0);
+  // o "+" é desenhado pelo CSS, pendurado à esquerda, para o alinhamento ser pelo primeiro algarismo
+  const escrever = (el, v) => { el.textContent = Math.round(v) + (el.dataset.suffix || ''); };
+  const numeros = [...document.querySelectorAll('.facts strong[data-to]')];
+  numeros.forEach(el => escrever(el, alvo(el))); // valor final, caso não haja animação
+
+  const contar = el => {
+    const de = partida(el), ate = alvo(el), t0 = performance.now();
+    el.closest('li').classList.remove('wait');
+    (function passo(agora) {
+      const t = Math.min(1, (agora - t0) / DURACAO);
+      const suave = 1 - Math.pow(1 - t, 3); // começa firme e desacelera no fim
+      escrever(el, de + (ate - de) * suave);
+      if (t < 1) requestAnimationFrame(passo);
+    })(t0);
+  };
+  if (!parado && numeros.length && 'IntersectionObserver' in window) {
+    numeros.forEach(el => { escrever(el, partida(el)); el.closest('li').classList.add('wait'); });
+    const ver = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      ver.unobserve(e.target);
+      [...e.target.querySelectorAll('strong[data-to]')].forEach((el, k) => setTimeout(() => contar(el), k * INTERVALO));
+    }), { threshold: .4 });
+    document.querySelectorAll('.facts').forEach(ul => ver.observe(ul));
+  }
 }

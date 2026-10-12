@@ -290,3 +290,39 @@ if (finePointer && !calm) {
     b.addEventListener('mouseleave', () => { b.style.transform = ''; });
   });
 }
+
+// ---------- Números que contam quando entram na tela ----------
+// Em cascata: cada número começa um pouco depois do anterior, sem esperar ele terminar. O ano avança de 2013 até o ano atual; os outros sobem de zero até o valor final.
+{
+  const parado = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const anoAtual = new Date().getFullYear();
+  const DURACAO = 2000; // tempo de cada contagem, em milissegundos
+  const INTERVALO = 450; // distância entre o início de um número e o do próximo
+  document.querySelectorAll('[data-anos]').forEach(el => { el.textContent = anoAtual - 2013; });
+  const alvo = el => el.dataset.to === 'ano' ? anoAtual : Number(el.dataset.to);
+  const partida = el => Number(el.dataset.from || 0);
+  // o "+" é desenhado pelo CSS, pendurado à esquerda, para o alinhamento ser pelo primeiro algarismo
+  const escrever = (el, v) => { el.textContent = Math.round(v) + (el.dataset.suffix || ''); };
+  const numeros = [...document.querySelectorAll('.facts strong[data-to]')];
+  numeros.forEach(el => escrever(el, alvo(el))); // valor final, caso não haja animação
+
+  const contar = el => {
+    const de = partida(el), ate = alvo(el), t0 = performance.now();
+    el.closest('li').classList.remove('wait');
+    (function passo(agora) {
+      const t = Math.min(1, (agora - t0) / DURACAO);
+      const suave = 1 - Math.pow(1 - t, 3); // começa firme e desacelera no fim
+      escrever(el, de + (ate - de) * suave);
+      if (t < 1) requestAnimationFrame(passo);
+    })(t0);
+  };
+  if (!parado && numeros.length && 'IntersectionObserver' in window) {
+    numeros.forEach(el => { escrever(el, partida(el)); el.closest('li').classList.add('wait'); });
+    const ver = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      ver.unobserve(e.target);
+      [...e.target.querySelectorAll('strong[data-to]')].forEach((el, k) => setTimeout(() => contar(el), k * INTERVALO));
+    }), { threshold: .4 });
+    document.querySelectorAll('.facts').forEach(ul => ver.observe(ul));
+  }
+}

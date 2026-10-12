@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10121105">
-<link rel="stylesheet" href="pages.css?v=10121105">
-<link rel="stylesheet" href="case.css?v=10121105">
-<link rel="stylesheet" href="servico.css?v=10121105">
-<link rel="stylesheet" href="extra.css?v=10121105">
+<link rel="stylesheet" href="style.css?v=10121110">
+<link rel="stylesheet" href="pages.css?v=10121110">
+<link rel="stylesheet" href="case.css?v=10121110">
+<link rel="stylesheet" href="servico.css?v=10121110">
+<link rel="stylesheet" href="extra.css?v=10121110">
 </head>
 <body>
 
@@ -100,14 +100,33 @@
 <li>Revogar consentimentos fornecidos;</li>
 <li>Solicitar informações sobre o tratamento de seus dados.</li>
 </ul>
-<p>Para exercer seus direitos, entre em contato pelo e-mail: <a href="mailto:falecom@impulsofilmes.com.br">falecom@impulsofilmes.com.br</a></p>
+<p>Para exercer seus direitos, entre em contato pelo <a href="#dados">formulário de solicitação sobre dados pessoais</a></p>
 <hr>
 <h3>7. Alterações nesta Política</h3>
 <p>Podemos atualizar esta política periodicamente. Notificaremos sobre mudanças relevantes por meio do site ou por e-mail.</p>
 <hr>
 <h3>8. Contato</h3>
-<p>Para mais informações, entre em contato conosco pelo e-mail: <a href="mailto:falecom@impulsofilmes.com.br">falecom@impulsofilmes.com.br</a>.</p>
+<p>Para mais informações, entre em contato conosco pelo <a href="#dados">formulário de solicitação sobre dados pessoais</a>.</p>
 
+  </div>
+</section>
+
+<section class="block rule" id="dados">
+  <div class="form-grid">
+    <div>
+      <div class="statement reveal">
+        <h2>Solicitação sobre dados pessoais.</h2>
+        <p>Use este formulário para consultar, corrigir ou pedir a exclusão dos seus dados, ou para tirar dúvidas sobre esta política.</p>
+      </div>
+      <form class="plain-form" novalidate style="margin-top:32px">
+        <label>Nome<input type="text" name="nome" autocomplete="name" required></label>
+        <label>E-mail para resposta<input type="email" name="email" autocomplete="email" required></label>
+        <label class="wide">Tipo de solicitação<select name="tipo"><option>Confirmar se vocês têm dados meus</option><option>Acessar meus dados</option><option>Corrigir meus dados</option><option>Excluir meus dados</option><option>Revogar um consentimento</option><option>Outra dúvida sobre privacidade</option></select></label>
+        <label class="wide">Detalhes do pedido<textarea name="msg" rows="4"></textarea></label>
+        <div class="step-actions wide"><button class="btn solid" type="submit">Enviar solicitação</button></div>
+        <p class="form-note wide" role="status"></p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -141,6 +160,6 @@
 <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada"><img alt=""><button type="button">Fechar</button></dialog>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
 
-<script src="pages.js?v=10121105"></script>
+<script src="pages.js?v=10121110"></script>
 </body>
 </html>

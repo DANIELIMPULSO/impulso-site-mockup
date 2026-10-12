@@ -8,11 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10121105">
-<link rel="stylesheet" href="pages.css?v=10121105">
-<link rel="stylesheet" href="case.css?v=10121105">
-<link rel="stylesheet" href="servico.css?v=10121105">
-<link rel="stylesheet" href="extra.css?v=10121105">
+<link rel="stylesheet" href="style.css?v=10121110">
+<link rel="stylesheet" href="pages.css?v=10121110">
+<link rel="stylesheet" href="case.css?v=10121110">
+<link rel="stylesheet" href="servico.css?v=10121110">
+<link rel="stylesheet" href="extra.css?v=10121110">
 </head>
 <body>
 
@@ -51,30 +51,19 @@
 </section>
 <section class="block">
   <div class="form-grid">
-    <form class="steps-form" novalidate>
-      <div class="step-bar" aria-hidden="true"><span>01 · Você</span><span>02 · Sua empresa</span><span>03 · O projeto</span></div>
-      <fieldset class="step" aria-label="Você">
-        <label>Nome<input type="text" name="your-name" autocomplete="name" required></label>
-        <label>E-mail<input type="email" name="your-email" autocomplete="email" required></label>
-        <label class="wide">Telefone/WhatsApp<input type="tel" name="telefone" autocomplete="tel" required></label>
-      </fieldset>
-      <fieldset class="step" aria-label="Sua empresa">
-        <label>Nome da empresa<input type="text" name="nomeempresa" autocomplete="organization"></label>
-        <label>Site da empresa<input type="text" name="siteempresa" autocomplete="url"></label>
-        <label>Porte da empresa<select name="porte"><option>1 a 30</option><option>31 a 60</option><option>61 a 100</option><option>101 a 200</option><option>201 a 500</option><option>mais de 500</option></select></label>
-        <label>Qual o seu cargo?<select name="cargo"><option>Diretor / C-Level / Sócio / Fundador</option><option>Gerente / Head</option><option>Coordenador / Supervisor</option><option>Analista / Especialista</option><option>Assistente / Estagiário</option><option>Empresário / Proprietário</option><option>Outro</option></select></label>
-        <label class="wide">Qual área da empresa você atua?<select name="area"><option>Marketing e Comunicação</option><option>Comercial e Vendas</option><option>Administrativo / Operações</option><option>Financeiro / Compras</option><option>Recursos Humanos / Gente e Gestão</option><option>Tecnologia / TI / Produto</option><option>Projetos / Estratégia / Consultoria</option><option>Outro</option></select></label>
-      </fieldset>
-      <fieldset class="step" aria-label="O projeto">
-        <label>Serviço procurado<select name="servicoprocurado"><option>Vídeo Institucional</option><option>Publicidade</option><option>Conteúdo de Marca</option><option>Outros</option></select></label>
-        <label>Investimento disponível para o projeto<select name="investimento"><option>10 mil</option><option>10 - 15 mil</option><option>15 - 20 mil</option><option>20 - 30 mil</option><option>30 - 40 mil</option><option>mais de 40 mil</option></select></label>
-        <label class="wide">Faça uma breve descrição do seu projeto<textarea name="your-message" rows="5"></textarea></label>
-      </fieldset>
-      <div class="step-actions">
-        <button class="btn ghost" type="button" data-back>Voltar</button>
-        <button class="btn solid" type="button" data-next>Continuar</button>
-        <button class="btn solid" type="submit" data-send>Enviar pedido de orçamento</button>
-      </div>
+    <form class="one-form" novalidate>
+      <label>Nome<input type="text" name="your-name" autocomplete="name" required></label>
+      <label>E-mail<input type="email" name="your-email" autocomplete="email" required></label>
+      <label>Telefone/WhatsApp<input type="tel" name="telefone" autocomplete="tel" required></label>
+      <label>Nome da empresa<input type="text" name="nomeempresa" autocomplete="organization"></label>
+      <label>Site da empresa<input type="text" name="siteempresa" autocomplete="url"></label>
+      <label>Porte da empresa<select name="porte"><option value="">Selecione</option><option>1 a 30</option><option>31 a 60</option><option>61 a 100</option><option>101 a 200</option><option>201 a 500</option><option>mais de 500</option></select></label>
+      <label>Qual o seu cargo?<select name="cargo"><option value="">Selecione</option><option>Diretor / C-Level / Sócio / Fundador</option><option>Gerente / Head</option><option>Coordenador / Supervisor</option><option>Analista / Especialista</option><option>Assistente / Estagiário</option><option>Empresário / Proprietário</option><option>Outro</option></select></label>
+      <label>Qual área da empresa você atua?<select name="area"><option value="">Selecione</option><option>Marketing e Comunicação</option><option>Comercial e Vendas</option><option>Administrativo / Operações</option><option>Financeiro / Compras</option><option>Recursos Humanos / Gente e Gestão</option><option>Tecnologia / TI / Produto</option><option>Projetos / Estratégia / Consultoria</option><option>Outro</option></select></label>
+      <label>Serviço procurado<select name="servicoprocurado"><option value="">Selecione</option><option>Vídeo Institucional</option><option>Publicidade</option><option>Conteúdo de Marca</option><option>Outros</option></select></label>
+      <label>Investimento disponível para o projeto<select name="investimento"><option value="">Selecione</option><option>10 mil</option><option>10 - 15 mil</option><option>15 - 20 mil</option><option>20 - 30 mil</option><option>30 - 40 mil</option><option>mais de 40 mil</option></select></label>
+      <label class="span2">Faça uma breve descrição do seu projeto<textarea name="your-message" rows="2"></textarea></label>
+      <div class="step-actions"><button class="btn solid" type="submit">Pedir orçamento</button></div>
       <p class="form-note" role="status"></p>
     </form>
     <aside class="contact-card" aria-label="Outros contatos">
@@ -114,6 +103,6 @@
 <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada"><img alt=""><button type="button">Fechar</button></dialog>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
 
-<script src="pages.js?v=10121105"></script>
+<script src="pages.js?v=10121110"></script>
 </body>
 </html>

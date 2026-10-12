@@ -76,23 +76,50 @@ $$('.filters[data-filter]').forEach(group => {
   const more = $('[data-more="' + group.dataset.filter + '"]');
   const PAGE = Number(grid.dataset.page) || 0; // 0 = mostra tudo
   let filtro = 'todos', limite = PAGE || Infinity;
-  function aplicar() {
+  // Decide o que fica visível e anima a troca: quem sai some, quem fica desliza até o novo lugar
+  // e quem entra aparece em sequência (mesma transição do portfólio da home).
+  let vez = 0;
+  function aplicar(animar) {
     let vistos = 0, total = 0;
-    items.forEach(c => {
+    const visivel = new Map(items.map(c => {
       const ok = filtro === 'todos' || c.dataset.cat.split('|').includes(filtro);
       if (ok) total++;
-      c.hidden = !ok || ++vistos > limite;
-      if (!c.hidden) c.classList.add('in');
-    });
+      return [c, ok && ++vistos <= limite];
+    }));
     if (more) more.hidden = total <= limite;
+    const trocar = () => items.forEach(c => { c.hidden = !visivel.get(c); if (!c.hidden) c.classList.add('in'); });
+    if (!animar || calm || !grid.animate) { trocar(); return; }
+
+    const turno = ++vez;
+    grid.getAnimations({ subtree: true }).forEach(an => an.cancel());
+    const antes = new Map(items.filter(c => !c.hidden).map(c => [c, c.getBoundingClientRect()]));
+    const saem = [...antes.keys()].filter(c => !visivel.get(c));
+    saem.forEach(c => c.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.95)' }], { duration: 240, easing: 'ease-in', fill: 'forwards' }));
+    setTimeout(() => {
+      if (turno !== vez) return;
+      saem.forEach(c => c.getAnimations().forEach(an => an.cancel()));
+      trocar();
+      const suave = 'cubic-bezier(.2, .7, .2, 1)';
+      let ordem = 0;
+      items.filter(c => !c.hidden).forEach(c => {
+        c.style.transitionDelay = '0s';
+        const de = antes.get(c), para = c.getBoundingClientRect();
+        if (de && !saem.includes(c)) {
+          const dx = de.left - para.left, dy = de.top - para.top;
+          if (dx || dy) c.animate([{ transform: `translate(${dx}px, ${dy}px)` }, { transform: 'none' }], { duration: 620, easing: suave });
+        } else if (ordem < 12) {
+          c.animate([{ opacity: 0, transform: 'translateY(18px) scale(.97)' }, { opacity: 1, transform: 'none' }], { duration: 560, delay: 60 + ordem++ * 45, easing: suave, fill: 'backwards' });
+        }
+      });
+    }, saem.length ? 250 : 0);
   }
   $$('button', group).forEach(b => b.addEventListener('click', () => {
     $$('button', group).forEach(x => x.setAttribute('aria-pressed', x === b));
     filtro = b.dataset.f;
     limite = PAGE || Infinity;
-    aplicar();
+    aplicar(true);
   }));
-  if (more) more.addEventListener('click', () => { limite += PAGE; aplicar(); });
+  if (more) more.addEventListener('click', () => { limite += PAGE; aplicar(true); });
   if (PAGE) aplicar();
 });
 $$('.poster').forEach((p, k) => {

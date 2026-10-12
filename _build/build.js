@@ -495,7 +495,7 @@ posts.forEach((p, k) => {
 // ---------------------------------------------------------------- formulários e política
 const campo = (c, wide = false) => {
   const obrig = /name|email|telefone/.test(c.name) ? " required" : "";
-  if (c.type === "select") return `<label${wide ? ' class="wide"' : ""}>${esc(c.opcoes[0])}<select name="${c.name}">${c.opcoes.slice(1).map(o => `<option>${esc(o)}</option>`).join("")}</select></label>`;
+  if (c.type === "select") return `<label${wide ? ' class="wide"' : ""}>${esc(c.opcoes[0])}<select name="${c.name}"><option value="">Selecione</option>${c.opcoes.slice(1).map(o => `<option>${esc(o)}</option>`).join("")}</select></label>`;
   if (c.type === "textarea") return `<label class="wide">${esc(c.rotulo)}<textarea name="${c.name}" rows="5"></textarea></label>`;
   if (c.type === "checkbox") return `<label class="check wide"><input type="checkbox" name="${c.name}"> Aceito receber comunicações da empresa.</label>`;
   const auto = { "your-name": "name", "your-email": "email", telefone: "tel", nomeempresa: "organization", siteempresa: "url" }[c.name];
@@ -507,24 +507,15 @@ const contato = `<aside class="contact-card" aria-label="Outros contatos">
     </aside>`;
 {
   const c = Object.fromEntries(data.orcamento.campos.map(x => [x.name, x]));
-  const etapas = [
-    ["Você", ["your-name", "your-email", "telefone"]],
-    ["Sua empresa", ["nomeempresa", "siteempresa", "porte", "cargo", "area"]],
-    ["O projeto", ["servicoprocurado", "investimento", "your-message"]],
-  ];
+  // Orçamento em uma tela só (opção 1 da comparação), na mesma ordem da caixa da home
+  const ordem = ["your-name", "your-email", "telefone", "nomeempresa", "siteempresa", "porte", "cargo", "area", "servicoprocurado", "investimento"];
   write("orcamento.html", page("Orçamento", lhero({ chapeu: "Orçamento", titulo: esc(data.orcamento.titulo), texto: esc(data.orcamento.texto), small: true }) + `
 <section class="block">
   <div class="form-grid">
-    <form class="steps-form" novalidate>
-      <div class="step-bar" aria-hidden="true">${etapas.map(([nome], k) => `<span>${p2(k + 1)} · ${nome}</span>`).join("")}</div>
-      ${etapas.map(([nome, nomes]) => `<fieldset class="step" aria-label="${nome}">
-        ${nomes.map(n => c[n]).filter(Boolean).map((x, i, arr) => campo(x, arr.length % 2 === 1 && i === arr.length - 1)).join("\n        ")}
-      </fieldset>`).join("\n      ")}
-      <div class="step-actions">
-        <button class="btn ghost" type="button" data-back>Voltar</button>
-        <button class="btn solid" type="button" data-next>Continuar</button>
-        <button class="btn solid" type="submit" data-send>Enviar pedido de orçamento</button>
-      </div>
+    <form class="one-form" novalidate>
+      ${ordem.map(n => c[n]).filter(Boolean).map(x => campo(x)).join("\n      ")}
+      ${c["your-message"] ? campo(c["your-message"]).replace('class="wide"', 'class="span2"').replace('rows="5"', 'rows="2"') : ""}
+      <div class="step-actions"><button class="btn solid" type="submit">Pedir orçamento</button></div>
       <p class="form-note" role="status"></p>
     </form>
     ${contato}
@@ -548,7 +539,29 @@ const contato = `<aside class="contact-card" aria-label="Outros contatos">
   write("politica.html", page("Política de Privacidade e Cookies", lhero({ chapeu: "Institucional", titulo: "Política de Privacidade e Cookies", small: true }) + `
 <section class="block">
   <div class="prose">
-    ${limpar(data.politica.html)}
+    ${limpar(data.politica.html)
+      // o e-mail sai do texto: os pedidos sobre dados pessoais passam a ser feitos pelo formulário desta página
+      .replace(/pelo e-mail:?\s*<a[^>]*mailto:[^>]*>[^<]*<\/a>/gi, 'pelo <a href="#dados">formulário de solicitação sobre dados pessoais</a>')
+      .replace(/<a[^>]*mailto:[^>]*>[^<]*<\/a>/gi, '<a href="#dados">formulário de solicitação sobre dados pessoais</a>')}
+  </div>
+</section>
+
+<section class="block rule" id="dados">
+  <div class="form-grid">
+    <div>
+      <div class="statement reveal">
+        <h2>Solicitação sobre dados pessoais.</h2>
+        <p>Use este formulário para consultar, corrigir ou pedir a exclusão dos seus dados, ou para tirar dúvidas sobre esta política.</p>
+      </div>
+      <form class="plain-form" novalidate style="margin-top:32px">
+        <label>Nome<input type="text" name="nome" autocomplete="name" required></label>
+        <label>E-mail para resposta<input type="email" name="email" autocomplete="email" required></label>
+        <label class="wide">Tipo de solicitação<select name="tipo"><option>Confirmar se vocês têm dados meus</option><option>Acessar meus dados</option><option>Corrigir meus dados</option><option>Excluir meus dados</option><option>Revogar um consentimento</option><option>Outra dúvida sobre privacidade</option></select></label>
+        <label class="wide">Detalhes do pedido<textarea name="msg" rows="4"></textarea></label>
+        <div class="step-actions wide"><button class="btn solid" type="submit">Enviar solicitação</button></div>
+        <p class="form-note wide" role="status"></p>
+      </form>
+    </div>
   </div>
 </section>
 `));

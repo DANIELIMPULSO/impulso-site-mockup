@@ -61,8 +61,8 @@ A pasta do Drive não é um repositório git. Para publicar: clonar o repositór
 - Imagens e vídeos são carregados direto do site no ar.
 - Os formulários não enviam nada.
 - As páginas têm `noindex` para não aparecer no Google.
-- Números da faixa animada (+25M, +480, +70) foram informados pela Impulso e não vêm do site atual.
-- Alguns textos não existem no site atual e precisam de aprovação: títulos das chamadas finais, alguns títulos de seção e as listas de pontos de Sobre, Projetos autorais e das soluções.
+- Números da faixa animada (+25M, +480, +70) foram informados e aprovados pela Impulso; não vêm do site atual.
+- Alguns textos não existem no site atual (títulos das chamadas finais, alguns títulos de seção, listas de pontos); foram aprovados em 2026-10-12.
 
 ## Próxima etapa: levar para o WordPress
 
@@ -76,15 +76,22 @@ O site atual usa um tema próprio (`impulso`, sobre a base Odin), sem construtor
 4. Se o RD Station está em uso, para os formulários continuarem enviando os contatos para lá.
 5. Quem mantém o site hoje (a I2W ainda atende?).
 
-### Decisões em aberto
+### Decisões tomadas em 2026-10-12
 
-- Página Orçamento: ainda em três etapas no mockup; a caixa da home já está em uma tela só.
-- Política de Privacidade: cita um e-mail como canal para pedidos sobre dados pessoais; trocar pelo formulário, proteger o endereço ou manter.
-- Telefone fixo no rodapé: manter ou tirar (os contatos definidos são formulário e WhatsApp).
+- Orçamento em uma tela só, na home e na página Orçamento.
+- Política de Privacidade sem e-mail: os pedidos sobre dados pessoais usam um formulário na própria página.
+- Telefone fixo continua no rodapé; e-mail não aparece em nenhuma página.
+- Filtro animado na home e na página Portfólio (também nos filtros do blog e dos projetos autorais).
+- Textos novos do mockup e números da faixa animada aprovados.
+
+### Ainda em aberto
+
 - Versão em inglês: prevista para uma segunda fase.
-- Animação do filtro: aplicada na home; a página Portfólio ainda troca sem animação.
 - Vídeos de fundo: Clientes e Sobre usam o vídeo da home como marcador de lugar.
-- Depoimentos, logos e cartazes: conferir se a seleção e a ordem estão certas.
+- Listas de pontos de Publicidade e Conteúdo: saem dos negritos do texto atual e algumas ficam truncadas.
+- Texto da Política: foi alterado para apontar ao formulário; convém validar com a parte jurídica.
+
+O prompt para abrir a conversa do WordPress está em `../PROXIMA-ETAPA.md`.
 
 ### Problemas do site atual notados no caminho
 

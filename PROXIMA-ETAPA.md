@@ -74,4 +74,4 @@ Comece pela análise (itens 1 e 2) e me mostre o resultado antes de planejar.
 - Vídeos de fundo de Clientes e Sobre usam o vídeo da home como marcador de lugar.
 - As listas de pontos de Publicidade e Conteúdo saem dos negritos do texto atual e algumas ficam truncadas; no tema novo devem virar campo editável.
 - O texto da Política foi alterado para apontar ao formulário; convém a parte jurídica validar.
-- Problemas do site atual: descrição errada no case SKA (checar os demais no Rank Math), case "ArcelorMittal: MasterChef" sem link de vídeo legível, 16 posts sem imagem destacada.
+- Problemas do site atual: descrição errada no case SKA (checar os demais no Rank Math), case "ArcelorMittal: MasterChef" sem link de vídeo legível.

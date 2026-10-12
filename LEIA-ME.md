@@ -50,6 +50,7 @@ NODE_PATH=/caminho/para/node_modules node _build/build.js    # gera as páginas 
 - `_build/scrape.js`: coleta cases, projetos autorais, soluções, sobre, formulários, política e posts (pela API do WordPress).
 - `_build/fixas.js`: conteúdo das páginas Clientes, Projetos autorais e Capacitação.
 - `_build/build.js`: modelos de todas as páginas, menu e rodapé.
+- `_build/imagens-posts.js`: completa em `data.json` a imagem dos posts que a API devolve sem imagem destacada (o `scrape.js` já faz isso nas próximas coletas).
 - `_build/preparar.js`, `_build/patch-pages-js.js`, `_build/form-home.js`: passos únicos já executados; ficam só como registro.
 
 ## Como publicar
@@ -97,4 +98,3 @@ O prompt para abrir a conversa do WordPress está em `../PROXIMA-ETAPA.md`.
 
 - A página do case SKA está com a descrição para o Google de outro case (Usina Jatiboca); vale checar os demais no Rank Math.
 - O case "ArcelorMittal: MasterChef" não tem link de vídeo legível.
-- 16 posts do blog estão sem imagem destacada.

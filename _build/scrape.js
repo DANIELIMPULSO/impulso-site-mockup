@@ -181,6 +181,14 @@ const pool = async (items, n, fn) => {
     }
     if (lote.length < 50) break;
   }
+  // A API às vezes devolve o post sem a imagem destacada; nesses casos usa a imagem de compartilhamento da página
+  for (const p of data.posts.filter(p => !p.imagem)) {
+    try {
+      const pagina = await (await get("/" + p.slug + "/")).text();
+      const m = pagina.match(/property="og:image"s+content="([^"]+)"/);
+      if (m) p.imagem = p.thumb = m[1];
+    } catch (e) { /* segue sem imagem */ }
+  }
 
   fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(data, null, 1));
   console.log("cases", data.cases.length, "| autorais", data.autorais.length, "| servicos", data.servicos.map(s => s.slug + ":" + s.etapas.length).join(","), "| posts", data.posts.length, "| fotos sobre", data.sobre.fotos.length);

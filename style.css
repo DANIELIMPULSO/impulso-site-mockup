@@ -143,7 +143,9 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 .legal { grid-column: 1 / -1; color: var(--dim); font-size: 13px; padding-top: 24px; border-top: 1px solid var(--line); }
 .legal a { text-decoration: underline; }
 
-.zap { position: fixed; right: 18px; bottom: 18px; z-index: 30; background: #25d366; color: #06280f; font: 600 15px/1 var(--body); padding: 14px 18px; border-radius: 999px; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+/* Botão de WhatsApp: círculo pequeno com um balão de diálogo (o texto fica só para leitores de tela) */
+.zap { position: fixed; right: 16px; bottom: 16px; z-index: 30; width: 48px; height: 48px; border-radius: 50%; overflow: hidden; font-size: 0; color: transparent; background: #25d366 url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath fill=%27%2306280f%27 d=%27M12 3.2c-5 0-9 3.5-9 7.9 0 2.3 1.1 4.3 2.9 5.8L5 21l4.5-2.2c.8.2 1.6.3 2.5.3 5 0 9-3.5 9-8s-4-7.900-9-7.900z%27/%3E%3C/svg%3E") center / 24px no-repeat; box-shadow: 0 6px 18px rgba(0, 0, 0, .45); transition: transform .2s; }
+.zap:hover { transform: scale(1.08); }
 
 /* Entrada ao rolar */
 .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s, transform .7s; }

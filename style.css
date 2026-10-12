@@ -312,5 +312,12 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 /* Logos com fundo cheio: tons de cinza em vez de silhueta branca */
 .track img.fill, .wall img.fill { filter: grayscale(1) contrast(1.05) brightness(1.35); }
 
-/* Vídeo da abertura da home 20% mais transparente: deixa o cinza do fundo aparecer por trás */
-.hero-video { opacity: .8; }
+/* Vídeo da abertura da home 30% transparente: deixa o cinza do fundo aparecer por trás */
+.hero-video { opacity: .7; }
+/* Desfoque nas laterais do vídeo: forte na borda e some por volta de 1/6 da largura, dos dois lados.
+   São duas camadas (uma suave e larga, outra forte e estreita) para o desfoque diminuir aos poucos. */
+.hero::before, .hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hero::before { -webkit-backdrop-filter: blur(7px); backdrop-filter: blur(7px); -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 16.67%, transparent 83.33%, #000 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 16.67%, transparent 83.33%, #000 100%); }
+.hero::after { -webkit-backdrop-filter: blur(22px); backdrop-filter: blur(22px); -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 9%, transparent 91%, #000 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 9%, transparent 91%, #000 100%); }
+.hero-shade { z-index: 2; }
+.hero .timecode, .hero-inner { z-index: 3; }

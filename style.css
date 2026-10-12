@@ -90,7 +90,7 @@ h1, h2, h3, p { margin: 0; }
 .clients .eyebrow { padding: 0 var(--gutter) 22px; }
 .marquee { overflow: hidden; }
 .track { display: flex; gap: 56px; width: max-content; animation: slide 40s linear infinite; }
-.track img { height: 64px; width: 64px; object-fit: contain; filter: grayscale(1) brightness(1.6); opacity: .75; }
+.track img { height: 64px; width: 64px; object-fit: contain; filter: brightness(0) invert(1); opacity: .6; }
 .marquee:hover .track { animation-play-state: paused; }
 @keyframes slide { to { transform: translateX(-50%); } }
 
@@ -281,3 +281,31 @@ input:focus, select:focus, textarea:focus { border-color: var(--yellow); outline
 .peek.tick img { animation: peekin .5s cubic-bezier(.2, .7, .2, 1); }
 @keyframes peekin { from { opacity: 0; transform: scale(1.07); filter: saturate(.8) contrast(1.05) blur(8px); } }
 .peek.inline { margin-bottom: 22px; }
+
+/* ---------- Menu com submenu (Soluções) e rodapé com links das páginas ---------- */
+.sub { position: relative; }
+.sub > a { opacity: .85; }
+.sub > a::after { content: "+"; margin-left: 6px; color: var(--yellow); }
+.sub-menu { position: absolute; top: 100%; left: -18px; display: grid; gap: 16px; min-width: 190px; padding: 22px 18px 18px; background: rgba(11, 11, 12, .96); border: 1px solid var(--line); border-top: 2px solid var(--yellow); opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .2s, transform .2s, visibility .2s; }
+.sub:hover .sub-menu, .sub:focus-within .sub-menu { opacity: 1; visibility: visible; transform: none; }
+@media (min-width: 1101px) { .foot { grid-template-columns: 1.1fr 1fr 1fr 1fr; } }
+
+/* Com mais itens, o menu vira botão um pouco antes */
+@media (max-width: 1100px) {
+  .burger { display: block; }
+  .top nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 18px; max-height: calc(100svh - 70px); overflow-y: auto; padding: 24px var(--gutter) 28px; background: rgba(11, 11, 12, .97); font-size: 20px; }
+  .top nav.open { display: flex; }
+  .sub-menu { position: static; opacity: 1; visibility: visible; transform: none; min-width: 0; padding: 14px 0 0 16px; border: 0; background: none; gap: 14px; font-size: 16px; }
+  .foot { grid-template-columns: 1fr 1fr; }
+  .foot-logo, .legal { grid-column: 1 / -1; }
+}
+
+/* Rodapé: nada estoura a largura em telas estreitas */
+.foot div { min-width: 0; }
+.foot a { overflow-wrap: anywhere; }
+@media (max-width: 560px) { .foot { grid-template-columns: 1fr; } }
+
+/* O atributo hidden vale mesmo em elementos com display próprio (botões, cartões) */
+[hidden] { display: none !important; }
+/* Logos com fundo cheio: tons de cinza em vez de silhueta branca */
+.track img.fill, .wall img.fill { filter: grayscale(1) contrast(1.05) brightness(1.35); }

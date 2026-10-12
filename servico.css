@@ -1,0 +1,114 @@
+/* ---------- Página de serviço / solução (usa a base de style.css) ---------- */
+
+/* 1. Abertura */
+.s-hero { position: relative; min-height: 100svh; display: flex; align-items: flex-end; overflow: hidden; }
+.s-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(calc(1.04 + var(--hs, 0) * .08)); }
+.s-shade { position: absolute; inset: 0; background: radial-gradient(circle 36vmax at var(--mx, 70%) var(--my, 40%), transparent 0%, rgba(11, 11, 12, .7) 100%), linear-gradient(0deg, var(--bg) 0%, rgba(11, 11, 12, .55) 45%, rgba(11, 11, 12, .7) 100%); }
+/* Título de um lado, texto do outro, alinhados pela base */
+.s-inner { position: relative; width: 100%; display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: end; padding: 130px var(--gutter) clamp(40px, 7vh, 72px); opacity: calc(1 - var(--hs, 0) * .85); }
+.s-title { margin: .2em 0 0 -.02em; font: 400 clamp(46px, 6.9vw, 124px)/1.02 var(--display); text-transform: uppercase; letter-spacing: .005em; }
+.s-title span { display: block; }
+.s-title span:last-child { color: transparent; -webkit-text-stroke: 1.5px var(--yellow); }
+.s-title i { display: inline-block; font-style: normal; transform-origin: 50% 100%; transform: scaleY(var(--k, 1)); transition: transform .18s ease-out; }
+.s-intro { display: grid; gap: 16px; padding-bottom: .6em; }
+.s-intro .lead { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; color: var(--text); max-width: 44ch; }
+.s-intro strong { font-weight: 600; color: var(--yellow); }
+.s-use { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
+.s-intro .actions { margin-top: 10px; }
+
+/* 2. Como funciona: seção presa na tela, etapas trocam com a rolagem */
+.proc { position: relative; height: calc(7 * 70vh + 100vh); }
+.proc-pin { position: sticky; top: 0; height: 100svh; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; gap: 16px; padding: 92px var(--gutter) 30px; overflow: hidden; }
+.proc-head { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+.proc-head h2 { font: 500 12.5px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+.proc-tc { font: 500 12.5px/1.4 var(--mono); letter-spacing: .1em; color: var(--dim); }
+.proc-tc span { color: var(--text); }
+
+.proc-stage { position: relative; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(20px, 5vw, 80px); align-items: center; min-height: 0; }
+.proc-num { font: 400 clamp(150px, 30vw, 460px)/.86 var(--display); color: transparent; -webkit-text-stroke: 1.5px rgba(253, 184, 19, .55); letter-spacing: -.01em; user-select: none; }
+.proc-num.flip { animation: numflip .5s cubic-bezier(.2, .7, .2, 1); }
+@keyframes numflip { from { opacity: 0; transform: translateY(.18em); } }
+.proc-steps { position: relative; list-style: none; margin: 0; padding: 0; height: 100%; }
+.proc-steps li { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; opacity: 0; transform: translateY(34px); transition: opacity .45s, transform .55s cubic-bezier(.2, .7, .2, 1); pointer-events: none; }
+.proc-steps li.on { opacity: 1; transform: none; pointer-events: auto; }
+.proc-steps li.past { transform: translateY(-34px); }
+.proc-steps h3 { font: 400 clamp(46px, 7.4vw, 124px)/1.02 var(--display); text-transform: uppercase; letter-spacing: .005em; }
+.proc-steps p { margin-top: 18px; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.55; color: #d2d0c9; max-width: 50ch; }
+
+/* Linha do tempo no estilo de um programa de edição */
+.tl { position: relative; padding-top: 14px; }
+.tl-track { display: flex; gap: 4px; }
+.tl-track button { position: relative; flex: 1 1 0; min-width: 0; height: 58px; padding: 10px 10px 0; border: 0; border-radius: 2px; background: var(--surface); color: var(--dim); text-align: left; font: 500 11.5px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; transition: color .25s, background .25s; }
+.tl-track button::before { content: ""; position: absolute; left: 0; top: 0; height: 3px; width: 100%; background: var(--yellow); transform-origin: 0 50%; transform: scaleX(var(--f, 0)); }
+.tl-track button b { display: block; font-weight: 500; color: inherit; opacity: .6; margin-bottom: 5px; }
+.tl-track button.on { color: var(--yellow); background: #1d1c18; }
+.tl-track button.done { color: var(--text); }
+.tl-head { position: absolute; top: 4px; bottom: -6px; left: 0; width: 1.5px; background: var(--yellow); transform: translateX(var(--x, 0px)); pointer-events: none; }
+.tl-head::before { content: ""; position: absolute; left: -5px; top: 0; border: 5.5px solid transparent; border-top-color: var(--yellow); }
+
+/* 3. Por que fazer */
+.s-why { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 32px clamp(40px, 6vw, 96px); align-items: start; }
+.s-big { font-size: clamp(15.5px, 1.2vw, 17.5px); line-height: 1.65; font-weight: 400; color: #d2d0c9; max-width: 56ch; }
+.s-big strong { font-weight: 500; color: var(--text); }
+/* Os pontos do texto, resumidos em uma lista numerada que entra linha a linha */
+.s-points { list-style: none; margin: 30px 0 0; padding: 0; max-width: 56ch; border-bottom: 1px solid var(--line); }
+.s-points li { display: flex; align-items: baseline; gap: 18px; padding: 13px 0; border-top: 1px solid var(--line); font-size: clamp(15px, 1.15vw, 17px); font-weight: 500; line-height: 1.3; opacity: 0; transform: translateY(12px); transition: opacity .6s, transform .6s cubic-bezier(.2, .7, .2, 1); }
+.s-points span { flex: none; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--yellow); }
+.s-why-body.in .s-points li { opacity: 1; transform: none; }
+.s-why-body.in .s-points li:nth-child(1) { transition-delay: .25s; }
+.s-why-body.in .s-points li:nth-child(2) { transition-delay: .37s; }
+.s-why-body.in .s-points li:nth-child(3) { transition-delay: .49s; }
+.s-why-body.in .s-points li:nth-child(4) { transition-delay: .61s; }
+
+/* 4. Portfólio da categoria, separado da seção anterior por um fio com um traço amarelo */
+.s-port { position: relative; margin-top: clamp(64px, 8vw, 110px); padding-top: clamp(56px, 7vw, 96px); }
+.s-port::before { content: ""; position: absolute; top: 0; left: var(--gutter); right: var(--gutter); height: 1px; background: linear-gradient(90deg, var(--yellow) 0 56px, var(--line) 56px); }
+.s-port-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.s-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+.s-grid .case:first-child { grid-column: auto; grid-row: auto; aspect-ratio: 16 / 9; }
+
+/* 5. Outras soluções */
+.s-others .eyebrow { margin-bottom: 14px; }
+.s-others a { display: flex; align-items: baseline; gap: 20px; padding: 10px 0 6px; border-top: 1px solid var(--line); }
+.s-others a:last-child { border-bottom: 1px solid var(--line); }
+.s-others strong { font: 400 clamp(44px, 8.4vw, 136px)/1.12 var(--display); text-transform: uppercase; color: transparent; -webkit-text-stroke: 1.2px var(--yellow); transition: color .25s, transform .4s; }
+.s-others a:hover strong, .s-others a:focus-visible strong { color: var(--yellow); transform: translateX(14px); }
+.s-others a:hover .idx { color: var(--yellow); }
+
+/* 6. Chamada final */
+.s-cta { position: relative; margin-top: clamp(72px, 11vw, 150px); padding: clamp(56px, 8vw, 110px) var(--gutter); background: var(--surface); overflow: hidden; }
+.s-cta .statement { position: relative; }
+
+@media (max-width: 900px) {
+  .s-inner { padding-top: 140px; grid-template-columns: 1fr; align-items: start; }
+  .s-title { font-size: clamp(50px, 13.5vw, 110px); }
+  .s-why { grid-template-columns: 1fr; }
+  .proc-pin { padding-top: 84px; padding-bottom: 88px; } /* espaço para o botão de WhatsApp não cobrir a linha do tempo */
+  .proc-stage { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); gap: 0; align-items: start; }
+  .proc-num { font-size: clamp(110px, 34vw, 200px); }
+  .proc-steps li { justify-content: flex-start; padding-top: 8px; }
+  .proc-steps p { font-size: 15.5px; }
+  .tl-track button { height: 44px; padding: 9px 4px 0; text-align: center; font-size: 0; }
+  .tl-track button b { font-size: 11.5px; opacity: 1; }
+  .s-grid { grid-template-columns: 1fr; }
+}
+
+/* Sem animação: as etapas viram uma lista comum */
+@media (prefers-reduced-motion: reduce) {
+  .proc { height: auto; }
+  .proc-pin { position: static; height: auto; display: block; overflow: visible; }
+  .proc-num, .tl, .proc-tc { display: none; }
+  .proc-stage { display: block; }
+  .proc-steps { height: auto; }
+  .proc-steps li { position: static; opacity: 1; transform: none; pointer-events: auto; padding: 28px 0; border-top: 1px solid var(--line); }
+  .s-points li { opacity: 1; transform: none; }
+  .s-bg, .s-title i { transform: none; }
+  .s-inner { opacity: 1; }
+}
+
+/* Seletor de opções, só para validação do mockup */
+.opts { position: fixed; left: 18px; bottom: 18px; z-index: 30; display: flex; align-items: center; gap: 4px; padding: 5px; background: rgba(21, 21, 23, .92); border: 1px solid var(--line); border-radius: 999px; font: 500 11.5px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; }
+.opts span { padding: 0 8px 0 10px; color: var(--dim); }
+.opts a { padding: 8px 12px; border-radius: 999px; }
+.opts a[aria-current] { background: var(--yellow); color: #111; }
+@media (max-width: 900px) { .opts span { display: none; } }

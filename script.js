@@ -27,9 +27,7 @@ CASES.forEach(([cat, nome, img, slug]) => {
   a.className = 'case reveal';
   a.dataset.cursor = 'VER';
   a.dataset.cat = cat;
-  a.href = 'https://www.impulsofilmes.com.br/portifolio/' + slug + '/';
-  a.target = '_blank';
-  a.rel = 'noopener';
+  a.href = 'case-' + slug + '.html';
   const im = new Image();
   im.loading = 'lazy';
   im.alt = '';
@@ -56,6 +54,7 @@ const logos = document.getElementById('logos');
   im.loading = 'lazy';
   im.alt = '';
   im.src = UP + l + '-90x90.png';
+  if (/CALHADAS|UNIMED|dispetral/.test(l)) im.className = 'fill'; // logos com fundo cheio não viram silhueta
   logos.append(im);
 });
 
@@ -310,7 +309,7 @@ if (!calm) {
     heroEl.style.setProperty('--hs', Math.min(1, scrollY / heroEl.offsetHeight).toFixed(3));
     // "Orçamento" em contorno desliza de lado enquanto a seção passa
     const r = budget.getBoundingClientRect();
-    if (r.top < vh && r.bottom > 0) outline.style.setProperty('--ox', ((r.top - vh * .3) * .14).toFixed(1));
+    if (r.top < vh && r.bottom > 0) outline?.style.setProperty('--ox', ((r.top - vh * .3) * .14).toFixed(1));
   }
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(onScroll); } }, { passive: true });
   onScroll();

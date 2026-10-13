@@ -349,6 +349,24 @@ const EXEMPLO_CIRCUITO = {
     laureas: [["Prêmio", "Melhor documentário", "Festival · 2025"], ["Prêmio", "Melhor direção", "Mostra · 2025"], ["Prêmio", "Prêmio do público", "Festival · 2025"], ["Prêmio", "Melhor montagem", "Encontro · 2025"], ["Prêmio", "Melhor trilha sonora", "Festival · 2026"], ["Seleção oficial", "Mostra de cinema brasileiro", "2025"], ["Seleção oficial", "Festival de documentários", "2025"], ["Mostra competitiva", "Festival do filme musical", "2026"], ["Seleção oficial", "Encontro de cinema negro", "2026"], ["Menção honrosa", "Mostra internacional", "2026"]],
   },
 };
+// "Sobre o projeto": título e dois ou três parágrafos corridos, antes de exibições e licenciamentos.
+// TEXTO FICTÍCIO, igual em todos os filmes, só para ver o layout (pedido de Daniel em 2026-10-13).
+// No WordPress será um campo de texto do filme ("sobre"); quando o filme tiver a.sobre, é ele que aparece.
+const SOBRE_EXEMPLO = [
+  "Este projeto chegou à Impulso ainda como uma ideia, trazida por quem viveu a história de perto. Das primeiras conversas ficou claro que havia ali um filme: personagens fortes, um lugar com memória e uma pergunta que merecia ser feita em voz alta.",
+  "A partir daí veio o trabalho de pesquisa e de desenvolvimento do roteiro, a busca por parceiros e a inscrição em editais. Foi um caminho feito aos poucos, com a equipe se formando em torno do projeto e cada etapa abrindo a seguinte.",
+  "O resultado é um filme que carrega esse percurso: feito com tempo, com cuidado e com a participação de muita gente que acreditou nele desde o começo.",
+];
+const secaoSobre = a => {
+  const texto = a.sobre && a.sobre.length ? a.sobre : SOBRE_EXEMPLO;
+  return `
+<section class="block rule support sobre-proj">
+  <div class="statement reveal"><h2>Sobre o projeto.</h2></div>
+  <div class="support-body reveal">
+    ${texto.map(t => `<p>${esc(t)}</p>`).join("\n    ")}
+  </div>
+</section>`;
+};
 const secaoCircuito = a => {
   const c = circuito(a);
   const ex = EXEMPLO_CIRCUITO[a.slug];
@@ -402,6 +420,7 @@ const paginaFilme = (a, k, arquivo, extra = "") => {
     ${[...lado, ...abaixo].map(t => `<p>${t}</p>`).join("\n    ")}
   </div>
 </section>
+${secaoSobre(a)}
 ${secaoCircuito(a)}
 ${a.creditos.length ? ficha([], a.creditos.map(c => [c.funcao, c.nome])) : ""}
 ${shots(a.bastidores.map(t => ({ thumb: t, full: t.replace("-480x360", "") })), "Bastidores do projeto.")}

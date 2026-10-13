@@ -171,3 +171,15 @@
 
 /* o título "Exibições e licenciamentos" tem uma palavra longa: letra um pouco menor para não passar da coluna */
 .exib-h .statement h2 { font-size: clamp(32px, 4.5vw, 70px); overflow-wrap: break-word; }
+
+/* Láureas sem a faixa cinza de fundo: ficam direto sobre o fundo da página, alinhadas às margens da seção */
+.exib .laureis { background: none; padding: 0; }
+.exib .laureis .laurea { width: calc((min(100vw, 2000px) - 2 * var(--gutter)) / 6); }
+@media (max-width: 900px) { .exib .laureis .laurea { width: calc((100vw - 2 * var(--gutter)) / 3); } }
+
+/* "Sobre o projeto": mesmas colunas e mesmo tamanho de título de "Exibições e licenciamentos", para as duas seções alinharem */
+.sobre-proj { grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); gap: 32px clamp(32px, 6vw, 110px); }
+.sobre-proj .statement h2 { font-size: clamp(32px, 4.5vw, 70px); }
+.sobre-proj .support-body > p { max-width: 62ch; }
+.sobre-proj .support-body > p + p { margin-top: 1em; }
+@media (max-width: 900px) { .sobre-proj { grid-template-columns: minmax(0, 1fr); } }

@@ -97,7 +97,7 @@ Daniel aprovou o front-end do mockup. O que entrou depois da página de artigo:
 |---|---|
 | Página de CASE (`case-estudo.html`, gerada por `_build/case-estudo.js`) | Tipo novo de página de projeto, além da página simples de portfólio. Formato 6: filme e resumo na primeira tela, três cartões (desafio, o que fizemos, resultado), a história em três partes que abrem em "Ler a história completa" só quando o texto não cabe, resultado com gráfico animado de antes e depois e lista "Na prática", números do projeto e depoimento com foto do filme ao lado e retrato pequeno junto do nome. |
 | Projetos autorais, listagem | Grade de cartazes com filtros Curta, Longa, Ficção, Documentário e Outros; ao passar o mouse o cartaz cresce, ganha cantos de visor e a faixa "Ver o filme". Sem "Book de projetos". |
-| Projetos autorais, filme | "Exibições e licenciamentos" no lugar de "Sobre o filme": listas em blocos de 6 com setas, contadores e quadro de láureas (ramo em contorno, branco, uma linha que gira quando passa de seis). Depois vêm ficha técnica e bastidores. Sem "Quero apoiar". |
+| Projetos autorais, filme | "Sobre o projeto" (título e dois ou três parágrafos) e, em seguida, "Exibições e licenciamentos" no lugar de "Sobre o filme": listas em blocos de 6 com setas, contadores e láureas sem fundo (ramo em contorno, branco, uma linha que gira quando passa de seis). Depois vêm ficha técnica e bastidores. Sem "Quero apoiar". |
 | Soluções | Em "Como funciona", um vídeo bem discreto atrás do número de cada etapa. |
 | Clientes | Título "Quem já confiou sua marca à Impulso"; depoimento com foto grande e anel animados em camadas separadas. |
 | Sobre | Título ao lado do vídeo; números centralizados entre os fios. |
@@ -109,6 +109,8 @@ Conteúdo provisório que NÃO deve ir para o site:
 - **Brasiliana:** exibições, licenciamentos e láureas de teste (bloco `EXEMPLO_CIRCUITO` em `_build/build.js`). São reais só a licença Curta!/Itaú Cultural e as láureas Brasil Cinemundi 2017 e Edital BRDE/FSA 2018.
 - **Case SKA:** o gráfico de antes e depois usa números de exemplo; o retrato da cliente mostra as iniciais até existir `fotos/gabriele-bitello.jpg`; a página do projeto diz 12 cidades e o artigo do blog diz 14 (o case usa 14).
 - **Soluções:** o vídeo das etapas é o da home, um trecho por etapa.
+- **Filmes autorais:** o texto de "Sobre o projeto" é fictício e igual em todos (`SOBRE_EXEMPLO` em `_build/build.js`).
+- **Making of:** nas páginas de comparação o vídeo é outro filme da SKA; nenhum projeto real tem making of cadastrado.
 - **Publicidade:** o texto da etapa "Captação" foi emprestado de Vídeo institucional.
 
 ## Como publicar

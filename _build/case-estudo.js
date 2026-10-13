@@ -130,7 +130,7 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
   </div>
 
   <!-- a voz do cliente: foto do filme ao lado e retrato pequeno de quem fala junto do nome.
-       O retrato é lido de fotos/gabriele-bitello.jpg; enquanto o arquivo não existir, aparecem as iniciais.
+       O retrato é lido de fotos/gabriele-bitello.jpg; enquanto o arquivo não existir, aparecem as iniciais. -->
   <figure class="ce-voz">
     <div class="ce-voz-txt">
       <blockquote>

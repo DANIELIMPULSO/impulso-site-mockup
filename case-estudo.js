@@ -3,15 +3,26 @@
   const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Tudo o que tem animação própria recebe a classe "viu" quando entra na tela
-  const alvos = document.querySelectorAll('.ce-nums, .ce-req, .ce-entregas, .ce-grafico, .ce-troca, .ce-voz');
+  const alvos = document.querySelectorAll('.ce-nums, .ce-req, .ce-entregas, .ce-troca, .ce-voz');
   const ver = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
     e.target.classList.add('viu');
     if (e.target.matches('.ce-nums')) e.target.querySelectorAll('[data-conta]').forEach(contar);
-    if (e.target.matches('.ce-grafico')) e.target.querySelectorAll('.ce-par i').forEach((b, k) => contarBarra(b, k));
     ver.unobserve(e.target);
   }), { rootMargin: '0px 0px -18% 0px' });
   alvos.forEach(a => ver.observe(a));
+
+  // Gráfico: só começa quando a área das barras está quase toda na tela; aí elas crescem uma de cada vez
+  const grafico = document.querySelector('.ce-grafico');
+  if (grafico) {
+    const verGrafico = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      grafico.classList.add('viu');
+      grafico.querySelectorAll('.ce-par i').forEach((b, k) => contarBarra(b, k));
+      verGrafico.disconnect();
+    }), { threshold: .75 });
+    verGrafico.observe(grafico.querySelector('.ce-barras'));
+  }
 
   // Números do projeto: contam de zero até o valor
   function contar(el) {
@@ -33,7 +44,7 @@
     const rotulo = document.createElement('em');
     barra.append(rotulo);
     if (calmo) { rotulo.textContent = fim; return; }
-    const atraso = 150 + k * 110, dur = 1100;
+    const atraso = 200 + k * 620, dur = 800;   // mesma cadência do CSS: uma barra a cada 0,62s
     const t0 = performance.now() + atraso;
     const passo = t => {
       const p = Math.max(0, Math.min(1, (t - t0) / dur));

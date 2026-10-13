@@ -145,11 +145,16 @@ const ficha = (linhas, extra = []) => {
   </dl>
 </section>` : "";
 };
-const shots = (fotos, titulo) => fotos.length ? `
+// Making of (opcional): quando o projeto tem o campo "makingof" ({ embed, capa }), o vídeo entra como primeiro quadro da grade
+// de bastidores, do tamanho de quatro fotos. No WordPress será um campo opcional do projeto (ligar/desligar, vídeo e capa).
+const quadroMakingOf = mk => mk && mk.embed ? `<li class="mk-tile reveal"><div class="player mk-player" data-embed="${esc(mk.embed)}"><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao making of"><img loading="lazy" src="${mk.capa}" alt=""><span class="play" aria-hidden="true"></span></button></div><span class="mk-selo">Making of</span></li>
+    ` : "";
+const MK = mk => mk && mk.embed ? { cls: "mk-3", css: ["makingof.css"] } : {};
+const shots = (fotos, titulo, mk) => fotos.length || (mk && mk.embed) ? `
 <section class="block rule c-back">
   <div class="statement reveal"><h2>${titulo}</h2></div>
   <ul class="shots">
-    ${fotos.map((b, k) => `<li class="reveal"><button type="button" data-full="${b.full}" aria-label="Ampliar foto ${k + 1} de ${fotos.length}"><img loading="lazy" src="${b.thumb}" alt="Bastidores, foto ${k + 1}"></button></li>`).join("\n    ")}
+    ${quadroMakingOf(mk)}${fotos.map((b, k) => `<li class="reveal"><button type="button" data-full="${b.full}" aria-label="Ampliar foto ${k + 1} de ${fotos.length}"><img loading="lazy" src="${b.thumb}" alt="Bastidores, foto ${k + 1}"></button></li>`).join("\n    ")}
   </ul>
 </section>` : "";
 const player = (embed, poster, nome) => `<div class="player${embed ? "" : " still"}" data-embed="${esc(embed)}">
@@ -177,7 +182,7 @@ cases.forEach((c, k) => {
   </div>
 </section>
 ${ficha(c.ficha, [["Formato", c.categoria]])}
-${shots(c.bastidores, "Bastidores do projeto.")}
+${shots(c.bastidores, "Bastidores do projeto.", c.makingof)}
 
 <section class="block c-related">
   <div class="c-related-head">
@@ -188,7 +193,7 @@ ${shots(c.bastidores, "Bastidores do projeto.")}
     ${rel.map(caseCard).join("\n    ")}
   </div>
 </section>
-` + cta("Quer um filme assim para a sua empresa?", "Conte o que você precisa e receba um orçamento personalizado.")));
+` + cta("Quer um filme assim para a sua empresa?", "Conte o que você precisa e receba um orçamento personalizado."), MK(c.makingof)));
 });
 
 // ---------------------------------------------------------------- soluções

@@ -324,3 +324,36 @@ body:not(.cv-1) .ce-facts div { border-top-color: var(--line); }
 .ce-voz .ce-destaque { padding-bottom: 16px; background: linear-gradient(90deg, rgba(253, 184, 19, .75) 0, rgba(253, 184, 19, .75) 45%, rgba(253, 184, 19, 0) 100%) 0 100% / 0 1px no-repeat; }
 .ce-voz.viu .ce-destaque { background-size: 100% 1px; }
 .ce-voz figcaption { margin-top: 18px; }
+
+/* Resultado: o gráfico fica ao lado do título e "Na prática" ocupa a largura toda, começando na margem esquerda
+   (antes ficava só na coluna da direita e sobrava um vazio à esquerda) */
+.ce-res-grid { display: contents; }
+.ce-res .ce-quali { grid-column: 1 / -1; }
+.ce-troca li { grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1.2fr); padding: 20px 0; }
+.ce-troca s { font-size: clamp(15px, 1.15vw, 17px); }
+.ce-troca b { font-size: clamp(17px, 1.5vw, 22px); }
+@media (max-width: 900px) { .ce-troca li { grid-template-columns: minmax(0, 1fr); } }
+
+/* Resultado: sem fio entre "Na prática" e os números (a lista já termina em um fio; dois juntos pareciam duplicados).
+   O divisor fica abaixo dos números, antes do depoimento. */
+.ce-res .ce-nums { border-top: 0; padding-top: 0; }
+
+/* Gráfico: as barras crescem uma de cada vez (0,62s entre uma e outra), na ordem antes/depois de cada indicador */
+.ce-par i { transition: transform .8s cubic-bezier(.2, .7, .2, 1); }
+.ce-par i em { transition: opacity .3s; }
+.ce-grafico.viu .ce-grupo:nth-child(1) i:nth-child(1) { transition-delay: .2s; }
+.ce-grafico.viu .ce-grupo:nth-child(1) i:nth-child(2) { transition-delay: .82s; }
+.ce-grafico.viu .ce-grupo:nth-child(2) i:nth-child(1) { transition-delay: 1.44s; }
+.ce-grafico.viu .ce-grupo:nth-child(2) i:nth-child(2) { transition-delay: 2.06s; }
+.ce-grafico.viu .ce-grupo:nth-child(3) i:nth-child(1) { transition-delay: 2.68s; }
+.ce-grafico.viu .ce-grupo:nth-child(3) i:nth-child(2) { transition-delay: 3.3s; }
+.ce-grafico.viu .ce-grupo:nth-child(1) i:nth-child(1) em { transition-delay: .3s; }
+.ce-grafico.viu .ce-grupo:nth-child(1) i:nth-child(2) em { transition-delay: .92s; }
+.ce-grafico.viu .ce-grupo:nth-child(2) i:nth-child(1) em { transition-delay: 1.54s; }
+.ce-grafico.viu .ce-grupo:nth-child(2) i:nth-child(2) em { transition-delay: 2.16s; }
+.ce-grafico.viu .ce-grupo:nth-child(3) i:nth-child(1) em { transition-delay: 2.78s; }
+.ce-grafico.viu .ce-grupo:nth-child(3) i:nth-child(2) em { transition-delay: 3.4s; }
+
+/* Equilíbrio da página (formato 6): mesmo respiro acima e abaixo dos números, e o resultado com o mesmo recuo das outras partes */
+.ce-res .ce-nums { margin-top: -18px; padding-bottom: 18px; }
+.cv-6 .ce-res { padding-top: clamp(40px, 5vw, 64px); }

@@ -44,6 +44,7 @@ Páginas geradas: `sobre`, `portfolio`, `case-<slug>` (30), `publicidade`, `inst
 | `post-lista.html` | marcadores de lista | lista 1, ponto |
 | `post-modelo.html` | página de referência do artigo aprovado, sem seletores | é o layout que o gerador usa |
 | `case-estudo.html` | página de CASE (por que nos procurou, desafio, entrega, resultado), separada da página simples de portfólio; seis layouts no botão "Case 1 a 6" (gerada por `_build/case-estudo.js`, com `case-estudo.css` e `case-estudo.js`) | em aberto |
+| `case-makingof.html`, `case-estudo-makingof.html` | três formas de mostrar o making of (seção própria, abas no player, junto dos bastidores) na página simples e na de case; geradas por `_build/makingof.js`, com `makingof.css` e `makingof.js` | opção 3, junto dos bastidores |
 | `autorais-opcao2.html` | listagem de projetos autorais em formato de catálogo (capas em fila e fileiras, com `flix.js`) | rejeitada; ficou a grade de cartazes |
 | `autoral-opcao1.html` | página de filme antiga, com "Sobre o filme" | substituída por "Exibições e licenciamentos" + láureas |
 

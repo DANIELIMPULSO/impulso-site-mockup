@@ -172,6 +172,7 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
 </section>
 `;
 
+const MAKING_OF_PROVISORIO = `<li class="mk-tile reveal"><div class="player mk-player" data-embed="https://player.vimeo.com/video/1192056690?h=af350fdea5&amp;autoplay=1&amp;title=0&amp;byline=0&amp;portrait=0"><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao making of"><img loading="lazy" src="${UP}2026/02/image-6.jpg" alt=""><span class="play" aria-hidden="true"></span></button></div><span class="mk-selo">Making of</span></li>`;
 const pagina = `<!doctype html>
 <html lang="pt-BR">
 <head>
@@ -219,6 +220,10 @@ ${FOOT}
 `;
 fs.writeFileSync(path.join(OUT, "case-estudo.html"), pagina);
 // Página oficial do projeto SKA: o mesmo case, no formato escolhido (6), sem o botão de comparação
-fs.writeFileSync(path.join(OUT, "case-ska-institucional.html"), pagina.replace(/<div class="opts casos"[\s\S]*?<\/div>\n/, "").replace("<title>Case SKA · Impulso Filmes (mockup)</title>", "<title>SKA · Case · Impulso Filmes (mockup)</title>"));
+fs.writeFileSync(path.join(OUT, "case-ska-institucional.html"), pagina.replace(/<div class="opts casos"[\s\S]*?<\/div>\n/, "").replace("<title>Case SKA · Impulso Filmes (mockup)</title>", "<title>SKA · Case · Impulso Filmes (mockup)</title>")
+  // making of PROVISÓRIO (outro filme da SKA, só para ver o layout): primeiro quadro da grade de bastidores
+  .replace('<ul class="shots">', '<ul class="shots">\n    ' + MAKING_OF_PROVISORIO)
+  .replace('<body class="ce cv-6 dep-b">', '<body class="ce cv-6 dep-b mk-3">')
+  .replace("</head>", '<link rel="stylesheet" href="makingof.css">\n</head>'));
 
 console.log("case-estudo.html e case-ska-institucional.html gerados");

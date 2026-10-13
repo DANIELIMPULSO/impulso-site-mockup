@@ -130,14 +130,14 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
   </div>
 
   <!-- a voz do cliente: foto do filme ao lado e retrato pequeno de quem fala junto do nome.
-       O retrato é lido de fotos/gabriele-bitello.jpg; enquanto o arquivo não existir, aparecem as iniciais. -->
+       O retrato é lido de fotos/gabriele-bitello.png; enquanto o arquivo não existir, aparecem as iniciais. -->
   <figure class="ce-voz">
     <div class="ce-voz-txt">
       <blockquote>
         <p>Com a Impulso conseguimos formar um banco de imagem próprio. Antes a gente pegava muito banco de imagem e às vezes via um comercial de um concorrente nosso que usava a mesma imagem.</p>
         <p class="ce-destaque">Hoje é o nosso chão de fábrica, ninguém tem igual.</p>
       </blockquote>
-      <figcaption><span class="ce-avatar" data-iniciais="GB"><img src="fotos/gabriele-bitello.jpg" alt="" onerror="this.remove()"></span><span><b>Gabriele Bitello</b>Analista Sênior de Marketing e Criação · SKA</span></figcaption>
+      <figcaption><span class="ce-avatar" data-iniciais="GB"><img src="fotos/gabriele-bitello.png" alt="" onerror="this.remove()"></span><span><b>Gabriele Bitello</b>Analista Sênior de Marketing e Criação · SKA</span></figcaption>
     </div>
     <div class="ce-voz-foto ce-voz-b" aria-hidden="true"><img loading="lazy" src="${UP}2026/02/image-5.jpg" alt=""></div>
   </figure>

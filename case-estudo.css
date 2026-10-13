@@ -357,3 +357,5 @@ body:not(.cv-1) .ce-facts div { border-top-color: var(--line); }
 /* Equilíbrio da página (formato 6): mesmo respiro acima e abaixo dos números, e o resultado com o mesmo recuo das outras partes */
 .ce-res .ce-nums { margin-top: -18px; padding-bottom: 18px; }
 .cv-6 .ce-res { padding-top: clamp(40px, 5vw, 64px); }
+/* retrato do depoimento: enquadra o rosto, que fica na parte de cima da foto */
+.ce-avatar img { object-position: 50% 22%; }

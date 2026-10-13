@@ -18,7 +18,6 @@ E ter as respostas para:
 
 Conteúdo que só a Impulso tem e que o mockup está esperando:
 
-- Foto de Gabriele Bitello (SKA) para o depoimento do case; hoje aparecem as iniciais.
 - Números reais para o gráfico do case SKA (hoje são de exemplo) e a confirmação: o filme passou por 12 ou 14 cidades?
 - Vídeos de making of dos projetos que tiverem (o da SKA no mockup é outro filme, só de exemplo).
 - Texto de "Sobre o projeto", exibições, licenciamentos e prêmios de cada filme autoral.

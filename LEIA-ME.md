@@ -109,7 +109,7 @@ Daniel aprovou o front-end do mockup. O que entrou depois da página de artigo:
 Conteúdo provisório que NÃO deve ir para o site:
 
 - **Brasiliana:** exibições, licenciamentos e láureas de teste (bloco `EXEMPLO_CIRCUITO` em `_build/build.js`). São reais só a licença Curta!/Itaú Cultural e as láureas Brasil Cinemundi 2017 e Edital BRDE/FSA 2018.
-- **Case SKA:** o gráfico de antes e depois usa números de exemplo; o retrato da cliente mostra as iniciais até existir `fotos/gabriele-bitello.jpg`; a página do projeto diz 12 cidades e o artigo do blog diz 14 (o case usa 14).
+- **Case SKA:** o gráfico de antes e depois usa números de exemplo; a página do projeto diz 12 cidades e o artigo do blog diz 14 (o case usa 14).
 - **Soluções:** o vídeo das etapas é o da home, um trecho por etapa.
 - **Filmes autorais:** o texto de "Sobre o projeto" é fictício e igual em todos (`SOBRE_EXEMPLO` em `_build/build.js`).
 - **Making of:** nas páginas de comparação o vídeo é outro filme da SKA; nenhum projeto real tem making of cadastrado.

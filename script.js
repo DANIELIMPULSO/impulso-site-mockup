@@ -2,9 +2,9 @@
 const UP = 'https://www.impulsofilmes.com.br/wp-content/uploads/';
 
 const CASES = [
-  ['Vídeo institucional', 'Usina Jatiboca', '2023/12/v2-640x360.png', 'usina-jatiboca'],
+  ['Vídeo institucional', 'SKA', '2026/02/image-3-640x360.jpg', 'ska-institucional'],   // primeiro da lista = quadro grande (a SKA é o projeto em formato de case)
   ['Publicidade', 'Tractian México', '2024/12/Captura-de-tela-2024-12-09-125457-640x360.png', 'tractian-mexico-confissiones-de-un-inge'],
-  ['Vídeo institucional', 'SKA', '2026/02/image-3-640x360.jpg', 'ska-institucional'],
+  ['Vídeo institucional', 'Usina Jatiboca', '2023/12/v2-640x360.png', 'usina-jatiboca'],
   ['Conteúdo de marca', 'ArcelorMittal: MasterChef', '2024/06/Captura-de-tela-2024-06-24-114035-640x360.png', 'arcelormittal-masterchef-juiz-de-fora'],
   ['Publicidade', 'Plasc: 40 anos', '2024/12/STILL-640x360.png', 'plasc-40-anos'],
   ['Vídeo institucional', 'Supporte', '2026/05/image-22-640x360.jpg', 'supporte'],

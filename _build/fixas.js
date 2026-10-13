@@ -121,7 +121,7 @@ const p2 = n => String(n).padStart(2, "0");
 
 const clientes = hero({
   chapeu: "Clientes",
-  linhas: ["Veja quem confiou", "sua marca à Impulso"],
+  linhas: ["Quem já confiou", "sua marca à Impulso"],
   texto: `<p class="lead">Na Impulso Filmes, atendemos <strong>clientes de diferentes setores</strong>, tanto no Brasil quanto no exterior.</p>
       <p class="p-sub">Nossa expertise abrange tecnologia, saúde, educação, varejo e indústria, oferecendo <strong>soluções audiovisuais personalizadas</strong> que impulsionam o sucesso de cada projeto.</p>`,
   botoes: `<a class="btn solid" href="orcamento.html">Quero um orçamento</a><a class="btn ghost" href="#vozes">O que dizem sobre nós</a>`,
@@ -131,7 +131,7 @@ const clientes = hero({
 <!-- Parede de marcas: logos em branco que ganham a cor original ao passar o mouse -->
 <section class="block rule p-wall-sec">
   <div class="sec-head">
-    <div class="statement reveal"><h2>Conheça alguns de nossos clientes.</h2></div>
+    <div class="statement reveal"><h2 class="menor">Estamos em boa companhia. Sempre.</h2></div>
     <p class="count">${LOGOS.length} marcas</p>
   </div>
   <ul class="wall" id="wall">

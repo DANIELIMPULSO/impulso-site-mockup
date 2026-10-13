@@ -151,3 +151,6 @@
 
 /* Clientes: texto do depoimento 4px menor */
 .voice blockquote { font-size: clamp(15px, calc(1.9vw - 4px), 23px); line-height: 1.5; }
+
+/* Clientes: título da parede de marcas 2px menor que os títulos de seção */
+.statement h2.menor { font-size: calc(clamp(38px, 5.6vw, 84px) - 2px); }

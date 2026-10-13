@@ -104,6 +104,8 @@ Daniel aprovou o front-end do mockup. O que entrou depois da página de artigo:
 | Home | Cartões de depoimento maiores, em itálico e entre aspas. |
 | Todas | Foto ampliada com cursor por cima, setas e contador; botão do WhatsApp com a logo em branco; títulos da abertura quebram só entre palavras. |
 
+**Projeto SKA no formato de case:** `case-ska-institucional.html` (o endereço que o portfólio usa) é gerado por `_build/case-estudo.js`, no formato 6 e sem botões de comparação. A versão simples do mesmo projeto fica em `case-ska-simples.html`. Ordem para regenerar tudo: `build.js`, depois `case-estudo.js`, depois `makingof.js`.
+
 Conteúdo provisório que NÃO deve ir para o site:
 
 - **Brasiliana:** exibições, licenciamentos e láureas de teste (bloco `EXEMPLO_CIRCUITO` em `_build/build.js`). São reais só a licença Curta!/Itaú Cultural e as láureas Brasil Cinemundi 2017 e Edital BRDE/FSA 2018.

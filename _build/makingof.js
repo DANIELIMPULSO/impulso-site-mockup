@@ -47,5 +47,5 @@ ${m}`, "a seção de bastidores");
   console.log(destino, "gerado");
 };
 
-montar("case-ska-institucional.html", "case-makingof.html", "Página simples com making of");
+montar("case-ska-simples.html", "case-makingof.html", "Página simples com making of");
 montar("case-estudo.html", "case-estudo-makingof.html", "Página de case com making of");

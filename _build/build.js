@@ -147,6 +147,7 @@ const ficha = (linhas, extra = []) => {
 };
 // Making of (opcional): quando o projeto tem o campo "makingof" ({ embed, capa }), o vídeo entra como primeiro quadro da grade
 // de bastidores, do tamanho de quatro fotos. No WordPress será um campo opcional do projeto (ligar/desligar, vídeo e capa).
+const CASES_COMPLETOS = { "ska-institucional": "case-ska-simples.html" };
 const quadroMakingOf = mk => mk && mk.embed ? `<li class="mk-tile reveal"><div class="player mk-player" data-embed="${esc(mk.embed)}"><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao making of"><img loading="lazy" src="${mk.capa}" alt=""><span class="play" aria-hidden="true"></span></button></div><span class="mk-selo">Making of</span></li>
     ` : "";
 const MK = mk => mk && mk.embed ? { cls: "mk-3", css: ["makingof.css"] } : {};
@@ -168,7 +169,10 @@ cases.forEach((c, k) => {
   const mesma = cases.filter(x => x.categoria === c.categoria && x.slug !== c.slug);
   const i = mesma.findIndex(x => cases.indexOf(x) > k);
   const rel = [...mesma.slice(Math.max(i, 0)), ...mesma].slice(0, 3);
-  write(`case-${c.slug}.html`, page(c.titulo + " · " + c.categoria, `
+  // Projetos em formato de CASE: a página oficial (case-<slug>.html) é gerada por _build/case-estudo.js;
+  // aqui a versão simples vai para case-<slug-curto>-simples.html, só para comparação.
+  const arquivoDoProjeto = CASES_COMPLETOS[c.slug] ? CASES_COMPLETOS[c.slug] : `case-${c.slug}.html`;
+  write(arquivoDoProjeto, page(c.titulo + " · " + c.categoria, `
 <section class="c-hero">
   ${player(c.embed, c.poster, "filme " + c.titulo)}
   <div class="c-side">

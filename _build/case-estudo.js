@@ -172,7 +172,7 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
 </section>
 `;
 
-fs.writeFileSync(path.join(OUT, "case-estudo.html"), `<!doctype html>
+const pagina = `<!doctype html>
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
@@ -207,7 +207,7 @@ ${main}
 ${FOOT}
 
 <a class="zap" href="${WA}" target="_blank" rel="noopener">WhatsApp</a>
-<div class="opts casos" role="group" aria-label="Opções de página de case"><span>Case</span>${["História longa, foto na abertura", "Filme em tela cheia", "Filme com resumo ao lado", "Título, filme e números", "Filme preso ao lado", "Resumo em uma tela"].map((t, i) => `<button type="button" data-v="${i + 1}" title="${t}" aria-pressed="${i === 5}">${i + 1}</button>`).join("")}<span class="cv-nome">Resumo em uma tela</span><a href="case.html">Página simples</a></div>
+<div class="opts casos" role="group" aria-label="Opções de página de case"><span>Case</span>${["História longa, foto na abertura", "Filme em tela cheia", "Filme com resumo ao lado", "Título, filme e números", "Filme preso ao lado", "Resumo em uma tela"].map((t, i) => `<button type="button" data-v="${i + 1}" title="${t}" aria-pressed="${i === 5}">${i + 1}</button>`).join("")}<span class="cv-nome">Resumo em uma tela</span><a href="case-ska-simples.html">Página simples</a></div>
 
 <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada"><img alt=""><button type="button">Fechar</button></dialog>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
@@ -216,5 +216,9 @@ ${FOOT}
 <script src="case-estudo.js"></script>
 </body>
 </html>
-`);
-console.log("case-estudo.html gerado");
+`;
+fs.writeFileSync(path.join(OUT, "case-estudo.html"), pagina);
+// Página oficial do projeto SKA: o mesmo case, no formato escolhido (6), sem o botão de comparação
+fs.writeFileSync(path.join(OUT, "case-ska-institucional.html"), pagina.replace(/<div class="opts casos"[\s\S]*?<\/div>\n/, "").replace("<title>Case SKA · Impulso Filmes (mockup)</title>", "<title>SKA · Case · Impulso Filmes (mockup)</title>"));
+
+console.log("case-estudo.html e case-ska-institucional.html gerados");

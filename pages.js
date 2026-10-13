@@ -10,8 +10,11 @@ const $$ = (s, el = document) => [...el.querySelectorAll(s)];
 // ---------- Título da abertura: letras separadas para reagirem ao mouse ----------
 $$('.p-title span').forEach(s => {
   s.setAttribute('aria-hidden', 'true');
-  s.innerHTML = [...s.textContent].map(c => '<i>' + c + '</i>').join('');
+  // cada palavra fica em um bloco que não quebra: o título só muda de linha entre palavras, nunca no meio de uma
+  s.innerHTML = s.textContent.split(/(\s+)/).map(p => /^\s+$/.test(p) ? '<i> </i>' : '<em>' + [...p].map(c => '<i>' + c + '</i>').join('') + '</em>').join('');
 });
+// títulos compridos usam letra menor, para cada linha caber inteira
+$$('.p-title').forEach(t => { if (Math.max(...$$('span', t).map(s => s.textContent.length)) > 16) t.classList.add('longo'); });
 
 // ---------- Clientes: depoimentos ----------
 const stage = $('#voice-stage');

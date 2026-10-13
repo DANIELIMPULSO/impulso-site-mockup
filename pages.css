@@ -143,3 +143,11 @@
   .points li { opacity: 1; transform: none; }
   .voice-bar { display: none; }
 }
+
+/* Título da abertura: palavras inteiras (sem quebra no meio) e letra menor quando a linha é comprida */
+.p-title em { display: inline-block; font-style: normal; white-space: nowrap; }
+.p-title.longo { font-size: clamp(40px, 5vw, 92px); }
+@media (max-width: 900px) { .p-title.longo { font-size: clamp(38px, 11vw, 88px); } }
+
+/* Clientes: texto do depoimento 4px menor */
+.voice blockquote { font-size: clamp(15px, calc(1.9vw - 4px), 23px); line-height: 1.5; }

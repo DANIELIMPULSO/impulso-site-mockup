@@ -14,6 +14,14 @@ E ter as respostas para:
 3. Qual é o plano da Hostinger (aparece no painel) e se há ambiente de testes (staging).
 4. Se o RD Station está em uso nos formulários.
 5. Quem mantém o site hoje (a I2W ainda atende?) e quem terá acesso ao painel do WordPress.
+6. A lista de plugins ativos (tela Plugins do painel; pode ser um print).
+
+Conteúdo que só a Impulso tem e que o mockup está esperando:
+
+- Foto de Gabriele Bitello (SKA) para o depoimento do case; hoje aparecem as iniciais.
+- Números reais para o gráfico do case SKA (hoje são de exemplo) e a confirmação: o filme passou por 12 ou 14 cidades?
+- Vídeos de making of dos projetos que tiverem (o da SKA no mockup é outro filme, só de exemplo).
+- Texto de "Sobre o projeto", exibições, licenciamentos e prêmios de cada filme autoral.
 
 ## Prompt para colar na nova conversa
 
@@ -37,6 +45,7 @@ O que eu trouxe para esta conversa:
 - plano da Hostinger e staging: ...
 - RD Station em uso: ...
 - quem mantém o site e quem acessa o painel: ...
+- plugins ativos: ...
 
 Não mexa em nada no site que está no ar sem me perguntar antes.
 
@@ -49,7 +58,8 @@ Quero que você:
    fixo no mockup e precisa virar editável no painel.
 3. Proponha o plano de construção do tema novo, em etapas que eu consiga
    aprovar uma a uma, incluindo onde ele será desenvolvido e testado antes de
-   ir ao ar, como será a virada e como voltar atrás se algo der errado.
+   ir ao ar (cópia de testes), o backup antes da virada, como será a virada e
+   como voltar atrás se algo der errado.
 4. Para cada página do mockup, mostre a lista "o que aparece na tela → onde
    se edita no painel", seguindo o princípio de que tudo deve ser editável de
    forma intuitiva (seção "Princípio da etapa do WordPress").
@@ -60,6 +70,9 @@ Quero que você:
 7. Diga o que os formulários precisam para funcionar de verdade (orçamento em
    uma tela, trabalhe conosco, solicitação sobre dados pessoais), inclusive a
    integração com o RD Station, se houver.
+
+Atenção ao conteúdo provisório do mockup (lista em mockup/LEIA-ME.md, seção
+"Front-end aprovado"): dados fictícios não podem ir para o site.
 
 Comece pela análise (itens 1 e 2) e me mostre o resultado antes de planejar.
 ```
@@ -86,7 +99,7 @@ O que isso pede do plano: cada bloco visual do mockup vira um grupo de campos co
 - Textos novos do mockup e números da faixa animada (+25M, +480, +70) aprovados.
 - Página de artigo do blog: layout fechado em 2026-10-12 (capa em tela cheia com degradê, índice afastado que se apaga, texto em box, recuo em degraus, listas com ponto). Descrição completa em `mockup/LEIA-ME.md`, seção "Página de artigo"; gabarito em `mockup/post-modelo.html`.
 - Front-end do mockup aprovado em 2026-10-13, incluindo a página de case (formato 6), os projetos autorais (grade com filtros; filme com exibições, licenciamentos e láureas em contorno) e os ajustes de Clientes, Sobre e Soluções. Resumo em `mockup/LEIA-ME.md`, seção "Front-end aprovado".
-- Dois tipos de página de projeto: a simples de portfólio e a de case. No painel, cada projeto escolhe o tipo.
+- Dois tipos de página de projeto: a simples de portfólio e a de case. No painel, cada projeto escolhe o tipo. No mockup, a SKA já abre como case (`mockup/case-ska-institucional.html`); os outros projetos usam a página simples.
 - Versão em inglês fica para uma segunda fase.
 
 ## Pontos que a etapa do WordPress precisa resolver

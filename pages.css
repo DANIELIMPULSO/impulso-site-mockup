@@ -154,3 +154,68 @@
 
 /* Clientes: título da parede de marcas 2px menor que os títulos de seção */
 .statement h2.menor { font-size: calc(clamp(38px, 5.6vw, 84px) - 2px); }
+
+/* Clientes, depoimento: a pessoa vem primeiro. Foto grande com anel amarelo, nome e empresa ao lado, e o texto logo abaixo */
+.voice { display: flex; flex-direction: column; }
+.voice figcaption { order: -1; gap: 22px; margin: 0 0 30px; }
+.voice figcaption img { width: clamp(88px, 7.4vw, 116px); height: clamp(88px, 7.4vw, 116px); flex: none; outline: 1.5px solid var(--yellow); outline-offset: 5px; }
+.voice figcaption b { font-size: clamp(19px, 1.5vw, 23px); margin-bottom: 4px; }
+.voice blockquote::before { font-size: clamp(48px, 4.6vw, 70px); margin-bottom: 0; }
+@media (max-width: 900px) {
+  .voice figcaption { gap: 16px; margin-bottom: 22px; }
+  .voice figcaption img { width: 76px; height: 76px; outline-offset: 4px; }
+}
+
+/* Clientes, depoimento: as fotos já trazem o próprio anel amarelo, deslocado de propósito. Sem anel extra nem recorte redondo
+   (que cortava o anel original e deixava tudo descentralizado); a foto balança de leve, como se flutuasse */
+.voice figcaption img { outline: 0; border-radius: 0; object-fit: contain; width: clamp(96px, 8vw, 128px); height: clamp(96px, 8vw, 128px); animation: voz-balanco 7s ease-in-out infinite; transform-origin: 50% 60%; }
+@keyframes voz-balanco { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-5px) rotate(2.5deg); } }
+.voice:not(.on) figcaption img { animation-play-state: paused; }
+@media (max-width: 900px) { .voice figcaption img { width: 84px; height: 84px; } }
+@media (prefers-reduced-motion: reduce) { .voice figcaption img { animation: none; } }
+
+/* Clientes, depoimento: foto e anel em camadas separadas, cada uma com o seu balanço (leve paralaxe).
+   O arquivo da foto traz um anel desenhado; aqui ele é recortado para fora (círculo de 39,3% com centro em 52,7% / 47,6%
+   da imagem, medida igual em todas as fotos) e o anel é redesenhado por cima, solto. */
+.voz-foto { position: relative; flex: none; width: clamp(92px, 7.6vw, 122px); aspect-ratio: 1; margin: 6px 10px 6px 8px; }
+.voz-foto > span { position: absolute; inset: 0; overflow: hidden; border-radius: 50%; animation: voz-foto 7s ease-in-out infinite; }
+.voice figcaption .voz-foto img { position: absolute; left: -17%; top: -10.5%; width: 127.2%; height: 127.2%; max-width: none; border-radius: 0; object-fit: fill; outline: 0; animation: none; }
+.voz-foto::after { content: ""; position: absolute; inset: -2px; border: 1.5px solid var(--yellow); border-radius: 50%; animation: voz-anel 9s ease-in-out infinite; }
+@keyframes voz-foto { 0%, 100% { transform: translate(1px, 2px); } 50% { transform: translate(-1px, -3px); } }
+@keyframes voz-anel { 0%, 100% { transform: translate(-7%, 3%); } 50% { transform: translate(-2.5%, 7.5%); } }
+.voice:not(.on) .voz-foto > span, .voice:not(.on) .voz-foto::after { animation-play-state: paused; }
+@media (max-width: 900px) { .voz-foto { width: 78px; margin: 4px 6px 4px 6px; } }
+@media (prefers-reduced-motion: reduce) { .voz-foto > span, .voz-foto::after { animation: none; } .voz-foto::after { transform: translate(-5%, 5%); } }
+
+/* Clientes: texto do depoimento em peso normal (antes 500) */
+.voice blockquote { font-weight: 400; }
+
+/* Foto ampliada: setas para passar de uma foto a outra e contador */
+.lightbox .lb-seta { position: fixed; top: 50%; display: grid; place-items: center; width: 54px; height: 54px; margin: -27px 0 0; padding: 0; border: 1.5px solid var(--line); border-radius: 50%; background: rgba(45, 45, 45, .72); color: var(--text); font: 400 20px/1 var(--body); letter-spacing: 0; cursor: pointer; }
+.lightbox .lb-seta:hover { border-color: var(--yellow); color: var(--yellow); }
+.lightbox .lb-ant { left: clamp(10px, 2.4vw, 36px); }
+.lightbox .lb-prox { right: clamp(10px, 2.4vw, 36px); }
+.lightbox .lb-conta { position: fixed; left: 0; right: 0; top: 18px; text-align: center; font: 500 12px/1 var(--mono); letter-spacing: .1em; color: var(--dim); pointer-events: none; }
+.lightbox.uma .lb-seta, .lightbox.uma .lb-conta { display: none; }
+dialog.lightbox img { max-width: min(94vw, calc(100vw - 2 * (54px + clamp(20px, 4.8vw, 72px)))); }
+@media (max-width: 900px) {
+  dialog.lightbox img { max-width: 94vw; }
+  .lightbox .lb-seta { top: auto; bottom: 16px; margin: 0; width: 48px; height: 48px; }
+}
+
+/* Cartazes: ao passar o mouse, fica claro em qual projeto a pessoa vai entrar.
+   O cartaz cresce e ganha cantos de visor, sobe uma faixa "Ver o filme", o título fica amarelo e os outros cartazes escurecem. */
+.poster { transition: opacity .35s, transform .45s cubic-bezier(.2, .7, .2, 1); }
+.poster-art::before { content: ""; position: absolute; z-index: 2; inset: 24px; opacity: 0; pointer-events: none; --c: var(--yellow); --l: 26px; --t: 2px;
+  background: linear-gradient(var(--c), var(--c)) left top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left top / var(--t) var(--l), linear-gradient(var(--c), var(--c)) right top / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right top / var(--t) var(--l), linear-gradient(var(--c), var(--c)) left bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) left bottom / var(--t) var(--l), linear-gradient(var(--c), var(--c)) right bottom / var(--l) var(--t), linear-gradient(var(--c), var(--c)) right bottom / var(--t) var(--l);
+  background-repeat: no-repeat; transition: inset .45s cubic-bezier(.2, .7, .2, 1), opacity .3s; }
+.poster-art::after { content: "Ver o filme  →"; position: absolute; z-index: 2; left: 0; right: 0; bottom: 0; padding: 15px 16px; background: var(--yellow); color: #111; font: 600 12.5px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; white-space: pre; transform: translateY(101%); transition: transform .4s cubic-bezier(.2, .7, .2, 1); }
+.poster strong { transition: color .3s; }
+@media (hover: hover) {
+  .posters:hover .poster:not(:hover):not(:focus-visible) { opacity: .38; }
+  .poster:hover, .poster:focus-visible { transform: translateY(-10px) scale(1.035); z-index: 2; }
+  .poster:hover .poster-art::before, .poster:focus-visible .poster-art::before { inset: 12px; opacity: 1; }
+  .poster:hover .poster-art::after, .poster:focus-visible .poster-art::after { transform: none; }
+  .poster:hover strong, .poster:focus-visible strong { color: var(--yellow); }
+}
+@media (prefers-reduced-motion: reduce) { .poster:hover, .poster:focus-visible { transform: none; } }

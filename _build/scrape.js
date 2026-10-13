@@ -190,6 +190,8 @@ const pool = async (items, n, fn) => {
     } catch (e) { /* segue sem imagem */ }
   }
 
-  fs.writeFileSync(path.join(__dirname, "data.json"), JSON.stringify(data, null, 1));
+  // o site reescreve imagens com o PageSpeed ("ximagem.jpg.pagespeed.ic.HASH.jpg"); esses endereços expiram, então volta-se ao arquivo original
+  const semPagespeed = JSON.stringify(data, null, 1).replace(/\/x([^\/"\\]+?\.(?:jpe?g|png|webp|gif))\.pagespeed\.[a-z]{2}\.[\w-]+\.(?:jpe?g|png|webp|gif)/g, "/$1");
+  fs.writeFileSync(path.join(__dirname, "data.json"), semPagespeed);
   console.log("cases", data.cases.length, "| autorais", data.autorais.length, "| servicos", data.servicos.map(s => s.slug + ":" + s.etapas.length).join(","), "| posts", data.posts.length, "| fotos sobre", data.sobre.fotos.length);
 })().catch(e => { console.error(e); process.exit(1); });

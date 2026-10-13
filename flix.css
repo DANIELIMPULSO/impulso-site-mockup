@@ -1,0 +1,173 @@
+/* ---------- Projetos autorais em formato de catálogo: capas em fila (como no iTunes) e fileiras por tipo (como na Netflix) ---------- */
+
+/* Capas em fila: a do centro de frente, as outras viradas de lado */
+.flow-nav { display: flex; align-items: center; gap: 8px; }
+.flow-nav .count { margin-right: 10px; }
+.flow-nav button, .fila-seta { width: 46px; height: 46px; border: 1.5px solid var(--line); border-radius: 50%; background: rgba(45, 45, 45, .78); color: var(--text); font: 400 18px/1 var(--body); cursor: pointer; }
+.flow-nav button:hover, .fila-seta:hover { border-color: var(--yellow); color: var(--yellow); }
+.flow { position: relative; height: clamp(300px, 40vw, 540px); margin: 44px calc(-1 * var(--gutter)) 0; perspective: 1500px; overflow: hidden; outline: 0; touch-action: pan-y; }
+.flow-item { position: absolute; left: 50%; top: 0; height: 86%; aspect-ratio: 898 / 1284; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.2, .7, .2, 1), opacity .4s; -webkit-box-reflect: below 4px linear-gradient(transparent 78%, rgba(0, 0, 0, .28)); }
+.flow-item img { display: block; width: 100%; height: 100%; object-fit: cover; filter: brightness(.5) saturate(.55); transition: filter .5s; pointer-events: none; }
+.flow-item.on img { filter: none; }
+.flow-item.on { box-shadow: 0 30px 70px rgba(0, 0, 0, .6); }
+.flow-info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 32px; align-items: end; max-width: 980px; margin: 8px auto 0; text-align: left; transition: opacity .25s; }
+.flow-info.troca { opacity: 0; }
+.flow-info .eyebrow { grid-column: 1 / -1; }
+.flow-info h3 { font: 400 clamp(32px, 4.4vw, 68px)/1.04 var(--display); text-transform: uppercase; letter-spacing: .005em; text-wrap: balance; }
+.flow-info p { grid-column: 1; max-width: 62ch; font-size: clamp(15.5px, 1.2vw, 17.5px); line-height: 1.55; color: #d2d0c9; }
+.flow-info .btn { grid-column: 2; grid-row: 2 / span 2; align-self: end; white-space: nowrap; }
+
+/* Fileiras por tipo, com rolagem lateral */
+.fila { position: relative; padding: clamp(44px, 5vw, 72px) 0 0; }
+.fila-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 0 var(--gutter); }
+.fila-h h3 { font: 400 clamp(24px, 2.4vw, 36px)/1.1 var(--display); text-transform: uppercase; letter-spacing: .01em; }
+.fila-h span { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.fila-trilho { display: flex; gap: 18px; margin-top: 20px; padding: 14px var(--gutter) 30px; overflow-x: auto; scroll-snap-type: x proximity; scroll-padding-left: var(--gutter); scrollbar-width: none; perspective: 1400px; }
+.fila-trilho::-webkit-scrollbar { display: none; }
+.fila-trilho .poster { flex: none; width: clamp(150px, 15.5vw, 236px); scroll-snap-align: start; transition: transform .35s; }
+.fila-trilho .poster:hover { transform: translateY(-6px); }
+.fila-trilho .poster strong { font-size: clamp(17px, 1.45vw, 22px); }
+.fila-seta { position: absolute; top: calc(50% + 10px); z-index: 3; opacity: 0; transition: opacity .25s; }
+.fila-seta.ant { left: clamp(6px, 1.4vw, 22px); }
+.fila-seta.prox { right: clamp(6px, 1.4vw, 22px); }
+.fila:hover .fila-seta:not([disabled]) { opacity: 1; }
+.fila-seta[disabled] { opacity: 0 !important; pointer-events: none; }
+
+/* ---------- Página do projeto: exibições, licenciamentos e láureas ---------- */
+.exib { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.25fr); gap: clamp(32px, 6vw, 110px); align-items: start; }
+.exib-cols { display: grid; gap: clamp(28px, 3vw, 44px); }
+.exib-lista { list-style: none; margin: 14px 0 0; padding: 0; border-bottom: 1px solid var(--line); }
+.exib-lista li { display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; gap: 4px 12px; align-items: baseline; padding: 13px 0; border-top: 1px solid var(--line); font-size: clamp(15.5px, 1.2vw, 17.5px); line-height: 1.4; }
+.exib-lista li span { font: 500 11.5px/1.6 var(--mono); letter-spacing: .08em; color: var(--yellow); }
+.exib-lista li em { font: 500 11.5px/1.6 var(--mono); font-style: normal; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); white-space: nowrap; }
+.exib-vazio { margin-top: 14px; padding: 16px 18px; border: 1px dashed var(--line); font-size: 14.5px; line-height: 1.5; color: var(--dim); }
+
+/* Quadro de láureas */
+.laureis { margin-top: clamp(40px, 5vw, 72px); padding: clamp(24px, 3vw, 40px); background: var(--surface); }
+.laureis-h { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.laureis-ex { padding: 5px 10px; border: 1px dashed var(--yellow); font: 500 11px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--yellow); }
+.laureis ul { list-style: none; margin: 22px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(18px, 2.4vw, 36px); }
+.laurea { position: relative; display: grid; place-items: center; aspect-ratio: 1.36; text-align: center; color: var(--text); }
+.laurea svg { position: absolute; inset: 0; width: 100%; height: 100%; color: var(--yellow); }
+.laurea div { position: relative; width: 52%; display: grid; gap: 5px; }
+.laurea small { font: 500 10px/1.4 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--yellow); }
+.laurea b { font: 400 clamp(13.5px, 1.1vw, 16.5px)/1.18 var(--display); text-transform: uppercase; letter-spacing: .02em; text-wrap: balance; }
+.laurea i { font: 500 10.5px/1.4 var(--mono); font-style: normal; letter-spacing: .08em; color: var(--dim); }
+.laurea.vazia { color: var(--dim); }
+.laurea.vazia svg { color: #6c6a64; }
+.laurea.vazia small, .laurea.vazia b { color: var(--dim); }
+
+@media (max-width: 900px) {
+  .flow { height: clamp(300px, 92vw, 460px); }
+  .flow-info { grid-template-columns: minmax(0, 1fr); }
+  .flow-info .btn { grid-column: 1; grid-row: auto; justify-self: start; margin-top: 8px; }
+  .fila-seta { display: none; }
+  .fila-trilho .poster { width: 44vw; }
+  .exib { grid-template-columns: minmax(0, 1fr); }
+  .exib-lista li { grid-template-columns: 30px minmax(0, 1fr); }
+  .exib-lista li em { grid-column: 2; }
+  .laureis ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) { .flow-item { transition: none; } }
+
+/* filtros e navegação das capas em fila */
+.flow-topo { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 28px; }
+.flow-item[hidden] { display: none; }
+.flow-vazio { margin: 44px 0 0; padding: 28px; border: 1px dashed var(--line); text-align: center; color: var(--dim); }
+.flow-info[hidden], .flow-vazio[hidden], .flow[hidden] { display: none; }
+
+/* Láurea no formato clássico de festival: texto em caixa alta entre dois ramos */
+.laurea { aspect-ratio: 200 / 148; }
+.laurea div { width: 50%; gap: 4px; }
+.laurea small { font-size: 10.5px; letter-spacing: .14em; }
+.laurea b { font-size: clamp(14px, 1.15vw, 17.5px); line-height: 1.14; }
+.laureis ul { grid-template-columns: repeat(auto-fit, minmax(210px, 270px)); justify-content: start; }
+/* quando houver o arquivo oficial da láurea (imagem enviada pelo festival), ele ocupa o quadro inteiro */
+.laurea img { width: 100%; height: 100%; object-fit: contain; filter: brightness(0) invert(1); }
+
+/* Exibições e licenciamentos, versão 2: contadores sob o título (para a coluna da esquerda não ficar vazia)
+   e quadro de láureas na largura toda, abaixo das listas */
+.exib { row-gap: clamp(36px, 4.5vw, 64px); }
+.exib-h { position: sticky; top: 110px; }
+.exib-conta { list-style: none; margin: clamp(22px, 2.6vw, 36px) 0 0; padding: 0; display: grid; gap: 0; max-width: 360px; border-bottom: 1px solid var(--line); }
+.exib-conta li { display: grid; grid-template-columns: clamp(64px, 6vw, 92px) minmax(0, 1fr); align-items: baseline; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); }
+.exib-conta b { font: 400 clamp(38px, 3.8vw, 58px)/1 var(--display); color: transparent; -webkit-text-stroke: 1.2px var(--yellow); font-variant-numeric: tabular-nums; }
+.exib-conta span { font: 500 12px/1.4 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+.exib-aviso { margin-top: 18px; max-width: 360px; padding: 10px 12px; border: 1px dashed var(--yellow); font: 500 11px/1.5 var(--mono); letter-spacing: .04em; color: var(--yellow); }
+.exib .laureis { grid-column: 1 / -1; margin-top: 0; }
+.exib .laureis ul { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); justify-content: stretch; gap: clamp(14px, 2vw, 30px) clamp(10px, 1.6vw, 24px); }
+.laurea b { font-size: clamp(12.5px, 1vw, 15.5px); }
+@media (max-width: 900px) { .exib-h { position: static; } .exib .laureis ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* o título não acompanha a rolagem (preso, ele passava por cima do quadro de láureas) */
+.exib-h { position: static; }
+
+/* ================= Exibições e licenciamentos, versão 3 (2026-10-12) ================= */
+/* resumo (contadores) alinhado ao rodapé da coluna das listas */
+.exib { align-items: stretch; }
+.exib-h { display: flex; flex-direction: column; }
+.exib-conta { margin-top: auto; }
+.exib-aviso { margin-bottom: 22px; }
+/* listas em blocos de 6, com setas para passar */
+.exib-lista li[hidden] { display: none; }
+.exib-nav { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.exib-nav .count { margin-right: 8px; font: 500 12px/1 var(--mono); letter-spacing: .08em; color: var(--dim); }
+.exib-nav button { width: 38px; height: 38px; border: 1.5px solid var(--line); border-radius: 50%; background: none; color: var(--text); font: 400 16px/1 var(--body); cursor: pointer; }
+.exib-nav button:hover { border-color: var(--yellow); color: var(--yellow); }
+/* láureas: menores, todas brancas, em uma linha só; quando passam de seis, a fila gira */
+.exib .laureis { padding: clamp(18px, 2.2vw, 28px) clamp(18px, 2.4vw, 32px) clamp(22px, 2.6vw, 34px); }
+.laureis-trilho { overflow: hidden; margin-top: 16px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%); }
+.exib .laureis ul { display: flex; gap: 0; margin: 0; width: max-content; }
+.exib .laureis .laurea { flex: none; width: calc((min(100vw, 2000px) - 2 * var(--gutter) - 2 * clamp(18px, 2.4vw, 32px)) / 6); padding: 0 clamp(6px, .9vw, 14px); box-sizing: border-box; aspect-ratio: 200 / 150; }
+.exib .laureis .laurea svg { color: var(--text); inset: 0 clamp(6px, .9vw, 14px); width: auto; }
+.exib .laureis .laurea small { color: var(--text); opacity: .7; font-size: 9px; }
+.exib .laureis .laurea b { color: var(--text); font-size: clamp(10.5px, .82vw, 13px); }
+.exib .laureis .laurea i { color: var(--text); opacity: .6; font-size: 9px; }
+.exib .laureis .laurea.vazia svg, .exib .laureis .laurea.vazia b, .exib .laureis .laurea.vazia small { opacity: .35; }
+.exib .laureis ul.roda { animation: laureas-giram var(--dur, 40s) linear infinite; }
+.exib .laureis ul.roda:hover { animation-play-state: paused; }
+@keyframes laureas-giram { to { transform: translateX(-50%); } }
+@media (max-width: 900px) {
+  .exib .laureis .laurea { width: calc((100vw - 2 * var(--gutter) - 2 * 18px) / 3); padding: 0 4px; }
+  .exib .laureis .laurea svg { inset: 0 4px; }
+  .exib .laureis .laurea b { font-size: 9px; }
+  .exib .laureis .laurea small, .exib .laureis .laurea i { font-size: 7.5px; }
+  .exib-conta { margin-top: 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .exib .laureis ul.roda { animation: none; } .laureis-trilho { overflow-x: auto; } }
+
+/* chamada final das páginas autorais: título 40% menor que o das outras chamadas */
+.p-cta .statement h2 { font-size: calc(clamp(38px, 5.6vw, 84px) * .6); max-width: 30ch; }
+
+/* ================= Láureas, versão 4: um ramo de cada lado e o texto centralizado no meio ================= */
+.exib .laureis .laurea { display: flex; align-items: center; justify-content: center; gap: clamp(5px, .6vw, 9px); aspect-ratio: auto; height: clamp(86px, 7.4vw, 112px); padding: 0 clamp(14px, 1.7vw, 28px); }
+.exib .laureis .laurea svg.ramo { position: static; inset: auto; flex: none; height: 100%; width: auto; color: var(--text); }
+.exib .laureis .laurea svg.ramo.d { transform: scaleX(-1); }
+.exib .laureis .laurea div { position: static; flex: 0 1 auto; width: auto; min-width: 0; max-width: 11em; display: grid; justify-items: center; gap: 4px; text-align: center; }
+.exib .laureis .laurea b { text-wrap: balance; }
+.exib .laureis .laurea.vazia svg.ramo { opacity: .35; }
+@media (max-width: 900px) {
+  .exib .laureis .laurea { height: 74px; padding: 0 8px; gap: 4px; }
+}
+/* mais largura para o texto da láurea; o espaço entre uma láurea e outra vem das margens */
+.exib .laureis .laurea { padding: 0 clamp(8px, .9vw, 14px); gap: clamp(4px, .5vw, 8px); }
+.exib .laureis .laurea div { flex: 1 1 0; max-width: none; }
+
+/* ================= Láureas: título maior e cinco variações de ramo em avaliação (autoral-laureis.html) ================= */
+.exib .laureis .laurea { height: clamp(88px, 7.2vw, 108px); }
+.exib .laureis .laurea b { font-size: clamp(13px, 1.02vw, 15.5px); line-height: 1.12; }
+.exib .laureis .laurea small, .exib .laureis .laurea i { font-size: 8.5px; }
+/* na página de comparação cada láurea traz os cinco ramos; só aparece o da variação escolhida */
+.laurea svg.ramo.rv { display: none; }
+.rv-1 .laurea svg.rv1, .rv-2 .laurea svg.rv2, .rv-3 .laurea svg.rv3, .rv-4 .laurea svg.rv4, .rv-5 .laurea svg.rv5 { display: block; }
+.opts.ramos-op button { padding: 8px 11px; border: 0; border-radius: 999px; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-transform: inherit; cursor: pointer; }
+.opts.ramos-op button[aria-pressed="true"] { background: var(--yellow); color: #111; }
+.opts.ramos-op .ramo-nome { padding: 0 12px 0 8px; color: var(--text); white-space: nowrap; }
+@media (max-width: 900px) { .exib .laureis .laurea b { font-size: 10.5px; } }
+/* a láurea cresce se o título for longo; os ramos mantêm a altura */
+.exib .laureis .laurea { height: auto; min-height: clamp(88px, 7.2vw, 108px); }
+.exib .laureis .laurea svg.ramo { height: clamp(88px, 7.2vw, 108px); }
+.exib .laureis ul { align-items: center; }
+@media (max-width: 900px) { .exib .laureis .laurea { min-height: 74px; } .exib .laureis .laurea svg.ramo { height: 74px; } }
+
+/* o título "Exibições e licenciamentos" tem uma palavra longa: letra um pouco menor para não passar da coluna */
+.exib-h .statement h2 { font-size: clamp(32px, 4.5vw, 70px); overflow-wrap: break-word; }

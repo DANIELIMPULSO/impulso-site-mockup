@@ -50,16 +50,31 @@ Quero que você:
 3. Proponha o plano de construção do tema novo, em etapas que eu consiga
    aprovar uma a uma, incluindo onde ele será desenvolvido e testado antes de
    ir ao ar, como será a virada e como voltar atrás se algo der errado.
-4. Aponte os riscos para o SEO (URLs, títulos, descrições, dados estruturados,
+4. Para cada página do mockup, mostre a lista "o que aparece na tela → onde
+   se edita no painel", seguindo o princípio de que tudo deve ser editável de
+   forma intuitiva (seção "Princípio da etapa do WordPress").
+5. Aponte os riscos para o SEO (URLs, títulos, descrições, dados estruturados,
    velocidade) e como cada um será tratado.
-5. Diga como levar a página de artigo do blog para o tema (filtro no conteúdo
+6. Diga como levar a página de artigo do blog para o tema (filtro no conteúdo
    dos posts e CSS limpo, conforme a seção "Página de artigo" do LEIA-ME).
-6. Diga o que os formulários precisam para funcionar de verdade (orçamento em
+7. Diga o que os formulários precisam para funcionar de verdade (orçamento em
    uma tela, trabalhe conosco, solicitação sobre dados pessoais), inclusive a
    integração com o RD Station, se houver.
 
 Comece pela análise (itens 1 e 2) e me mostre o resultado antes de planejar.
 ```
+
+## Princípio da etapa do WordPress: tudo editável, de forma intuitiva
+
+O front-end foi aprovado em 2026-10-13. A exigência de Daniel para o tema: **tudo o mais customizável possível dentro do WordPress, com uma lógica intuitiva**, para que quem opera o painel saiba onde alterar cada parte do site sem depender de programador. Exemplos que ele deu:
+
+- trocar uma foto, um texto, um vídeo;
+- trocar um vídeo de fundo (aberturas, etapas de "Como funciona");
+- editar a láurea de um festival (chapéu, título e bigode);
+- editar o gráfico de um case (rótulos e valores de antes e depois);
+- e, na mesma linha: números animados, depoimentos e fotos, exibições e licenciamentos, etapas das soluções, chamadas finais, itens do "Na prática" de um case.
+
+O que isso pede do plano: cada bloco visual do mockup vira um grupo de campos com nome claro, na tela do conteúdo a que pertence (o filme, o case, a solução, a página), com ajuda curta em cada campo e uma prévia sempre que possível. Nada de texto ou imagem fixos no código do tema. Ao planejar, apresentar para cada página do mockup a lista "o que aparece → onde se edita no painel".
 
 ## Decisões já tomadas (não reabrir)
 
@@ -70,6 +85,8 @@ Comece pela análise (itens 1 e 2) e me mostre o resultado antes de planejar.
 - Filtro animado na home e na página Portfólio.
 - Textos novos do mockup e números da faixa animada (+25M, +480, +70) aprovados.
 - Página de artigo do blog: layout fechado em 2026-10-12 (capa em tela cheia com degradê, índice afastado que se apaga, texto em box, recuo em degraus, listas com ponto). Descrição completa em `mockup/LEIA-ME.md`, seção "Página de artigo"; gabarito em `mockup/post-modelo.html`.
+- Front-end do mockup aprovado em 2026-10-13, incluindo a página de case (formato 6), os projetos autorais (grade com filtros; filme com exibições, licenciamentos e láureas em contorno) e os ajustes de Clientes, Sobre e Soluções. Resumo em `mockup/LEIA-ME.md`, seção "Front-end aprovado".
+- Dois tipos de página de projeto: a simples de portfólio e a de case. No painel, cada projeto escolhe o tipo.
 - Versão em inglês fica para uma segunda fase.
 
 ## Pontos que a etapa do WordPress precisa resolver
@@ -81,3 +98,7 @@ Comece pela análise (itens 1 e 2) e me mostre o resultado antes de planejar.
 - A introdução do artigo usa o que vem antes do primeiro título do post. Vale decidir se continua assim ou se passa a usar o campo de resumo do WordPress.
 - Títulos em Anton nunca podem ficar em negrito: o editor do WordPress costuma embutir negrito nos títulos, e o tema precisa neutralizar isso.
 - Problemas do site atual: descrição errada no case SKA (checar os demais no Rank Math), case "ArcelorMittal: MasterChef" sem link de vídeo legível.
+- No site atual, a etapa "Captação" da solução Publicidade está sem texto. O mockup reaproveita o texto da mesma etapa de Vídeo institucional; vale escrever um texto próprio.
+- Projetos autorais, página do filme: prever no painel um bloco "Exibições e licenciamentos" com três listas editáveis por filme: exibições (nome + local), licenciamentos (canal ou plataforma + período) e láureas.
+- Láureas: prever um modelo de edição com três campos de texto por láurea, **chapéu** (linha pequena de cima, ex.: "Prêmio", "Seleção oficial"), **título** (ex.: "Melhor documentário") e **bigode** (linha pequena de baixo, ex.: festival e ano). O desenho dos ramos é fixo, branco, feito pelo tema; opcionalmente aceitar o arquivo oficial do festival no lugar. Mais de seis láureas giram em fila, sem quebrar em duas linhas; listas com mais de seis itens ganham setas para passar de bloco.
+- A página do Brasiliana no mockup está preenchida com exibições, licenciamentos e láureas fictícios, só para testar o layout cheio (bloco EXEMPLO_CIRCUITO em `mockup/_build/build.js`). Não levar esses dados para o site.

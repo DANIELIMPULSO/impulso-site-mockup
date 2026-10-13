@@ -146,7 +146,7 @@ const ficha = (linhas, extra = []) => {
 </section>` : "";
 };
 const shots = (fotos, titulo) => fotos.length ? `
-<section class="block c-back">
+<section class="block rule c-back">
   <div class="statement reveal"><h2>${titulo}</h2></div>
   <ul class="shots">
     ${fotos.map((b, k) => `<li class="reveal"><button type="button" data-full="${b.full}" aria-label="Ampliar foto ${k + 1} de ${fotos.length}"><img loading="lazy" src="${b.thumb}" alt="Bastidores, foto ${k + 1}"></button></li>`).join("\n    ")}
@@ -207,7 +207,9 @@ data.servicos.forEach(s => {
   const porque = longos(s.porque);
   const pontos = [...new Set(porque.join(" ").match(/<strong>(.*?)<\/strong>/g) || [])].map(plain)
     .filter(t => t.length > 8 && !new RegExp("^(" + cfg.cat + "s?|v[ií]deos? institucionais|filmes? publicit[aá]rios?|conte[uú]dos? de marca|branded content)$", "i").test(t)).slice(0, 5);
-  const etapas = s.etapas.map(e => ({ nome: cap(e.nome.toLowerCase()), texto: e.texto }));
+  // Se uma etapa veio sem texto do site atual (caso de "Captação" em Publicidade), usa o texto da mesma etapa de outra solução
+  const textoDe = nome => { for (const o of data.servicos) { const e = o.etapas.find(x => x.nome.toLowerCase() === nome.toLowerCase() && plain(x.texto)); if (e) return e.texto; } return ""; };
+  const etapas = s.etapas.map(e => ({ nome: cap(e.nome.toLowerCase()), texto: plain(e.texto) ? e.texto : textoDe(e.nome) }));
   const trabalhos = (s.cases.map(x => caseBySlug[x]).filter(Boolean).length ? s.cases.map(x => caseBySlug[x]).filter(Boolean) : cases.filter(c => c.categoria === cfg.cat)).slice(0, 6);
   const outros = Object.entries(SERV).filter(([k]) => k !== s.slug);
   write(`${s.slug}.html`, page(cfg.cat, hero({
@@ -275,19 +277,114 @@ const filmes = data.autorais.filter(a => !a.erro).map(a => {
   return { ...a, genero, dur, ano: resto.join(", "),
     texto: a.texto.filter(t => plain(t).length > 20 && !/^Além dos trabalhos comerciais|^Book de projetos/i.test(plain(t))) };
 });
-const posterCard = (a, k) => `<a class="poster reveal" data-cat="${esc(a.genero)}" data-cursor="VER" href="autoral-${a.slug}.html">
+const minutos = a => parseInt(a.dur, 10) || 0;
+const tipos = a => [minutos(a) >= 60 ? "Longa" : "Curta", /^(Ficção|Documentário)$/.test(a.genero) ? a.genero : "Outros"];
+const posterCard = (a, k) => `<a class="poster reveal" data-cat="${esc(tipos(a).join("|"))}" data-cursor="VER" href="autoral-${a.slug}.html">
       <span class="poster-art"><img loading="lazy" src="${a.poster}" alt="Cartaz de ${esc(a.titulo)}"><i aria-hidden="true"></i></span>
       <span class="poster-meta">${p2(k + 1)} · ${esc(a.genero)} · ${esc(a.dur)}</span>
       <strong>${esc(a.titulo)}</strong>
       <span class="poster-year${/^Em /.test(a.ano) ? " soon" : ""}">${esc(a.ano)}</span>
     </a>`;
-write("autorais.html", page("Projetos autorais", fixas.autorais(filmes.map(posterCard).join("\n    "))));
+const FLIX = { css: ["flix.css"], js: ["autoral.js"] };
+write("autorais.html", page("Projetos autorais", fixas.autorais(filmes.map(posterCard).join("\n    ")), { css: ["flix.css"] }));
 
-filmes.forEach((a, k) => {
+// Exibições (festivais), licenciamentos e láureas de cada filme, tirados dos textos da página atual
+const separar = t => { const o = []; let p = 0, ini = 0; for (let k = 0; k < t.length; k++) { if (t[k] === "(") p++; if (t[k] === ")") p--; if (t[k] === "," && p === 0) { o.push(t.slice(ini, k)); ini = k + 1; } } o.push(t.slice(ini)); return o.map(x => x.trim().replace(/\.$/, "")).filter(Boolean); };
+const circuito = a => {
+  const festivais = a.extras.filter(t => /^Festivais:/i.test(t)).flatMap(t => separar(t.replace(/^Festivais:\s*/i, ""))).filter(t => !/^Estreia prevista/i.test(t));
+  const previsao = a.extras.map(t => (t.match(/Estreia prevista[^.]*/i) || [])[0]).filter(Boolean);
+  return {
+    exibicoes: festivais.map(t => { const m = t.match(/^(.*?)\s*\(([^)]*)\)\s*$/); return m ? [m[1], m[2]] : [t, ""]; }),
+    previsao,
+    licencas: a.notas.filter(t => /licenciad/i.test(t)),
+    laureas: a.notas.filter(t => !/licenciad/i.test(t)),
+  };
+};
+// Láurea no formato clássico de festival: um ramo de cada lado e o texto centralizado no meio.
+// Os ramos são desenhados por código (haste em curva e folhas ao longo dela); o da direita é o mesmo, espelhado.
+// RAMOS guarda as cinco variações em avaliação; RAMO_PADRAO é a usada nas páginas dos filmes.
+const RAMOS = [
+  { nome: "Clássico",   n: 8,  passo: .108, folha: "M0,0 C5,-7.6 17,-8.4 27,0 C17,7 5,6.2 0,0Z",     fora: -44, dentro: 42, queda: .04,  haste: 1.9 },
+  { nome: "Fino",       n: 12, passo: .073, folha: "M0,0 C4,-3.6 12,-4 20,0 C12,3.4 4,3 0,0Z",        fora: -38, dentro: 36, queda: .03,  haste: 1.3 },
+  { nome: "Oliveira",   n: 7,  passo: .122, folha: "M0,0 C2,-8 16,-10 22,-2 C24,2 14,9 4,6 C2,5 0,3 0,0Z", fora: -50, dentro: 48, queda: .035, haste: 1.6 },
+  { nome: "Espiga",     n: 9,  passo: .096, folha: "M0,0 L20,-6 L26,0 L20,6Z",                         fora: -30, dentro: 30, queda: .045, haste: 0 },
+  { nome: "Contorno",   n: 8,  passo: .108, folha: "M0,0 C5,-7.6 17,-8.4 27,0 C17,7 5,6.2 0,0Z",     fora: -44, dentro: 42, queda: .04,  haste: 1.2, contorno: true },
+];
+const RAMO_PADRAO = 4;   // Contorno, escolhido por Daniel em 2026-10-12
+const desenharRamo = cfg => {
+  const P = [[54, 150], [22, 124], [8, 64], [40, 8]];                      // curva da haste (de baixo para a ponta)
+  const em = (t, d) => { const u = 1 - t; return d
+    ? [0, 1].map(n => 3 * u * u * (P[1][n] - P[0][n]) + 6 * u * t * (P[2][n] - P[1][n]) + 3 * t * t * (P[3][n] - P[2][n]))
+    : [0, 1].map(n => u * u * u * P[0][n] + 3 * u * u * t * P[1][n] + 3 * u * t * t * P[2][n] + t * t * t * P[3][n]); };
+  const pecas = [];
+  const por = (t, abre, escala) => { const [x, y] = em(t), [dx, dy] = em(t, true); const ang = Math.atan2(dy, dx) * 180 / Math.PI + abre;
+    pecas.push(`<path d="${cfg.folha}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${ang.toFixed(1)}) scale(${escala.toFixed(2)})"/>`); };
+  for (let n = 0; n < cfg.n; n++) {
+    const t = .11 + n * cfg.passo, escala = 1 - n * cfg.queda;
+    por(t, cfg.fora, escala);                              // folha de fora
+    por(t + cfg.passo / 2, cfg.dentro, escala * .92);      // folha de dentro, meio passo acima
+  }
+  por(.985, 0, .66);                                       // folha da ponta
+  const haste = cfg.haste ? `<path d="M${P[0].join(",")} C${P[1].join(",")} ${P[2].join(",")} ${P[3].join(",")}" fill="none" stroke="currentColor" stroke-width="${cfg.haste}" stroke-linecap="round"/>` : "";
+  const pintura = cfg.contorno ? 'fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"' : 'fill="currentColor"';
+  return (lado, extra = "") => `<svg class="ramo${lado}${extra}" viewBox="0 0 66 158" aria-hidden="true" ${pintura}>${haste}${pecas.join("")}</svg>`;
+};
+const RAMOS_SVG = RAMOS.map(desenharRamo);
+// TODAS_AS_VARIACOES só fica ligado ao gerar a página de comparação (autoral-laureis.html)
+let TODAS_AS_VARIACOES = false;
+const ramos = lado => TODAS_AS_VARIACOES ? RAMOS_SVG.map((r, n) => r(lado, " rv rv" + (n + 1))).join("") : RAMOS_SVG[RAMO_PADRAO](lado);
+// Láurea = três campos de texto: chapéu (linha pequena de cima), título e bigode (linha pequena de baixo, em geral festival e ano)
+const laurea = (rotulo, titulo, ano, vazia) => `<li class="laurea${vazia ? " vazia" : ""}">${ramos("")}<div><small>${esc(rotulo)}</small><b>${esc(titulo)}</b>${ano ? `<i>${esc(ano)}</i>` : ""}</div>${ramos(" d")}</li>`;
+// DADOS FICTÍCIOS, só para testar a página cheia (pedido de Daniel em 2026-10-12): Brasiliana com 6 licenciamentos e 12 láureas.
+// Nada disto é real; apagar este bloco antes de o conteúdo ir para o site.
+const EXEMPLO_CIRCUITO = {
+  "brasiliana-documentario": {
+    exibicoes: [["Mostra de cinema brasileiro", "MG"], ["Festival de documentários", "SP"], ["Encontro de cinema negro", "RJ"], ["Festival do filme musical", "BA"], ["Mostra internacional de cinema", "Portugal"], ["Festival de cinema e memória", "França"], ["Mostra de cinema e música", "PE"], ["Festival latino-americano", "Argentina"], ["Encontro de documentário", "RS"]],
+    licencas: [["Canal de TV por assinatura", "2025–2027"], ["Plataforma de streaming", "2025–2028"], ["TV pública", "2026"], ["Circuito de salas de cinema", "2025"], ["Plataforma educativa", "2026–2029"]],
+    laureas: [["Prêmio", "Melhor documentário", "Festival · 2025"], ["Prêmio", "Melhor direção", "Mostra · 2025"], ["Prêmio", "Prêmio do público", "Festival · 2025"], ["Prêmio", "Melhor montagem", "Encontro · 2025"], ["Prêmio", "Melhor trilha sonora", "Festival · 2026"], ["Seleção oficial", "Mostra de cinema brasileiro", "2025"], ["Seleção oficial", "Festival de documentários", "2025"], ["Mostra competitiva", "Festival do filme musical", "2026"], ["Seleção oficial", "Encontro de cinema negro", "2026"], ["Menção honrosa", "Mostra internacional", "2026"]],
+  },
+};
+const secaoCircuito = a => {
+  const c = circuito(a);
+  const ex = EXEMPLO_CIRCUITO[a.slug];
+  const exibicoes = [...c.exibicoes, ...(ex ? ex.exibicoes : [])];
+  const licencas = [...c.licencas.map(t => [t.replace(/^Licenciado para\s*/i, "").replace(/^./, x => x.toUpperCase()), ""]), ...(ex ? ex.licencas : [])];
+  const lista = (itens, vazio) => itens.length
+    ? `<ol class="exib-lista">${itens.map(([nome, onde], k) => `<li><span>${p2(k + 1)}</span>${esc(nome)}${onde ? `<em>${esc(onde)}</em>` : ""}</li>`).join("")}</ol>`
+    : `<p class="exib-vazio">${vazio}</p>`;
+  const premios = [
+    ...c.laureas.map(t => { const m = t.match(/^(.*?)\s*((?:19|20)\d{2})\s*$/); const [nome, ano] = m ? [m[1], m[2]] : [t, ""]; return laurea(/^Melhor/i.test(nome) ? "Prêmio" : "Seleção", nome.replace(/^Selecionado n[oa]\s*/i, ""), ano, false); }),
+    ...(ex ? ex.laureas.map(([r, t, an]) => laurea(r, t, an, false)) : []),
+  ];
+  const conta = (n, um, varios) => `<li><b>${p2(n)}</b><span>${n === 1 ? um : varios}</span></li>`;
+  return `
+<section class="block rule exib">
+  <div class="exib-h">
+    <div class="statement reveal"><h2>Exibições e licenciamentos.</h2></div>
+    ${exibicoes.length + licencas.length + premios.length ? `<ul class="exib-conta reveal">
+      ${conta(exibicoes.length, "exibição", "exibições")}
+      ${conta(licencas.length, "licenciamento", "licenciamentos")}
+      ${conta(premios.length, "prêmio ou seleção", "prêmios e seleções")}
+    </ul>` : ""}
+  </div>
+  <div class="exib-cols">
+    <div><p class="eyebrow">Exibições${exibicoes.length ? " · " + exibicoes.length + (exibicoes.length > 1 ? " festivais e mostras" : " festival") : ""}</p>
+      ${lista(exibicoes, c.previsao[0] ? esc(c.previsao[0]) + "." : "As exibições deste filme aparecem aqui: festival ou mostra, cidade e ano.")}</div>
+    <div><p class="eyebrow">Licenciamentos${licencas.length > 1 ? " · " + licencas.length : ""}</p>
+      ${lista(licencas, "Os licenciamentos deste filme aparecem aqui: canal ou plataforma e período.")}</div>
+  </div>
+  <div class="laureis">
+    <div class="laureis-h"><p class="eyebrow">Prêmios e seleções${premios.length > 1 ? " · " + premios.length : ""}</p>${premios.length ? "" : '<span class="laureis-ex">Espaço reservado</span>'}</div>
+    <div class="laureis-trilho"><ul>${premios.length ? premios.join("") : [1, 2, 3].map(() => laurea("Prêmio", "Nome do prêmio ou do festival", "Ano", true)).join("")}</ul></div>
+  </div>
+</section>`;
+};
+
+const paginaFilme = (a, k, arquivo, extra = "") => {
   const [lead, ...resto] = a.texto;
   const lado = resto.slice(0, 1), abaixo = resto.slice(1);
   const outros = [...filmes.slice(k + 1), ...filmes.slice(0, k)].slice(0, 4);
-  write(`autoral-${a.slug}.html`, page(a.titulo + " · Projetos autorais", `
+  write(arquivo, page(a.titulo + " · Projetos autorais", `
 <section class="c-hero">
   ${player(a.embed, a.still || a.poster, a.titulo)}
   <div class="c-side">
@@ -297,22 +394,11 @@ filmes.forEach((a, k) => {
     <h1${a.titulo.length > 12 ? ' class="long"' : ""}>${esc(a.titulo)}</h1>
     <p class="c-meta">${esc([a.genero, a.dur, a.ano].filter(Boolean).join(" · "))}</p>
     ${lead ? `<p class="c-lead">${lead}</p>` : ""}
-    ${lado.map(t => `<p>${t}</p>`).join("\n    ")}
-    <a class="c-link" href="autorais.html#apoio">Quero apoiar <span aria-hidden="true">→</span></a>
+    ${[...lado, ...abaixo].map(t => `<p>${t}</p>`).join("\n    ")}
   </div>
 </section>
+${secaoCircuito(a)}
 ${a.creditos.length ? ficha([], a.creditos.map(c => [c.funcao, c.nome])) : ""}
-${abaixo.length || a.notas.length || a.extras.length ? `
-<section class="block rule support">
-  <div class="statement reveal"><h2>Sobre o filme.</h2></div>
-  <div class="support-body reveal">
-    ${abaixo.map(t => `<p>${t}</p>`).join("\n    ")}
-    ${a.extras.map(t => `<p>${esc(t)}</p>`).join("\n    ")}
-    ${a.notas.length ? `<ul class="points">
-      ${a.notas.map((t, i) => `<li><span>${p2(i + 1)}</span>${esc(t)}</li>`).join("\n      ")}
-    </ul>` : ""}
-  </div>
-</section>` : ""}
 ${shots(a.bastidores.map(t => ({ thumb: t, full: t.replace("-480x360", "") })), "Bastidores do projeto.")}
 
 <section class="block rule">
@@ -324,8 +410,28 @@ ${shots(a.bastidores.map(t => ({ thumb: t, full: t.replace("-480x360", "") })), 
     ${outros.map(posterCard).join("\n    ")}
   </div>
 </section>
-` + cta("Tem um projeto para tirar do papel?", "Fale com a gente sobre parcerias, coproduções e apoio.")));
-});
+` + cta("Captou recursos e está procurando uma produtora?", "Fale com a gente sobre produção, coprodução e parcerias.") + extra, FLIX));
+};
+filmes.forEach((a, k) => paginaFilme(a, k, `autoral-${a.slug}.html`));
+
+// Página de comparação dos ramos da láurea: o Brasiliana com as cinco variações e um botão para trocar
+{
+  const k = filmes.findIndex(a => a.slug === "brasiliana-documentario");
+  if (k >= 0) {
+    TODAS_AS_VARIACOES = true;
+    paginaFilme(filmes[k], k, "autoral-laureis.html", `
+<div class="opts ramos-op" role="group" aria-label="Variações do ramo da láurea"><span>Ramo</span>${RAMOS.map((r, n) => `<button type="button" data-r="${n + 1}" title="${r.nome}" aria-pressed="${n === 0}">${n + 1}</button>`).join("")}<span class="ramo-nome">${RAMOS[0].nome}</span></div>
+<script>
+  document.body.classList.add("rv-1");
+  document.querySelectorAll(".ramos-op button").forEach(b => b.addEventListener("click", () => {
+    document.body.className = document.body.className.replace(/rv-\\d/, "rv-" + b.dataset.r);
+    document.querySelectorAll(".ramos-op button").forEach(o => o.setAttribute("aria-pressed", o === b));
+    document.querySelector(".ramo-nome").textContent = b.title;
+  }));
+</script>`);
+    TODAS_AS_VARIACOES = false;
+  }
+}
 
 // ---------------------------------------------------------------- clientes e capacitação (conteúdo fixo)
 write("clientes.html", page("Clientes", fixas.clientes));

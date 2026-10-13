@@ -155,7 +155,7 @@ ${LOGOS.map((l, k) => `    <li class="reveal"><span>${p2(k + 1)}</span><img load
       <span class="voice-bar" aria-hidden="true"></span>
 ${VOZES.map(([nome, emp, foto, txt], k) => `      <figure class="voice${k ? "" : " on"}" data-nome="${nome}" data-emp="${emp}">
         <blockquote>${txt}</blockquote>
-        <figcaption><img loading="lazy" src="${UP}${foto}-128x128.png" alt=""><span><b>${nome}</b>${emp}</span></figcaption>
+        <figcaption><span class="voz-foto"><span><img loading="lazy" src="${UP}${foto}.png" alt=""></span></span><span><b>${nome}</b>${emp}</span></figcaption>
       </figure>`).join("\n")}
     </div>
   </div>
@@ -192,8 +192,11 @@ const autorais = hero({
     <div class="statement reveal"><h2>Filmografia.</h2></div>
     <div class="filters" role="group" aria-label="Filtrar filmes" data-filter="#posters">
       <button type="button" aria-pressed="true" data-f="todos">Todos</button>
+      <button type="button" aria-pressed="false" data-f="Curta">Curta</button>
+      <button type="button" aria-pressed="false" data-f="Longa">Longa</button>
       <button type="button" aria-pressed="false" data-f="Ficção">Ficção</button>
       <button type="button" aria-pressed="false" data-f="Documentário">Documentário</button>
+      <button type="button" aria-pressed="false" data-f="Outros">Outros</button>
     </div>
   </div>
   <div class="posters" id="posters">
@@ -216,16 +219,7 @@ const autorais = hero({
     <div class="actions"><a class="btn solid" href="orcamento.html">Quero apoiar</a></div>
   </div>
 </section>
-
-<!-- Book de projetos -->
-<section class="block rule book">
-  <a class="book-link reveal" href="#" data-cursor="ABRIR">
-    <span class="eyebrow">Em desenvolvimento</span>
-    <strong>Book de projetos</strong>
-    <span class="book-go">Ver book <span aria-hidden="true">→</span></span>
-  </a>
-</section>
-` + cta("Tem um projeto para tirar do papel?", "Fale com a gente sobre parcerias, coproduções e apoio.");
+` + cta("Captou recursos e está procurando uma produtora?", "Fale com a gente sobre produção, coprodução e parcerias.");
 
 // ---------------------------------------------------------------- CAPACITAÇÃO
 const FOTOS = ["9a5fc6c08ba8791d5210348360e51313-1024x768-1", "13221012_1405694983063323_6966019850839141307_n", "13239431_1405695003063321_825918095014493256_n", "13418571_1406831146283040_6071191598813825704_o-1024x682-1", "13433376_1406831756282979_4550723306804310571_o-1024x682-1", "IMG_8661-1024x683-1", "capacitacao-impulso", "novo_osvaudio-capa-1024x576-1", "novo_cursos-capa-1024x576-1", "impulso-capacitacao", "IMG_4118-scaled", "novo_11998846_879480135438346_811754795046366965_n"];

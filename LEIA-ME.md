@@ -43,6 +43,9 @@ Páginas geradas: `sobre`, `portfolio`, `case-<slug>` (30), `publicidade`, `inst
 | `post-texto.html` | hierarquia do texto dentro de cada passo | texto 1, recuo em degraus |
 | `post-lista.html` | marcadores de lista | lista 1, ponto |
 | `post-modelo.html` | página de referência do artigo aprovado, sem seletores | é o layout que o gerador usa |
+| `case-estudo.html` | página de CASE (por que nos procurou, desafio, entrega, resultado), separada da página simples de portfólio; seis layouts no botão "Case 1 a 6" (gerada por `_build/case-estudo.js`, com `case-estudo.css` e `case-estudo.js`) | em aberto |
+| `autorais-opcao2.html` | listagem de projetos autorais em formato de catálogo (capas em fila e fileiras, com `flix.js`) | rejeitada; ficou a grade de cartazes |
+| `autoral-opcao1.html` | página de filme antiga, com "Sobre o filme" | substituída por "Exibições e licenciamentos" + láureas |
 
 ## Como regenerar
 
@@ -84,6 +87,28 @@ Como está montado:
 - `post-opcoes.css` guarda, em camadas, todas as opções testadas e os ajustes feitos por cima delas. Funciona, mas não é o CSS que deve ir para o tema: ao escrever o tema WordPress, reescrever só as regras do layout final, usando `post-modelo.html` como gabarito.
 - As marcações do corpo (`details.chamada`, `h3.num` com `span.h3-n`, `section.passo`, `ul.check`, `ul.leia`, `p.anuncia`, ids nos `h2`) são feitas por `_build/artigo.js`. No WordPress, o mesmo trabalho precisa de um filtro em `the_content`.
 - O WordPress entrega títulos com negrito embutido (`<h2><b>...</b></h2>`). A Anton só tem um peso, e o navegador engrossa a letra artificialmente; `extra.css` e `post-opcoes.css` têm regras que fazem esse negrito herdar o peso do título. Manter isso no tema.
+
+## Front-end aprovado em 2026-10-13
+
+Daniel aprovou o front-end do mockup. O que entrou depois da página de artigo:
+
+| Página | O que ficou |
+|---|---|
+| Página de CASE (`case-estudo.html`, gerada por `_build/case-estudo.js`) | Tipo novo de página de projeto, além da página simples de portfólio. Formato 6: filme e resumo na primeira tela, três cartões (desafio, o que fizemos, resultado), a história em três partes que abrem em "Ler a história completa" só quando o texto não cabe, resultado com gráfico animado de antes e depois e lista "Na prática", números do projeto e depoimento com foto do filme ao lado e retrato pequeno junto do nome. |
+| Projetos autorais, listagem | Grade de cartazes com filtros Curta, Longa, Ficção, Documentário e Outros; ao passar o mouse o cartaz cresce, ganha cantos de visor e a faixa "Ver o filme". Sem "Book de projetos". |
+| Projetos autorais, filme | "Exibições e licenciamentos" no lugar de "Sobre o filme": listas em blocos de 6 com setas, contadores e quadro de láureas (ramo em contorno, branco, uma linha que gira quando passa de seis). Depois vêm ficha técnica e bastidores. Sem "Quero apoiar". |
+| Soluções | Em "Como funciona", um vídeo bem discreto atrás do número de cada etapa. |
+| Clientes | Título "Quem já confiou sua marca à Impulso"; depoimento com foto grande e anel animados em camadas separadas. |
+| Sobre | Título ao lado do vídeo; números centralizados entre os fios. |
+| Home | Cartões de depoimento maiores, em itálico e entre aspas. |
+| Todas | Foto ampliada com cursor por cima, setas e contador; botão do WhatsApp com a logo em branco; títulos da abertura quebram só entre palavras. |
+
+Conteúdo provisório que NÃO deve ir para o site:
+
+- **Brasiliana:** exibições, licenciamentos e láureas de teste (bloco `EXEMPLO_CIRCUITO` em `_build/build.js`). São reais só a licença Curta!/Itaú Cultural e as láureas Brasil Cinemundi 2017 e Edital BRDE/FSA 2018.
+- **Case SKA:** o gráfico de antes e depois usa números de exemplo; o retrato da cliente mostra as iniciais até existir `fotos/gabriele-bitello.jpg`; a página do projeto diz 12 cidades e o artigo do blog diz 14 (o case usa 14).
+- **Soluções:** o vídeo das etapas é o da home, um trecho por etapa.
+- **Publicidade:** o texto da etapa "Captação" foi emprestado de Vídeo institucional.
 
 ## Como publicar
 

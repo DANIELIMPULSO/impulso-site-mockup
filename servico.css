@@ -112,3 +112,19 @@
 .opts a { padding: 8px 12px; border-radius: 999px; }
 .opts a[aria-current] { background: var(--yellow); color: #111; }
 @media (max-width: 900px) { .opts span { display: none; } }
+
+/* Como funciona: vídeo bem discreto atrás do número e da descrição de cada etapa, apagando nas bordas.
+   Fica só na área da etapa; a linha do tempo de baixo continua limpa. */
+.proc-bg { position: absolute; inset: -4% calc(-1 * var(--gutter)) 0; width: calc(100% + 2 * var(--gutter)); height: 104%; object-fit: cover; z-index: 0; pointer-events: none;
+  opacity: .16; filter: grayscale(.5) contrast(1.05); transition: opacity .32s;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 74%, transparent 100%), linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%); -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(180deg, transparent 0, #000 22%, #000 74%, transparent 100%), linear-gradient(90deg, transparent 0, #000 16%, #000 84%, transparent 100%); mask-composite: intersect; }
+.proc-bg.troca { opacity: 0; }
+.proc-stage > :not(.proc-bg) { position: relative; z-index: 1; }
+.proc-steps { z-index: 1; }
+@media (prefers-reduced-motion: reduce) { .proc-bg { display: none; } }
+/* vídeo das etapas ainda mais discreto, e apagando antes de chegar à coluna do texto (fica só atrás do número) */
+.proc-bg { opacity: .09;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 24%, #000 72%, transparent 100%), linear-gradient(90deg, transparent 0, #000 12%, #000 28%, transparent 43%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 24%, #000 72%, transparent 100%), linear-gradient(90deg, transparent 0, #000 12%, #000 28%, transparent 43%); }
+@media (max-width: 900px) { .proc-bg { -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 30%, transparent 46%); mask-image: linear-gradient(180deg, transparent 0, #000 12%, #000 30%, transparent 46%); } }

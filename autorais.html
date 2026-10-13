@@ -8,11 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500;600&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=10122137">
-<link rel="stylesheet" href="pages.css?v=10122137">
-<link rel="stylesheet" href="case.css?v=10122137">
-<link rel="stylesheet" href="servico.css?v=10122137">
-<link rel="stylesheet" href="extra.css?v=10122137">
+<link rel="stylesheet" href="style.css?v=10130010">
+<link rel="stylesheet" href="pages.css?v=10130010">
+<link rel="stylesheet" href="case.css?v=10130010">
+<link rel="stylesheet" href="servico.css?v=10130010">
+<link rel="stylesheet" href="extra.css?v=10130010">
+<link rel="stylesheet" href="flix.css?v=10130010">
 </head>
 <body>
 
@@ -67,60 +68,63 @@
     <div class="statement reveal"><h2>Filmografia.</h2></div>
     <div class="filters" role="group" aria-label="Filtrar filmes" data-filter="#posters">
       <button type="button" aria-pressed="true" data-f="todos">Todos</button>
+      <button type="button" aria-pressed="false" data-f="Curta">Curta</button>
+      <button type="button" aria-pressed="false" data-f="Longa">Longa</button>
       <button type="button" aria-pressed="false" data-f="Ficção">Ficção</button>
       <button type="button" aria-pressed="false" data-f="Documentário">Documentário</button>
+      <button type="button" aria-pressed="false" data-f="Outros">Outros</button>
     </div>
   </div>
   <div class="posters" id="posters">
-    <a class="poster reveal" data-cat="Ficção" data-cursor="VER" href="autoral-aqueles-cinco-segundos.html">
+    <a class="poster reveal" data-cat="Curta|Ficção" data-cursor="VER" href="autoral-aqueles-cinco-segundos.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/c1.png" alt="Cartaz de Aqueles cinco segundos"><i aria-hidden="true"></i></span>
       <span class="poster-meta">01 · Ficção · 15'</span>
       <strong>Aqueles cinco segundos</strong>
       <span class="poster-year">2015</span>
     </a>
-    <a class="poster reveal" data-cat="Ficção" data-cursor="VER" href="autoral-barbante-curta-metragem.html">
+    <a class="poster reveal" data-cat="Curta|Ficção" data-cursor="VER" href="autoral-barbante-curta-metragem.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/c2.png" alt="Cartaz de Barbante"><i aria-hidden="true"></i></span>
       <span class="poster-meta">02 · Ficção · 20'</span>
       <strong>Barbante</strong>
       <span class="poster-year">2016</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-brasiliana-documentario.html">
+    <a class="poster reveal" data-cat="Longa|Documentário" data-cursor="VER" href="autoral-brasiliana-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/brasiliana.png" alt="Cartaz de Brasiliana"><i aria-hidden="true"></i></span>
       <span class="poster-meta">03 · Documentário · 90'</span>
       <strong>Brasiliana</strong>
       <span class="poster-year soon">Em finalização</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-bulha-documentario.html">
+    <a class="poster reveal" data-cat="Curta|Documentário" data-cursor="VER" href="autoral-bulha-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2023/12/Bulha-Cor-web-691x1024.jpg.png" alt="Cartaz de Bulha"><i aria-hidden="true"></i></span>
       <span class="poster-meta">04 · Documentário · 13'</span>
       <strong>Bulha</strong>
       <span class="poster-year">2021</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-doze-dias-rua-das-margaridas-sequestro-documentario.html">
+    <a class="poster reveal" data-cat="Longa|Documentário" data-cursor="VER" href="autoral-doze-dias-rua-das-margaridas-sequestro-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/06/DOZEDIAS.png" alt="Cartaz de Doze Dias"><i aria-hidden="true"></i></span>
       <span class="poster-meta">05 · Documentário · 90'</span>
       <strong>Doze Dias</strong>
       <span class="poster-year soon">Em pré-produção</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-escola-de-cinema-dilermando-cruz.html">
+    <a class="poster reveal" data-cat="Curta|Documentário" data-cursor="VER" href="autoral-escola-de-cinema-dilermando-cruz.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/05/escola_cinema_dilermando-cruz.jpg" alt="Cartaz de Escola de Cinema Dilermando Cruz"><i aria-hidden="true"></i></span>
       <span class="poster-meta">06 · Documentário · 27'</span>
       <strong>Escola de Cinema Dilermando Cruz</strong>
       <span class="poster-year">2017</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-piranga-o-heroi-taciturno-documentario.html">
+    <a class="poster reveal" data-cat="Curta|Documentário" data-cursor="VER" href="autoral-piranga-o-heroi-taciturno-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/05/PIRANGA.png" alt="Cartaz de Piranga: O herói taciturno"><i aria-hidden="true"></i></span>
       <span class="poster-meta">07 · Documentário · 15'</span>
       <strong>Piranga: O herói taciturno</strong>
       <span class="poster-year">2022</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-primeiro-ensaio-curta-documentario.html">
+    <a class="poster reveal" data-cat="Curta|Documentário" data-cursor="VER" href="autoral-primeiro-ensaio-curta-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/05/primeiro_ensaio.jpg" alt="Cartaz de Primeiro Ensaio"><i aria-hidden="true"></i></span>
       <span class="poster-meta">08 · Documentário · 5'</span>
       <strong>Primeiro Ensaio</strong>
       <span class="poster-year">2016</span>
     </a>
-    <a class="poster reveal" data-cat="Documentário" data-cursor="VER" href="autoral-vinil-poeira-e-groove-documentario.html">
+    <a class="poster reveal" data-cat="Longa|Documentário" data-cursor="VER" href="autoral-vinil-poeira-e-groove-documentario.html">
       <span class="poster-art"><img loading="lazy" src="https://www.impulsofilmes.com.br/wp-content/uploads/2024/05/VINIL.png" alt="Cartaz de VINIL POEIRA E GROOVE"><i aria-hidden="true"></i></span>
       <span class="poster-meta">09 · Documentário · 70'</span>
       <strong>VINIL POEIRA E GROOVE</strong>
@@ -145,19 +149,10 @@
   </div>
 </section>
 
-<!-- Book de projetos -->
-<section class="block rule book">
-  <a class="book-link reveal" href="#" data-cursor="ABRIR">
-    <span class="eyebrow">Em desenvolvimento</span>
-    <strong>Book de projetos</strong>
-    <span class="book-go">Ver book <span aria-hidden="true">→</span></span>
-  </a>
-</section>
-
 <section class="p-cta">
   <div class="statement reveal">
-    <h2>Tem um projeto para tirar do papel?</h2>
-    <p>Fale com a gente sobre parcerias, coproduções e apoio.</p>
+    <h2>Captou recursos e está procurando uma produtora?</h2>
+    <p>Fale com a gente sobre produção, coprodução e parcerias.</p>
     <div class="actions">
       <a class="btn solid" href="orcamento.html">Fale com um especialista</a>
       <a class="btn ghost" href="https://wa.me/553235124803" target="_blank" rel="noopener">Chamar no WhatsApp</a>
@@ -194,6 +189,6 @@
 <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada"><img alt=""><button type="button">Fechar</button></dialog>
 <div class="cursor" aria-hidden="true"></div><div class="dot" aria-hidden="true"></div>
 
-<script src="pages.js?v=10122137"></script>
+<script src="pages.js?v=10130010"></script>
 </body>
 </html>

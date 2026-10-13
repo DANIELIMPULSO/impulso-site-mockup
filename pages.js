@@ -142,8 +142,33 @@ $$('.poster').forEach((p, k) => {
 
 // ---------- Capacitação: fotos que ampliam ----------
 const box = $('#lightbox');
-$$('[data-full]').forEach(b => b.addEventListener('click', () => { $('img', box).src = b.dataset.full; box.showModal(); }));
-box.addEventListener('click', () => box.close());
+if (box) {
+  const boxImg = $('img', box);
+  let grupo = [], atual = 0;
+  // setas e contador (só aparecem quando há mais de uma foto no conjunto)
+  box.insertAdjacentHTML('beforeend', '<button class="lb-seta lb-ant" type="button" aria-label="Foto anterior">←</button><button class="lb-seta lb-prox" type="button" aria-label="Próxima foto">→</button><span class="lb-conta" aria-hidden="true"></span>');
+  const conta = $('.lb-conta', box);
+  const mostrar = k => {
+    atual = (k + grupo.length) % grupo.length;
+    boxImg.src = grupo[atual].dataset.full;
+    conta.textContent = p2(atual + 1) + ' / ' + p2(grupo.length);
+    box.classList.toggle('uma', grupo.length < 2);
+  };
+  $$('[data-full]').forEach(b => b.addEventListener('click', () => {
+    // o conjunto é a galeria onde a foto está (ou todas as fotos da página, se ela estiver solta no texto)
+    grupo = $$('[data-full]', b.closest('.shots, .mosaic, section') || document);
+    if (grupo.length < 2) grupo = $$('[data-full]');
+    mostrar(grupo.indexOf(b));
+    box.showModal();
+    // a janela da foto fica acima de tudo; o cursor próprio entra nela para continuar visível
+    $$('.cursor, .dot').forEach(c => box.append(c));
+  }));
+  $('.lb-ant', box).addEventListener('click', e => { e.stopPropagation(); mostrar(atual - 1); });
+  $('.lb-prox', box).addEventListener('click', e => { e.stopPropagation(); mostrar(atual + 1); });
+  box.addEventListener('keydown', e => { if (e.key === 'ArrowLeft') mostrar(atual - 1); if (e.key === 'ArrowRight') mostrar(atual + 1); });
+  box.addEventListener('click', () => box.close());
+  box.addEventListener('close', () => $$('.cursor, .dot', box).forEach(c => document.body.append(c)));
+}
 const mosaics = $$('.mosaic');
 $$('.shots li').forEach((li, k) => { li.style.transitionDelay = (k % 4) * 80 + 'ms'; });
 $$('.grid-3 > *, .related > *, .posts.all > *').forEach((el, k) => { el.style.transitionDelay = (k % 3) * 90 + 'ms'; });
@@ -180,10 +205,35 @@ if (proc) {
     track.append(b);
     return b;
   });
+  // Vídeo discreto atrás do número e da descrição de cada etapa (não cobre a linha do tempo de baixo).
+  // MARCADOR DE LUGAR: usa o vídeo da home e salta para um trecho diferente a cada etapa.
+  // No site real, cada etapa terá o seu próprio vídeo (trocar por data-video em cada <li>).
+  let fundo = null;
+  if (!calm) {
+    fundo = document.createElement('video');
+    fundo.className = 'proc-bg';
+    fundo.muted = true; fundo.loop = true; fundo.playsInline = true; fundo.preload = 'metadata';
+    fundo.setAttribute('aria-hidden', 'true');
+    fundo.src = 'https://www.impulsofilmes.com.br/wp-content/uploads/2024/08/IMPULSOBANNER2024_05.mp4';
+    $('.proc-stage', proc).prepend(fundo);
+    // só toca enquanto a seção está na tela
+    new IntersectionObserver(es => es.forEach(e => { e.isIntersecting ? fundo.play().catch(() => {}) : fundo.pause(); })).observe(proc);
+  }
+  const trocarFundo = k => {
+    if (!fundo) return;
+    fundo.classList.add('troca');
+    setTimeout(() => {
+      const li = steps[k];
+      if (li && li.dataset.video && fundo.dataset.atual !== li.dataset.video) { fundo.src = li.dataset.video; fundo.dataset.atual = li.dataset.video; fundo.play().catch(() => {}); }
+      else if (fundo.duration) fundo.currentTime = (fundo.duration / steps.length) * k;
+      fundo.classList.remove('troca');
+    }, 320);
+  };
   let active = -1;
   const setStep = k => {
     if (k === active) return;
     active = k;
+    trocarFundo(k);
     steps.forEach((li, i) => { li.classList.toggle('on', i === k); li.classList.toggle('past', i < k); });
     clips.forEach((b, i) => { b.classList.toggle('on', i === k); b.classList.toggle('done', i < k); });
     num.textContent = numSmall.textContent = p2(k + 1);

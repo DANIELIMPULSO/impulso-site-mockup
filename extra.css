@@ -115,3 +115,16 @@ label.check input { width: 18px; height: 18px; accent-color: var(--yellow); }
 
 /* Proteção geral: negrito embutido em títulos herda o peso do título (evita Anton engrossada artificialmente) */
 :is(h1, h2) :is(b, strong) { font-weight: inherit; }
+
+/* Sobre: os números já são seguidos pelo fio da seção seguinte; sem segundo divisor embaixo */
+.facts.inline { border-bottom: 0; padding-bottom: 0; }
+
+/* Sobre: "Aperte o play e conheça nossa história" de um lado e o vídeo do outro; os números ficam abaixo, na largura toda */
+#historia { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.5fr); gap: clamp(28px, 4vw, 56px) clamp(32px, 6vw, 96px); align-items: center; }
+#historia .statement h2 { font-size: clamp(34px, 4.4vw, 68px); }
+#historia .player.wide { margin-top: 0; }
+#historia .facts { grid-column: 1 / -1; }
+@media (max-width: 900px) { #historia { grid-template-columns: minmax(0, 1fr); } }
+/* Sobre: os números ficam centralizados entre o fio de cima e o fio da seção seguinte (mesmo respiro acima e abaixo) */
+#historia .facts li { padding-top: clamp(32px, 3.5vw, 50px); padding-bottom: 0; }
+#historia + .rule { margin-top: clamp(52px, 5.3vw, 76px); }   /* um pouco maior embaixo porque as legendas de duas linhas ocupam parte do espaço */

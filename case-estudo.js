@@ -110,3 +110,25 @@ document.querySelectorAll('.deps button').forEach(b => b.addEventListener('click
   document.fonts && document.fonts.ready.then(medir);
   medir();
 })();
+
+// ---------- Depoimento com vídeo: a borda do player se desenha, pulsa uma vez e some (uma vez só) ----------
+(() => {
+  const voz = document.querySelector('.ce-voz');
+  const traco = voz && voz.querySelector('.ce-voz-traco');
+  const eco = voz && voz.querySelector('.ce-voz-eco');
+  if (!traco || !eco || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const rect = traco.querySelector('rect');
+  const rodar = () => {
+    // medidas reais em pixels, para o traço ser um só e terminar exatamente onde começou
+    const w = traco.clientWidth, h = traco.clientHeight;
+    traco.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    rect.setAttribute('width', w); rect.setAttribute('height', h);
+    traco.style.setProperty('--P', 2 * (w + h));
+    traco.classList.add('roda');
+  };
+  rect.addEventListener('animationend', () => { traco.classList.add('pulsa'); });              // borda formada: pulsa
+  eco.addEventListener('animationend', () => { traco.classList.replace('pulsa', 'some'); });    // depois do pulso: some
+  // o tempo começa a contar assim que a seção aparece na tela, mesmo que só uma parte dela
+  const ver = new IntersectionObserver(es => { if (es[0].isIntersecting) { setTimeout(rodar, 4000); ver.disconnect(); } });
+  ver.observe(voz);
+})();

@@ -140,7 +140,7 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
       </blockquote>
       <figcaption><span class="ce-avatar" data-iniciais="GB"><img src="fotos/gabriele-bitello.png" alt="" onerror="this.remove()"></span><span><b>Gabriele Bitello</b>Analista Sênior de Marketing e Criação · SKA</span></figcaption>
     </div>
-    <div class="ce-voz-foto ce-voz-b ce-voz-video"><div class="player" data-embed="https://player.vimeo.com/video/1233763510?h=4c5d723d87&amp;autoplay=1&amp;title=0&amp;byline=0&amp;portrait=0"><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao depoimento de Gabriele Bitello"><img loading="lazy" src="https://i.vimeocdn.com/video/2209523528-6f39d35dddd7948d38c40103f84445b33795dec33f118057869fcdfe0d4fa431-d_1280x720?region=us" alt=""><span class="play" aria-hidden="true"></span></button></div></div>
+    <div class="ce-voz-foto ce-voz-b ce-voz-video"><p class="eyebrow ce-voz-chamada">Com a palavra, o cliente:</p><div class="player" data-embed="https://player.vimeo.com/video/1233763510?h=4c5d723d87&amp;autoplay=1&amp;title=0&amp;byline=0&amp;portrait=0"><svg class="ce-voz-traco" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="0" width="100" height="100"/></svg><span class="ce-voz-eco" aria-hidden="true"></span><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao depoimento de Gabriele Bitello"><img loading="lazy" src="https://i.vimeocdn.com/video/2209523528-6f39d35dddd7948d38c40103f84445b33795dec33f118057869fcdfe0d4fa431-d_1280x720?region=us" alt=""><span class="play" aria-hidden="true"></span></button></div></div>
   </figure>
 </section>
 

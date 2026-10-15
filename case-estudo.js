@@ -45,6 +45,7 @@
     barra.append(rotulo);
     if (calmo) { rotulo.textContent = fim + '%'; return; }
     const atraso = 200 + k * 620, dur = 800;   // mesma cadência do CSS: uma barra a cada 0,62s
+    if (barra.classList.contains('d')) barra.style.setProperty('--brilho', (atraso + dur) + 'ms');   // o brilho começa quando a barra amarela termina de subir
     const t0 = performance.now() + atraso;
     const passo = t => {
       const p = Math.max(0, Math.min(1, (t - t0) / dur));

@@ -309,7 +309,7 @@ body:not(.cv-1) .ce-facts div { border-top-color: var(--line); }
 @media (max-width: 900px) { .ce-troca li::after { content: "↓"; width: auto; text-align: left; transform: translateY(-8px); } }
 @media (prefers-reduced-motion: reduce) { .ce-troca li::after { opacity: 1; transform: none; } }
 
-/* Opção 6: quando o texto cabe na altura da seção, não há corte nem botão "Ler a história completa" */
+/* Opção 6: quando o texto cabe na altura da seção, não há corte nem botão "Ver mais" */
 .cv-6 .ce-ato.cabe .ce-ato-c { max-height: none; -webkit-mask-image: none; mask-image: none; }
 .cv-6 .ce-ato.cabe .ce-mais { display: none; }
 .cv-6 .ce-ato.aberto .ce-ato-c { max-height: none !important; }

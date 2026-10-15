@@ -76,7 +76,7 @@
   document.querySelectorAll('.ce-mais').forEach(b => b.addEventListener('click', () => {
     const aberto = b.closest('.ce-ato').classList.toggle('aberto');
     b.setAttribute('aria-expanded', aberto);
-    b.textContent = aberto ? 'Recolher' : 'Ler a história completa';
+    b.textContent = aberto ? 'Recolher' : 'Ver mais';
   }));
 })();
 
@@ -86,7 +86,7 @@ document.querySelectorAll('.deps button').forEach(b => b.addEventListener('click
   document.querySelectorAll('.deps button').forEach(o => o.setAttribute('aria-pressed', o === b));
 }));
 
-// ---------- Opção 6: "Ler a história completa" só aparece quando o texto não cabe na altura da seção ----------
+// ---------- Opção 6: "Ver mais" só aparece quando o texto não cabe na altura da seção ----------
 (() => {
   const atos = [...document.querySelectorAll('.ce-ato')];
   const medir = () => {

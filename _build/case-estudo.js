@@ -20,7 +20,7 @@ const ato = (n, rotulo, titulo, corpo) => `
     <h2>${titulo}</h2>
   </header>
   <div class="ce-ato-c">${corpo}</div>
-  <button class="ce-mais" type="button" aria-expanded="false">Ler a história completa</button>
+  <button class="ce-mais" type="button" aria-expanded="false">Ver mais</button>
 </section>`;
 
 const FOTOS = [3, 2, 4, 5, 6, 7, 8, 9];

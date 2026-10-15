@@ -368,3 +368,9 @@ body:not(.cv-1) .ce-facts div { border-top-color: var(--line); }
 @keyframes ce-luz { 0% { opacity: 1; background-position: 0 0; } 85% { opacity: 1; } 100% { opacity: 0; background-position: 0 100%; } }
 @keyframes ce-glow { 0% { box-shadow: 0 0 0 rgba(253, 184, 19, 0); } 35% { box-shadow: 0 0 26px 2px rgba(253, 184, 19, .55); } 100% { box-shadow: 0 0 14px rgba(253, 184, 19, .22); } }
 @media (prefers-reduced-motion: reduce) { .ce-grafico.viu .ce-par i.d::after { animation: none; } .ce-grafico.viu .ce-par i.d { animation: none; box-shadow: 0 0 14px rgba(253, 184, 19, .22); } }
+
+/* Depoimento: chapéu acima da citação; ao lado, foto do filme ou vídeo do cliente falando.
+   O vídeo usa o player do site, que já tem os cantos de visor (por isso a moldura da foto sai). */
+.ce-voz-chapeu { margin: 0 0 18px; }
+.dep-b .ce-voz-video::after { display: none; }
+.dep-b .ce-voz-video img { aspect-ratio: auto; }

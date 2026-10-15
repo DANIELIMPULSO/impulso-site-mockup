@@ -129,17 +129,18 @@ ${ato("03", "O que entregamos", "Uma estratégia audiovisual contínua, não um 
     <div class="ce-num"><b data-conta="35">35</b><span>anos de história da SKA contados no filme</span></div>
   </div>
 
-  <!-- a voz do cliente: foto do filme ao lado e retrato pequeno de quem fala junto do nome.
+  <!-- a voz do cliente: chapéu, vídeo do depoimento (ou foto do filme) ao lado e retrato pequeno de quem fala junto do nome.
        O retrato é lido de fotos/gabriele-bitello.png; enquanto o arquivo não existir, aparecem as iniciais. -->
   <figure class="ce-voz">
     <div class="ce-voz-txt">
+      <p class="eyebrow ce-voz-chapeu">Quem confia, conta</p>
       <blockquote>
         <p>Com a Impulso conseguimos formar um banco de imagem próprio. Antes a gente pegava muito banco de imagem e às vezes via um comercial de um concorrente nosso que usava a mesma imagem.</p>
         <p class="ce-destaque">Hoje é o nosso chão de fábrica, ninguém tem igual.</p>
       </blockquote>
       <figcaption><span class="ce-avatar" data-iniciais="GB"><img src="fotos/gabriele-bitello.png" alt="" onerror="this.remove()"></span><span><b>Gabriele Bitello</b>Analista Sênior de Marketing e Criação · SKA</span></figcaption>
     </div>
-    <div class="ce-voz-foto ce-voz-b" aria-hidden="true"><img loading="lazy" src="${UP}2026/02/image-5.jpg" alt=""></div>
+    <div class="ce-voz-foto ce-voz-b ce-voz-video"><div class="player" data-embed="https://player.vimeo.com/video/1233763510?h=4c5d723d87&amp;autoplay=1&amp;title=0&amp;byline=0&amp;portrait=0"><button class="player-poster" type="button" data-cursor="PLAY" aria-label="Assistir ao depoimento de Gabriele Bitello"><img loading="lazy" src="https://i.vimeocdn.com/video/2209523528-6f39d35dddd7948d38c40103f84445b33795dec33f118057869fcdfe0d4fa431-d_1280x720?region=us" alt=""><span class="play" aria-hidden="true"></span></button></div></div>
   </figure>
 </section>
 

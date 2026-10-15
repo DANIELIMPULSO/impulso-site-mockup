@@ -43,15 +43,15 @@
     const fim = Number(barra.dataset.v);
     const rotulo = document.createElement('em');
     barra.append(rotulo);
-    if (calmo) { rotulo.textContent = fim; return; }
+    if (calmo) { rotulo.textContent = fim + '%'; return; }
     const atraso = 200 + k * 620, dur = 800;   // mesma cadência do CSS: uma barra a cada 0,62s
     const t0 = performance.now() + atraso;
     const passo = t => {
       const p = Math.max(0, Math.min(1, (t - t0) / dur));
-      rotulo.textContent = Math.round(fim * (1 - Math.pow(1 - p, 3)));
+      rotulo.textContent = Math.round(fim * (1 - Math.pow(1 - p, 3))) + '%';
       if (p < 1) requestAnimationFrame(passo);
     };
-    rotulo.textContent = '0';
+    rotulo.textContent = '0%';
     requestAnimationFrame(passo);
   }
 })();
